@@ -1,0 +1,2884 @@
+\documentclass{article}
+\usepackage[a4paper,left=1cm,right=1cm,top=1.0cm,bottom=1.5cm,headsep=0cm,footskip=1.0cm,landscape]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{draftwatermark}
+\usepackage{hyperref}
+
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{7}
+\SetWatermarkAngle{30.0}
+\SetWatermarkLightness{0.9}
+
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{}
+\fancyhead[C]{Modern CMake - CMake 3.13}
+\fancyhead[R]{{\tiny https://cmake.org/cmake/help/v3.13/}}
+\fancyfoot[L]{\footnotesize \copyright 2019 Mario Konrad}
+\fancyfoot[C]{\footnotesize Version 0.0 - DRAFT - License: CC-BY}
+\fancyfoot[R]{\tiny https://github.com/mariokonrad/cmake-cheatsheet}
+
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+
+\lstdefinelanguage{CMake}{
+  morekeywords = [1]{
+    add_compile_definitions,
+    add_compile_options,
+    add_custom_command,
+    add_custom_target,
+    add_definitions,
+    add_dependencies,
+    add_executable,
+    add_library,
+    add_link_options,
+    add_subdirectory,
+    add_test,
+    aux_source_directory,
+    break,
+    build_command,
+    cmake_host_system_information,
+    cmake_minimum_required,
+    cmake_parse_arguments,
+    cmake_policy,
+    configure_file,
+    continue,
+    create_test_sourcelist,
+    ctest_build,
+    ctest_configure,
+    ctest_coverage,
+    ctest_empty_binary_directory,
+    ctest_memcheck,
+    ctest_read_custom_files,
+    ctest_run_script,
+    ctest_sleep,
+    ctest_start,
+    ctest_submit,
+    ctest_test,
+    ctest_update,
+    ctest_upload,
+    define_property,
+    else,
+    elseif,
+    enable_language,
+    enable_testing,
+    endforeach,
+    endfunction,
+    endif,
+    endmacro,
+    endwhile,
+    execute_process,
+    export,
+    file,
+    find_file,
+    find_library,
+    find_package,
+    find_path,
+    find_program,
+    fltk_wrap_ui,
+    foreach,
+    function,
+    get_cmake_property,
+    get_directory_property,
+    get_filename_component,
+    get_property,
+    get_source_file_property,
+    get_target_property,
+    get_test_property,
+    if,
+    include,
+    include_directories,
+    include_external_msproject,
+    include_guard,
+    include_regular_expression,
+    install,
+    link_directories,
+    link_libraries,
+    list,
+    load_cache,
+    macro,
+    mark_as_advanced,
+    math,
+    message,
+    option,
+    project,
+    qt_wrap_cpp,
+    qt_wrap_ui,
+    remove_definitions,
+    return,
+    separate_arguments,
+    set,
+    set_directory_properties,
+    set_property,
+    set_source_files_properties,
+    set_target_properties,
+    set_tests_properties,
+    site_name,
+    source_group,
+    string,
+    target_compile_definitions,
+    target_compile_features,
+    target_compile_options,
+    target_include_directories,
+    target_link_directories,
+    target_link_libraries,
+    target_link_options,
+    target_sources,
+    try_compile,
+    try_run,
+    unset,
+    variable_watch,
+    while
+    },
+  morekeywords = [2]{
+    @ONLY,
+    ABSOLUTE,
+    AFTER,
+    ALIAS,
+    AND,
+    ANDROID_MK,
+    ANGLE-R,
+    ANSI,
+    APPEND,
+    APPEND_STRING,
+    ARCHIVE,
+    ARGN,
+    ASCII,
+    ASCII,
+    AUTHOR_WARNING,
+    AUTO,
+    AVAILABLE_PHYSICAL_MEMORY,
+    AVAILABLE_VIRTUAL_MEMORY,
+    BASE_DIR,
+    BEFORE,
+    BOOL,
+    BRIEF_DOCS,
+    BUILD,
+    BUILD_INTERFACE,
+    BUNDLE,
+    BYPRODUCTS,
+    CACHE,
+    CACHED_VARIABLE,
+    CAPTURE_CMAKE_ERROR,
+    CDASH_UPLOAD,
+    CDASH_UPLOAD_TYPE,
+    CMAKE_ARGS,
+    CMAKE_AUTOMOC,
+    CMAKE_AUTORCC,
+    CMAKE_AUTOUIC,
+    CMAKE_CURRENT_BINARY_DIR,
+    CMAKE_CURRENT_LIST_DIR,
+    CMAKE_CURRENT_SOURCE_DIR,
+    CMAKE_FIND_ROOT_PATH_BOTH,
+    CMAKE_FLAGS,
+    CMAKE_STATIC_LIBRARY_PREFIX,
+    CMAKE_STATIC_LIBRARY_SUFFIX,
+    CODE,
+    COMMA,
+    COMMAND,
+    COMMAND_EXPAND_LISTS,
+    COMMENT,
+    COMPARE
+    COMPARE,
+    COMPARE,
+    COMPATIBILITY,
+    COMPILE_DEFINITIONS,
+    COMPILE_FEATURES,
+    COMPILE_LANGUAGE,
+    COMPILE_OUTPUT_VARIABLE,
+    COMPONENT,
+    COMPONENTS,
+    CONCAT,
+    CONFIG,
+    CONFIGS,
+    CONFIGURATION,
+    CONFIGURATIONS,
+    CONFIGURE,
+    COPY,
+    COPYONLY,
+    COPY_FILE,
+    COPY_FILE_ERROR,
+    CRLF,
+    CXX_COMPILER_ID,
+    CXX_COMPILER_VERSION,
+    C_COMPILER_ID,
+    C_COMPILER_VERSION,
+    DECIMAL,
+    DEFECT_COUNT,
+    DEFINED,
+    DEPENDS,
+    DEPFILE,
+    DEPRECATION,
+    DESCRIPTION,
+    DESTINATION,
+    DIRECTORY,
+    DIRECTORY_PERMISSIONS,
+    DOC,
+    DOS,
+    DOWNLOAD,
+    ENCODING,
+    END,
+    ENV,
+    EQUAL,
+    ERROR_FILE,
+    ERROR_QUIET,
+    ERROR_STRIP_TRAILING_WHITESPACE,
+    ERROR_VARIABLE,
+    ESCAPE_QUOTES,
+    EXACT,
+    EXCLUDE,
+    EXCLUDE_FIXTURE,
+    EXCLUDE_FIXTURE_CLEANUP,
+    EXCLUDE_FIXTURE_SETUP,
+    EXCLUDE_FROM_ALL,
+    EXCLUDE_LABEL,
+    EXISTS,
+    EXPORT,
+    EXPORT_ANDROID_MK,
+    EXPORT_LINK_INTERFACE_LIBRARIES,
+    EXPR,
+    EXT,
+    EXTRA_INCLUDE,
+    FALSE,
+    FATAL_ERROR,
+    FILE,
+    FILEPATH,
+    FILES,
+    FILES_MATCHING,
+    FILE_PERMISSIONS,
+    FILTER,
+    FIND,
+    FLAGS,
+    FORCE,
+    FQDN,
+    FRAMEWORK,
+    FULL_DOCS,
+    FUNCTION,
+    GENERATE,
+    GENEX_EVAL,
+    GENEX_STRIP,
+    GET,
+    GET,
+    GLOB,
+    GLOBAL,
+    GLOB_RECURSE,
+    GREATER,
+    GREATER_EQUAL,
+    GUID,
+    HAS_AMD_3DNOW,
+    HAS_AMD_3DNOW_PLUS,
+    HAS_FPU,
+    HAS_IA64,
+    HAS_MMX,
+    HAS_MMX_PLUS,
+    HAS_SERIAL_NUMBER,
+    HAS_SSE,
+    HAS_SSE2,
+    HAS_SSE_FP,
+    HAS_SSE_MMX,
+    HEXADECIMAL,
+    HINTS,
+    HOMEPAGE_URL,
+    HOSTNAME,
+    HTTPHEADER,
+    IF,
+    IMPLICIT_DEPENDS,
+    IMPORTED,
+    IMPORTED_IMPLIB,
+    IMPORTED_IMPLIB_DEBUG,
+    IMPORTED_IMPLIB_RELEASE,
+    IMPORTED_LOCATION,
+    IMPORTED_LOCATION_DEBUG,
+    IMPORTED_LOCATION_RELEASE,
+    INCLUDE,
+    INCLUDES,
+    INCLUDE_INTERNALS,
+    INCLUDE_LABEL,
+    INHERITED,
+    INPUT_FILE,
+    INSERT,
+    INSTALL,
+    INSTALL_DESTINATION,
+    INSTALL_DIR,
+    INSTALL_INTERFACE,
+    INSTALL_PREFIX,
+    INTERFACE,
+    INTERFACE_INCLUDE_DIRECTORIES,
+    INTERNAL,
+    IN_LIST,
+    IS_64BIT,
+    IS_ABSOLUTE,
+    IS_DIRECTORY,
+    IS_NEWER_THAN,
+    IS_SYMLINK,
+    ITEMS,
+    JOIN,
+    LABELS,
+    LANGUAGES,
+    LENGTH,
+    LESS,
+    LESS_EQUAL,
+    LF,
+    LIBRARY,
+    LINK_LIBRARIES,
+    LINK_ONLY,
+    LISTS,
+    LOCK,
+    LOWER_CASE,
+    MACOSX_BUNDLE,
+    MAIN_DEPENDENCY,
+    MAKE_C_IDENTIFIER,
+    MAKE_DIRECTORY,
+    MATCH,
+    MATCHALL,
+    MATCHES,
+    MD5,
+    MESSAGE_NEVER,
+    MODULE,
+    NAME,
+    NAMELINK_COMPONENT,
+    NAMELINK_ONLY,
+    NAMELINK_SKIP,
+    NAMES,
+    NAMESPACE,
+    NAMES_PER_DIR,
+    NAME_WE,
+    NATIVE,
+    NEW,
+    NEWLINE_STYLE,
+    NEW_PROCESS,
+    NONE,
+    NOT,
+    NO_CMAKE_ENVIRONMENT_PATH,
+    NO_CMAKE_FIND_ROOT_PATH,
+    NO_CMAKE_PACKAGE_REGISTRY,
+    NO_CMAKE_PATH,
+    NO_CMAKE_SYSTEM_PACKAGE_REGISTRY,
+    NO_CMAKE_SYSTEM_PATH,
+    NO_DEFAULT_PATH,
+    NO_MODULE,
+    NO_PACKAGE_ROOT_PATH,
+    NO_POLICY_SCOPE,
+    NO_SYSTEM_ENVIRONMENT_PATH,
+    NUMBER_ERRORS,
+    NUMBER_OF_LOGICAL_CORES,
+    NUMBER_OF_PHYSICAL_CORES,
+    NUMBER_WARNINGS,
+    OBJECT,
+    OBJECTS,
+    OEM,
+    OFF,
+    OLD,
+    ON,
+    ONLY_CMAKE_FIND_ROOT_PATH,
+    OPTIONAL,
+    OPTIONAL_COMPONENTS,
+    OPTIONS,
+    OR,
+    OS_NAME,
+    OS_PLATFORM,
+    OS_RELEASE,
+    OS_VERSION,
+    OUTPUT,
+    OUTPUT_FILE,
+    OUTPUT_FORMAT,
+    OUTPUT_QUIET,
+    OUTPUT_STRIP_TRAILING_WHITESPACE,
+    OUTPUT_VARIABLE,
+    PACKAGE,
+    PARALLEL_LEVEL,
+    PARENT_SCOPE,
+    PARTS,
+    PATH,
+    PATHS,
+    PATH_SUFFIXES,
+    PATH_VARS,
+    PATTERN,
+    PERMISSIONS,
+    PLATFORM,
+    PLATFORM_ID,
+    POLICY,
+    POP,
+    POSITION_INDEPENDENT_CODE,
+    POST_BUILD,
+    PREFIX,
+    PREPEND,
+    PRE_BUILD,
+    PRE_LINK,
+    PRIVATE,
+    PRIVATE_HEADER,
+    PROCESSOR_DESCRIPTION,
+    PROCESSOR_NAME,
+    PROCESSOR_SERIAL_NUMBER,
+    PROGRAM,
+    PROGRAMS,
+    PROGRAM_ARGS,
+    PROJECT_NAME,
+    PROJECT_VERSION,
+    PROPERTIES,
+    PROPERTY,
+    PUBLIC,
+    PUBLIC_HEADER,
+    PUSH,
+    QUERY,
+    QUIET,
+    RANDOM,
+    READ,
+    READ_WITH_PREFIX,
+    REALPATH,
+    REGEX,
+    REGULAR_EXPRESSION,
+    RELATIVE_PATH,
+    REMOVE,
+    REMOVE_AT,
+    REMOVE_DUPLICATES,
+    REMOVE_ITEM,
+    REMOVE_RECURSE,
+    RENAME,
+    REPLACE,
+    REQUIRED,
+    RESOURCE,
+    RESULT,
+    RESULTS_VARIABLE,
+    RESULT_VAR,
+    RESULT_VARIABLE,
+    RETRY_COUNT,
+    RETRY_DELAY,
+    RETURN_VALUE,
+    REVERSE,
+    RUNTIME,
+    RUN_OUTPUT_VARIABLE,
+    SCHEDULE_RANDOM,
+    SEMICOLON,
+    SEND_ERROR,
+    SET,
+    SHARED,
+    SHELL_PATH,
+    SORT,
+    SOURCE,
+    SOURCES,
+    SOVERSION,
+    START,
+    STATIC,
+    STATUS,
+    STOP_TIME,
+    STREQUAL,
+    STRGREATER,
+    STRGREATER_EQUAL,
+    STRIDE,
+    STRING,
+    STRINGS,
+    STRIP,
+    STRLESS,
+    STRLESS_EQUAL,
+    SUBLIST,
+    SUBSTRING,
+    SYSTEM,
+    TARGET,
+    TARGETS,
+    TARGET_BUNDLE_CONTENT_DIR,
+    TARGET_BUNDLE_DIR,
+    TARGET_EXISTS,
+    TARGET_FILE,
+    TARGET_FILE_DIR,
+    TARGET_FILE_NAME,
+    TARGET_GENEX_EVAL,
+    TARGET_LINKER_FILE,
+    TARGET_LINKER_FILE_DIR,
+    TARGET_LINKER_FILE_NAME,
+    TARGET_NAME,
+    TARGET_NAME_IF_EXISTS,
+    TARGET_OBJECTS,
+    TARGET_PDB_FILE,
+    TARGET_PDB_FILE_DIR,
+    TARGET_PDB_FILE_NAME,
+    TARGET_POLICY,
+    TARGET_PROPERTY,
+    TARGET_SONAME_FILE,
+    TARGET_SONAME_FILE_DIR,
+    TARGET_SONAME_FILE_NAME,
+    TEST,
+    TEST_LOAD,
+    TIMEOUT,
+    TIMESTAMP,
+    TOLOWER,
+    TOTAL_PHYSICAL_MEMORY,
+    TOTAL_VIRTUAL_MEMORY,
+    TOUCH,
+    TOUCH_NOCREATE,
+    TOUPPER,
+    TO_CMAKE_PATH,
+    TO_NATIVE_PATH,
+    TRACK,
+    TRANSFORM,
+    TREE,
+    TRUE,
+    TYPE,
+    UNIX,
+    UNIX,
+    UNKNOWN,
+    UPLOAD,
+    UPPER_CASE,
+    URL,
+    URL_HASH,
+    USES_TERMINAL,
+    USE_SOURCE_PERMISSIONS,
+    UTC,
+    UTF-8,
+    UTF8,
+    UUID,
+    VARIABLE,
+    VERBATIM,
+    VERSION,
+    VERSION_EQUAL,
+    VERSION_GREATER,
+    VERSION_GREATER_EQUAL,
+    VERSION_LESS,
+    VERSION_LESS_EQUAL,
+    WARNING,
+    WIN32,
+    WINDOWS,
+    WORKING_DIRECTORY,
+    WRITE,
+    \$ENV
+    _COMMAND,
+    },
+  morestring = [b]",
+  morecomment = [l]\#,
+  keywordstyle = [1]\color{blue},
+  keywordstyle = [2]\color{darkblue},
+  commentstyle = \color{darkgreen},
+  sensitive= true,
+}
+
+\lstdefinestyle{cmake}{
+	tabsize=2
+}
+
+\lstset{
+	basicstyle=\tiny\ttfamily,
+	columns=fullflexible,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{black}{$\hookrightarrow$}\space},
+    showstringspaces=false,
+    escapeinside={/!}{!/},
+	escapebegin=\color{gray},
+	style=cmake
+}
+
+\hypersetup{
+	bookmarks=true,
+	pdftoolbar=true,
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue
+}
+
+\newcommand{\cmakecommand}[1]{{\href{https://cmake.org/cmake/help/v3.13/command/#1.html}{#1}}}
+
+\begin{document}
+%\footnotesize
+\tiny
+
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Commands - Directory}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{cmake\_minimum\_required}!/(
+  VERSION <min>[...<max>] [FATAL_ERROR])
+
+/!\cmakecommand{cmake\_host\_system\_information}!/(RESULT <var>
+  QUERY <NUMBER_OF_LOGICAL_CORES|
+    NUMBER_OF_PHYSICAL_CORES|HOSTNAME|FQDN|
+    TOTAL_VIRTUAL_MEMORY|AVAILABLE_VIRTUAL_MEMORY|
+    TOTAL_PHYSICAL_MEMORY|AVAILABLE_PHYSICAL_MEMORY|
+    IS_64BIT|HAS_FPU|HAS_MMX|HAS_MMX_PLUS|HAS_SSE|
+    HAS_SSE2|HAS_SSE_FP|HAS_SSE_MMX|HAS_AMD_3DNOW|
+    HAS_AMD_3DNOW_PLUS|HAS_IA64|HAS_SERIAL_NUMBER|
+    PROCESSOR_SERIAL_NUMBER|PROCESSOR_NAME|
+    PROCESSOR_DESCRIPTION|OS_NAME|OS_RELEASE|
+    OS_VERSION|OS_PLATFORM> ...)
+
+/!\cmakecommand{site\_name}!/(var)
+
+/!\cmakecommand{message}!/([STATUS|WARNING|AUTHOR_WARNING|SEND_ERROR|
+  FATAL_ERROR|DEPRECATION] "message to display" ...)
+
+/!\cmakecommand{cmake\_policy}!/(VERSION <min>[...<max>])
+/!\cmakecommand{cmake\_policy}!/(SET CMP<NNNN> NEW)
+/!\cmakecommand{cmake\_policy}!/(SET CMP<NNNN> OLD)
+/!\cmakecommand{cmake\_policy}!/(GET CMP<NNNN> <var>)
+/!\cmakecommand{cmake\_policy}!/(PUSH)
+/!\cmakecommand{cmake\_policy}!/(POP)
+
+/!\cmakecommand{option}!/(<var> "option description" [initial value])
+
+/!\cmakecommand{include}!/(<file|module> [OPTIONAL]
+  [RESULT_VARIABLE <var>] [NO_POLICY_SCOPE])
+
+/!\cmakecommand{include\_external\_msproject}!/(projectname location
+  [TYPE projectTypeGUID]
+  [GUID projectGUID]
+  [PLATFORM platformName]
+  dep1 dep2 ...)
+
+/!\cmakecommand{include\_guard}!/([DIRECTORY|GLOBAL])
+
+/!\cmakecommand{include\_regular\_expression}!/(regex_match
+  [regex_complain])
+
+/!\cmakecommand{add\_compile\_definitions}!/(<definition> ...)
+
+/!\cmakecommand{add\_compile\_options}!/(<option> ...)
+
+/!\cmakecommand{add\_definitions}!/(<definition> ...)
+
+/!\cmakecommand{remove\_definitions}!/(<definition> ...)
+
+/!\cmakecommand{add\_link\_options}!/(<option> ...)
+
+/!\cmakecommand{include\_directories}!/([AFTER|BEFORE] [SYSTEM]
+  dir1 [dir2 ...])
+
+/!\cmakecommand{link\_directories}!/([AFTER|BEFORE] directory1
+  [directory2 ...])
+
+/!\cmakecommand{link\_libraries}!/([item1 [item2 [...]]]
+  [[debug|optimized|general] <item>] ...)
+
+/!\cmakecommand{configure\_file}!/(<input> <output>
+  [COPYONLY] [ESCAPE_QUOTES] [@ONLY]
+  [NEWLINE_STYLE [UNIX|DOS|WIN32|LF|CRLF]])
+
+/!\cmakecommand{execute\_process}!/(COMMAND <cmd1> [args1...]]
+  [COMMAND <cmd2> [args2...] [...]]
+  [WORKING_DIRECTORY <directory>]
+  [TIMEOUT <seconds>]
+  [RESULT_VARIABLE <var>]
+  [RESULTS_VARIABLE <var>]
+  [OUTPUT_VARIABLE <var>]
+  [ERROR_VARIABLE <var>]
+  [INPUT_FILE <file>]
+  [OUTPUT_FILE <file>]
+  [ERROR_FILE <file>]
+  [OUTPUT_QUIET] [ERROR_QUIET]
+  [OUTPUT_STRIP_TRAILING_WHITESPACE]
+  [ERROR_STRIP_TRAILING_WHITESPACE]
+  [ENCODING <NONE|AUTO|ANSI|OEM|UTF8|UTF-8>])
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Commands - Project}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{project}!/(<name>
+  [VERSION <major>[.<minor>[.<patch>[.<tweak>]]]]
+  [DESCRIPTION <description-string>]
+  [HOMEPAGE_URL <url-string>]
+  [LANGUAGES <language-name>...])
+
+/!\cmakecommand{enable\_language}!/(<lang> [OPTIONAL])
+
+/!\cmakecommand{add\_dependencies}!/(<target> [<dependency>]...)
+
+/!\cmakecommand{add\_library}!/(<name> [STATIC|SHARED|MODULE]
+  [EXCLUDE_FROM_ALL] [source1] [source2 ...])
+/!\cmakecommand{add\_library}!/(<name> <SHARED|STATIC|MODULE|
+  OBJECT|UNKNOWN> IMPORTED [GLOBAL])
+/!\cmakecommand{add\_library}!/(<name> OBJECT <src>...)
+/!\cmakecommand{add\_library}!/(<name> ALIAS <target>)
+/!\cmakecommand{add\_library}!/(<name> INTERFACE [IMPORTED [GLOBAL]])
+
+/!\cmakecommand{add\_executable}!/(<name> [WIN32] [MACOSX_BUNDLE]
+  [EXCLUDE_FROM_ALL] [source1] [source2 ...])
+/!\cmakecommand{add\_executable}!/(<name> IMPORTED [GLOBAL])
+/!\cmakecommand{add\_executable}!/(<name> ALIAS <target>)
+
+/!\cmakecommand{add\_custom\_target}!/(<name> [ALL] [command1 [args1...]]
+  [COMMAND command2 [args2...] ...]
+  [DEPENDS depend depend depend ... ]
+  [BYPRODUCTS [files...]]
+  [WORKING_DIRECTORY dir]
+  [COMMENT comment]
+  [VERBATIM] [USES_TERMINAL] [COMMAND_EXPAND_LISTS]
+  [SOURCES src1 [src2...]])
+
+/!\cmakecommand{add\_custom\_command}!/(OUTPUT output1 [output2 ...]
+  COMMAND command1 [ARGS] [args1...]
+  [COMMAND command2 [ARGS] [args2...] ...]
+  [MAIN_DEPENDENCY depend]
+  [DEPENDS [depends...]]
+  [BYPRODUCTS [files...]]
+  [IMPLICIT_DEPENDS <lang1> dep1 [<lang2> dep2] ...]
+  [WORKING_DIRECTORY dir]
+  [COMMENT comment]
+  [DEPFILE depfile]
+  [VERBATIM] [APPEND] [USES_TERMINAL]
+  [COMMAND_EXPAND_LISTS])
+/!\cmakecommand{add\_custom\_command}!/(TARGET <target>
+  PRE_BUILD|PRE_LINK|POST_BUILD
+  COMMAND command1 [ARGS] [args1...]
+  [COMMAND command2 [ARGS] [args2...] ...]
+  [BYPRODUCTS [files...]]
+  [WORKING_DIRECTORY dir]
+  [COMMENT comment]
+  [VERBATIM] [USES_TERMINAL])
+
+/!\cmakecommand{add\_subdirectory}!/(source_dir [binary_dir]
+  [EXCLUDE_FROM_ALL])
+
+/!\cmakecommand{find\_file}!/(<VAR>
+  name | NAMES name1 [name2 ...]
+  [HINTS path1 [path2 ... ENV var]]
+  [PATHS path1 [path2 ... ENV var]]
+  [PATH_SUFFIXES suffix1 [suffix2 ...]]
+  [DOC "cache documentation string"]
+  [NO_DEFAULT_PATH] [NO_PACKAGE_ROOT_PATH]
+  [NO_CMAKE_PATH] [NO_CMAKE_ENVIRONMENT_PATH]
+  [NO_SYSTEM_ENVIRONMENT_PATH] [NO_CMAKE_SYSTEM_PATH]
+  [CMAKE_FIND_ROOT_PATH_BOTH|
+   ONLY_CMAKE_FIND_ROOT_PATH|
+   NO_CMAKE_FIND_ROOT_PATH])
+
+/!\cmakecommand{find\_path}!/(<VAR> name | NAMES name1 [name2 ...]
+  [HINTS path1 [path2 ... ENV var]]
+  [PATHS path1 [path2 ... ENV var]]
+  [PATH_SUFFIXES suffix1 [suffix2 ...]]
+  [DOC "cache documentation string"]
+  [NO_DEFAULT_PATH] [NO_PACKAGE_ROOT_PATH]
+  [NO_CMAKE_PATH] [NO_CMAKE_ENVIRONMENT_PATH]
+  [NO_SYSTEM_ENVIRONMENT_PATH] [NO_CMAKE_SYSTEM_PATH]
+  [CMAKE_FIND_ROOT_PATH_BOTH|
+   ONLY_CMAKE_FIND_ROOT_PATH|
+   NO_CMAKE_FIND_ROOT_PATH])
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{find\_package}!/(<PackageName> [version] [EXACT]
+  [QUIET] [MODULE] [REQUIRED]
+  [[COMPONENTS] [components...]]
+  [OPTIONAL_COMPONENTS components...]
+  [NO_POLICY_SCOPE])
+/!\cmakecommand{find\_package}!/(<PackageName> [version] [EXACT] [QUIET]
+  [REQUIRED] [[COMPONENTS] [components...]]
+  [CONFIG|NO_MODULE] [NO_POLICY_SCOPE]
+  [NAMES name1 [name2 ...]] [CONFIGS cfg1 [cfg2 ...]]
+  [HINTS path1 [path2 ...]] [PATHS path1 [path2 ...]]
+  [PATH_SUFFIXES suffix1 [suffix2 ...]]
+  [NO_DEFAULT_PATH] [NO_PACKAGE_ROOT_PATH]
+  [NO_CMAKE_PATH] [NO_CMAKE_ENVIRONMENT_PATH]
+  [NO_SYSTEM_ENVIRONMENT_PATH]
+  [NO_CMAKE_PACKAGE_REGISTRY] [NO_CMAKE_SYSTEM_PATH]
+  [NO_CMAKE_SYSTEM_PACKAGE_REGISTRY]
+  [CMAKE_FIND_ROOT_PATH_BOTH|
+   ONLY_CMAKE_FIND_ROOT_PATH|
+   NO_CMAKE_FIND_ROOT_PATH])
+
+/!\cmakecommand{find\_program}!/(<var>
+  name | NAMES name1 [name2 ...] [NAMES_PER_DIR]
+  [HINTS path1 [path2 ... ENV var]]
+  [PATHS path1 [path2 ... ENV var]]
+  [PATH_SUFFIXES suffix1 [suffix2 ...]]
+  [DOC "cache documentation string"]
+  [NO_DEFAULT_PATH] [NO_PACKAGE_ROOT_PATH]
+  [NO_CMAKE_PATH] [NO_CMAKE_ENVIRONMENT_PATH]
+  [NO_SYSTEM_ENVIRONMENT_PATH] [NO_CMAKE_SYSTEM_PATH]
+  [CMAKE_FIND_ROOT_PATH_BOTH|
+   ONLY_CMAKE_FIND_ROOT_PATH|
+   NO_CMAKE_FIND_ROOT_PATH])
+
+/!\cmakecommand{find\_library}!/(<VAR>
+  name | NAMES name1 [name2 ...] [NAMES_PER_DIR]
+  [HINTS path1 [path2 ... ENV var]]
+  [PATHS path1 [path2 ... ENV var]]
+  [PATH_SUFFIXES suffix1 [suffix2 ...]]
+  [DOC "cache documentation string"]
+  [NO_DEFAULT_PATH] [NO_PACKAGE_ROOT_PATH]
+  [NO_CMAKE_PATH] [NO_CMAKE_ENVIRONMENT_PATH]
+  [NO_SYSTEM_ENVIRONMENT_PATH] [NO_CMAKE_SYSTEM_PATH]
+  [CMAKE_FIND_ROOT_PATH_BOTH|
+   ONLY_CMAKE_FIND_ROOT_PATH|
+   NO_CMAKE_FIND_ROOT_PATH])
+
+/!\cmakecommand{export}!/(EXPORT <export-name> [NAMESPACE <namespace>]
+  [FILE <filename>])
+/!\cmakecommand{export}!/(TARGETS [target1 [target2 [...]]]
+  [NAMESPACE <namespace>] [APPEND] FILE <filename>
+  [EXPORT_LINK_INTERFACE_LIBRARIES])
+/!\cmakecommand{export}!/(PACKAGE <PackageName>)
+/!\cmakecommand{export}!/(TARGETS [target1 [target2 [...]]]
+  [ANDROID_MK <filename>])
+
+/!\cmakecommand{load\_cache}!/(pathToCacheFile READ_WITH_PREFIX
+  prefix entry1...)
+/!\cmakecommand{load\_cache}!/(pathToCacheFile [EXCLUDE entry1...]
+  [INCLUDE_INTERNALS entry1...])
+
+/!\cmakecommand{try\_compile}!/(RESULT_VAR <bindir> <srcdir>
+  <projectName> [<targetName>]
+  [CMAKE_FLAGS <flags>...] [OUTPUT_VARIABLE <var>])
+/!\cmakecommand{try\_compile}!/(RESULT_VAR <bindir>
+  <srcfile|SOURCES srcfile...>
+  [CMAKE_FLAGS <flags>...]
+  [COMPILE_DEFINITIONS <defs>...]
+  [LINK_LIBRARIES <libs>...] [OUTPUT_VARIABLE <var>]
+  [COPY_FILE <fileName> [COPY_FILE_ERROR <var>]]
+  [<LANG>_STANDARD <std>]
+  [<LANG>_STANDARD_REQUIRED <bool>]
+  [<LANG>_EXTENSIONS <bool>])
+
+/!\cmakecommand{try\_run}!/(RUN_RESULT_VAR COMPILE_RESULT_VAR
+  bindir srcfile [CMAKE_FLAGS <flags>...]
+  [COMPILE_DEFINITIONS <defs>...]
+  [LINK_LIBRARIES <libs>...]
+  [COMPILE_OUTPUT_VARIABLE <var>]
+  [RUN_OUTPUT_VARIABLE <var>] [OUTPUT_VARIABLE <var>]
+  [ARGS <args>...])
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{install}!/(TARGETS targets... [EXPORT <export-name>]
+  [[ARCHIVE|LIBRARY|RUNTIME|OBJECTS|FRAMEWORK|BUNDLE|
+    PRIVATE_HEADER|PUBLIC_HEADER|RESOURCE]
+   [DESTINATION <dir>]
+   [PERMISSIONS permissions...]
+   [CONFIGURATIONS [Debug|Release|...]]
+   [COMPONENT <component>]
+   [NAMELINK_COMPONENT <component>]
+   [OPTIONAL] [EXCLUDE_FROM_ALL]
+   [NAMELINK_ONLY|NAMELINK_SKIP] ] [...]
+  [INCLUDES DESTINATION [<dir> ...]])
+/!\cmakecommand{install}!/(<FILES|PROGRAMS> files... DESTINATION <dir>
+  [PERMISSIONS permissions...]
+  [CONFIGURATIONS [Debug|Release|...]]
+  [COMPONENT <component>]
+  [RENAME <name>] [OPTIONAL] [EXCLUDE_FROM_ALL])
+/!\cmakecommand{install}!/(DIRECTORY dirs... DESTINATION <dir>
+  [FILE_PERMISSIONS permissions...]
+  [DIRECTORY_PERMISSIONS permissions...]
+  [USE_SOURCE_PERMISSIONS] [OPTIONAL] [MESSAGE_NEVER]
+  [CONFIGURATIONS [Debug|Release|...]]
+  [COMPONENT <component>] [EXCLUDE_FROM_ALL]
+  [FILES_MATCHING]
+  [[PATTERN <pattern> | REGEX <regex>]
+   [EXCLUDE] [PERMISSIONS permissions...]] [...])
+/!\cmakecommand{install}!/([[SCRIPT <file>] [CODE <code>]]
+  [COMPONENT <component>] [EXCLUDE_FROM_ALL] [...])
+/!\cmakecommand{install}!/(EXPORT <export-name> DESTINATION <dir>
+  [NAMESPACE <namespace>] [[FILE <name>.cmake]|
+  [PERMISSIONS permissions...]
+  [CONFIGURATIONS [Debug|Release|...]]
+  [EXPORT_LINK_INTERFACE_LIBRARIES]
+  [COMPONENT <component>]
+  [EXCLUDE_FROM_ALL])
+/!\cmakecommand{install}!/(EXPORT_ANDROID_MK <export-name>
+  DESTINATION <dir> [...])
+\end{lstlisting}
+
+\textbf{Commands - Targets}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{target\_sources}!/(<target>
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_include\_directories}!/(<target> [SYSTEM] [BEFORE]
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_compile\_definitions}!/(<target>
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_compile\_options}!/(<target> [BEFORE]
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_link\_options}!/(<target> [BEFORE]
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_link\_libraries}!/(<target>
+   <PRIVATE|PUBLIC|INTERFACE> <item>...
+  [<PRIVATE|PUBLIC|INTERFACE> <item>...]...)
+/!\cmakecommand{target\_link\_libraries}!/(<target> <item>...)
+
+/!\cmakecommand{target\_link\_directories}!/(<target> [BEFORE]
+  <INTERFACE|PUBLIC|PRIVATE> [items1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
+
+/!\cmakecommand{target\_compile\_features}!/(<target>
+  <PRIVATE|PUBLIC|INTERFACE> <feature> [...])
+
+/!\cmakecommand{source\_group}!/(<name> [FILES <src>...]
+  [REGULAR_EXPRESSION <regex>])
+/!\cmakecommand{source\_group}!/(TREE <root> [PREFIX <prefix>]
+  [FILES <src>...])
+
+/!\cmakecommand{aux\_source\_directory}!/(<dir> <var>)
+\end{lstlisting}
+
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Commands - Properties}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{set\_property}!/(
+  <GLOBAL |
+   DIRECTORY [dir] |
+   TARGET [target1 [target2 ...]] |
+   SOURCE [src1 [src2 ...]] |
+   INSTALL [file1 [file2 ...]] |
+   TEST [test1 [test2 ...]] |
+   CACHE [entry1 [entry2 ...]]>
+  [APPEND] [APPEND_STRING]
+  PROPERTY <name> [value1 [value2 ...]])
+
+/!\cmakecommand{get\_property}!/(<var>
+  <GLOBAL |
+   DIRECTORY [dir] |
+   TARGET <target> |
+   SOURCE <source> |
+   INSTALL <file> |
+   TEST <test> |
+   CACHE <entry> |
+   VARIABLE>
+   PROPERTY <name>
+   [SET|DEFINED|BRIEF_DOCS|FULL_DOCS])
+
+/!\cmakecommand{define\_property}!/(<GLOBAL|DIRECTORY|TARGET|SOURCE|
+  TEST|VARIABLE|CACHED_VARIABLE>
+  PROPERTY <name> [INHERITED]
+  BRIEF_DOCS <brief-doc> [docs...]
+  FULL_DOCS <full-doc> [docs...])
+
+/!\cmakecommand{set\_target\_properties}!/(target1 target2 ...
+  PROPERTIES prop1 value1 prop2 value2 ...)
+
+/!\cmakecommand{get\_target\_property}!/(<var> <target> <property>)
+
+/!\cmakecommand{set\_source\_files\_properties}!/([file1 [file2 [...]]]
+  PROPERTIES prop1 value1 [prop2 value2 [...]])
+
+/!\cmakecommand{get\_source\_file\_property}!/(var file property)
+
+/!\cmakecommand{set\_tests\_properties}!/(test1 [test2...]
+  PROPERTIES prop1 value1 prop2 value2)
+
+/!\cmakecommand{get\_test\_property}!/(test property var)
+
+/!\cmakecommand{set\_directory\_properties}!/(PROPERTIES prop1 value1
+  prop2 value2)
+
+/!\cmakecommand{get\_directory\_property}!/(<var> [DIRECTORY <dir>]
+  <prop-name>)
+
+/!\cmakecommand{get\_cmake\_property}!/(<var> property)
+\end{lstlisting}
+
+\textbf{Commands - Special}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{fltk\_wrap\_ui}!/(resultingLibraryName
+  source1 source2 ... sourceN)
+
+/!\cmakecommand{qt\_wrap\_cpp}!/(resultingLibraryName DestName
+  SourceLists ...)
+
+/!\cmakecommand{qt\_wrap\_ui}!/(resultingLibraryName HeadersDestName
+  SourcesDestName SourceLists ...)
+\end{lstlisting}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Commands - Scripting}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{set}!/(<var> <value>... [PARENT_SCOPE])
+/!\cmakecommand{set}!/(<var> <value>... CACHE
+  <BOOL|FILEPATH|PATH|STRING|INTERNAL> <docstring>
+  [FORCE])
+/!\cmakecommand{set}!/(ENV{<var>} <value>...)
+
+/!\cmakecommand{mark\_as\_advanced}!/([CLEAR|FORCE] var [var2 ...])
+
+/!\cmakecommand{unset}!/(<var> [CACHE | PARENT_SCOPE])
+/!\cmakecommand{unset}!/(ENV{environment})
+
+/!\cmakecommand{variable\_watch}!/(<var name> [<command to execute>])
+
+/!\cmakecommand{math}!/(EXPR <output-var> <expression>
+  [OUTPUT_FORMAT <HEXADECIMAL|DECIMAL>])
+
+/!\cmakecommand{separate\_arguments}!/(<var>
+  <NATIVE|UNIX|WINDOWS>_COMMAND "<args>")
+
+/!\cmakecommand{list}!/(LENGTH <list> <out-var>)
+/!\cmakecommand{list}!/(GET <list> <index> [<index> ...] <out-var>)
+/!\cmakecommand{list}!/(JOIN <list> <glue> <out-var>)
+/!\cmakecommand{list}!/(SUBLIST <list> <begin> <length> <out-var>)
+/!\cmakecommand{list}!/(FIND <list> <value> <out-var>)
+/!\cmakecommand{list}!/(APPEND <list> [<element>...])
+/!\cmakecommand{list}!/(FILTER <list> {INCLUDE|EXCLUDE} REGEX <regex>)
+/!\cmakecommand{list}!/(INSERT <list> <index> [<element>...])
+/!\cmakecommand{list}!/(REMOVE_ITEM <list> <value>...)
+/!\cmakecommand{list}!/(REMOVE_AT <list> <index>...)
+/!\cmakecommand{list}!/(REMOVE_DUPLICATES <list>)
+/!\cmakecommand{list}!/(TRANSFORM <list> <ACTION> [...])
+/!\cmakecommand{list}!/(REVERSE <list>)
+/!\cmakecommand{list}!/(SORT <list> [...])
+
+/!\cmakecommand{string}!/(FIND <str> <substr> <out-var> [...])
+/!\cmakecommand{string}!/(REPLACE <match-str> <replace-str>
+  <out-var> <input>...)
+/!\cmakecommand{string}!/(REGEX MATCH <match-regex>
+  <out-var> <input>...)
+/!\cmakecommand{string}!/(REGEX MATCHALL <match-regex>
+  <out-var> <input>...)
+/!\cmakecommand{string}!/(REGEX REPLACE <match-regex>
+  <replace-expr> <out-var> <input>...)
+/!\cmakecommand{string}!/(APPEND <str-var> [<input>...])
+/!\cmakecommand{string}!/(PREPEND <str-var> [<input>...])
+/!\cmakecommand{string}!/(CONCAT <out-var> [<input>...])
+/!\cmakecommand{string}!/(JOIN <glue> <out-var> [<input>...])
+/!\cmakecommand{string}!/(TOLOWER <str> <out-var>)
+/!\cmakecommand{string}!/(TOUPPER <str> <out-var>)
+/!\cmakecommand{string}!/(LENGTH <str> <out-var>)
+/!\cmakecommand{string}!/(SUBSTRING <str> <begin> <length> <out-var>)
+/!\cmakecommand{string}!/(STRIP <str> <out-var>)
+/!\cmakecommand{string}!/(GENEX_STRIP <str> <out-var>)
+/!\cmakecommand{string}!/(COMPARE <op> <str1> <str2> <out-var>)
+/!\cmakecommand{string}!/(<HASH> <out-var> <input>)
+/!\cmakecommand{string}!/(ASCII <number>... <out-var>)
+/!\cmakecommand{string}!/(CONFIGURE <str> <out-var> [...])
+/!\cmakecommand{string}!/(MAKE_C_IDENTIFIER <str> <out-var>)
+/!\cmakecommand{string}!/(RANDOM [<option>...] <out-var>)
+/!\cmakecommand{string}!/(TIMESTAMP <out-var> [<format-str>] [UTC])
+/!\cmakecommand{string}!/(UUID <out-var> ...)
+
+/!\cmakecommand{file}!/(READ <filename> <out-var> [...])
+/!\cmakecommand{file}!/(STRINGS <filename> <out-var> [...])
+/!\cmakecommand{file}!/(<HASH> <filename> <out-var>)
+/!\cmakecommand{file}!/(TIMESTAMP <filename> <out-var> [...])
+/!\cmakecommand{file}!/({WRITE|APPEND} <filename> <content>...)
+/!\cmakecommand{file}!/({TOUCH|TOUCH_NOCREATE} [<file>...])
+/!\cmakecommand{file}!/(GENERATE OUTPUT <output-file> [...])
+/!\cmakecommand{file}!/({GLOB|GLOB_RECURSE} <out-var> [...]
+  [<globbing-expr>...])
+/!\cmakecommand{file}!/(RENAME <oldname> <newname>)
+/!\cmakecommand{file}!/({REMOVE|REMOVE_RECURSE } [<files>...])
+/!\cmakecommand{file}!/(MAKE_DIRECTORY [<dir>...])
+/!\cmakecommand{file}!/({COPY|INSTALL} <file>...
+  DESTINATION <dir> [...])
+/!\cmakecommand{file}!/(RELATIVE_PATH <out-var> <directory> <file>)
+/!\cmakecommand{file}!/({TO_CMAKE_PATH|TO_NATIVE_PATH} <path> <out-var>)
+/!\cmakecommand{file}!/(DOWNLOAD <url> <file> [...])
+/!\cmakecommand{file}!/(UPLOAD <file> <url> [...])
+/!\cmakecommand{file}!/(LOCK <path> [...])
+\end{lstlisting}
+
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{get\_filename\_component}!/(<var> <FileName>
+  <DIRECTORY|NAME|EXT|NAME_WE|PATH> [CACHE])
+/!\cmakecommand{get\_filename\_component}!/<ABSOLUTE|REALPATH>
+  [BASE_DIR <base_dir>] [CACHE])
+/!\cmakecommand{get\_filename\_component}!/(<var> <FileName>
+  PROGRAM [PROGRAM_ARGS <arg_var>] [CACHE])
+\end{lstlisting}
+
+\textbf{Commands - Flow Control}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{function}!/(<name> [arg1 [arg2 [arg3 ...]]])
+  command(ARGS ...)...
+/!\cmakecommand{endfunction}!/()
+
+/!\cmakecommand{macro}!/(<name> [arg1 [arg2 [arg3 ...]]])
+  command(ARGS ...)...
+/!\cmakecommand{endmacro}!/()
+
+/!\cmakecommand{return}!/ ()
+
+/!\cmakecommand{cmake\_parse\_arguments}!/(<prefix> <options>
+  <one_value_keywords> <multi_value_keywords>
+  args...)
+/!\cmakecommand{cmake\_parse\_arguments}!/(PARSE_ARGV N <prefix>
+  <options> <one_value_keywords>
+  <multi_value_keywords>)
+
+/!\cmakecommand{foreach}!/(loop_var arg1 arg2 ...)
+  command(ARGS ...)...
+/!\cmakecommand{endforeach}!/()
+
+/!\cmakecommand{foreach}!/(loop_var RANGE total)
+/!\cmakecommand{foreach}!/(loop_var RANGE start stop [step])
+/!\cmakecommand{foreach}!/(loop_var IN
+  [LISTS [list1 [...]]] [ITEMS [item1 [...]]])
+
+/!\cmakecommand{while}!/(condition)
+  command(ARGS ...)...
+/!\cmakecommand{endwhile}!/()
+
+/!\cmakecommand{break}!/()
+
+/!\cmakecommand{continue}!/()
+
+/!\cmakecommand{if}!/(expression)
+  command(ARGS ...)...
+/!\cmakecommand{elseif}!/(expression2)
+  command(ARGS ...)...
+/!\cmakecommand{else}!/(expression3)
+  command(ARGS ...)...
+/!\cmakecommand{endif}!/()
+
+/!\cmakecommand{if}!/((expression) AND (expression OR (expression)))
+/!\cmakecommand{if}!/(<constant>)
+/!\cmakecommand{if}!/(<var|str>)
+/!\cmakecommand{if}!/(NOT <expression>)
+/!\cmakecommand{if}!/(<expr1> AND <expr2>)
+/!\cmakecommand{if}!/(<expr1> OR <expr2>)
+/!\cmakecommand{if}!/(COMMAND command-name)
+/!\cmakecommand{if}!/(POLICY policy-id)
+/!\cmakecommand{if}!/(TARGET target-name)
+/!\cmakecommand{if}!/(TEST test-name)
+/!\cmakecommand{if}!/(EXISTS path-to-file-or-directory)
+/!\cmakecommand{if}!/(DEFINED <var>)
+/!\cmakecommand{if}!/(file1 IS_NEWER_THAN file2)
+/!\cmakecommand{if}!/(IS_DIRECTORY path-to-directory)
+/!\cmakecommand{if}!/(IS_SYMLINK filename)
+/!\cmakecommand{if}!/(IS_ABSOLUTE path)
+/!\cmakecommand{if}!/(<var|str> MATCHES regex)
+/!\cmakecommand{if}!/(<var|str> LESS <var|str>)
+/!\cmakecommand{if}!/(<var|str> GREATER <var|str>)
+/!\cmakecommand{if}!/(<var|str> EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> LESS_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> GREATER_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> STRLESS <var|str>)
+/!\cmakecommand{if}!/(<var|str> STRGREATER <var|str>)
+/!\cmakecommand{if}!/(<var|str> STREQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> STRLESS_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> STRGREATER_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> VERSION_LESS <var|str>)
+/!\cmakecommand{if}!/(<var|str> VERSION_GREATER <var|str>)
+/!\cmakecommand{if}!/(<var|str> VERSION_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> VERSION_LESS_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> VERSION_GREATER_EQUAL <var|str>)
+/!\cmakecommand{if}!/(<var|str> IN_LIST <var>)
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Commands - Test}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{enable\_testing}!/()
+
+/!\cmakecommand{add\_test}!/(NAME <name> COMMAND <command> [<arg>...]
+  [CONFIGURATIONS <config>...]
+  [WORKING_DIRECTORY <dir>])
+
+/!\cmakecommand{create\_test\_sourcelist}!/(sourceListName driverName
+  test1 test2 test3
+  EXTRA_INCLUDE include-file
+  FUNCTION function)
+
+/!\cmakecommand{build\_command}!/(<var> [CONFIGURATION <config>]
+  [TARGET <target>])
+
+/!\cmakecommand{ctest\_build}!/([BUILD <build-dir>] [APPEND]
+  [CONFIGURATION <config>] [FLAGS <flags>]
+  [PROJECT_NAME <project-name>]
+  [TARGET <target-name>]
+  [NUMBER_ERRORS <num-err-var>]
+  [NUMBER_WARNINGS <num-warn-var>]
+  [RETURN_VALUE <result-var>]
+  [CAPTURE_CMAKE_ERROR <result-var>])
+
+/!\cmakecommand{ctest\_configure}!/([BUILD <build-dir>]
+  [SOURCE <source-dir>] [APPEND]
+  [OPTIONS <options>] [RETURN_VALUE <result-var>]
+  [QUIET] [CAPTURE_CMAKE_ERROR <result-var>])
+
+/!\cmakecommand{ctest\_coverage}!/([BUILD <build-dir>] [APPEND]
+  [LABELS <label>...] [RETURN_VALUE <result-var>]
+  [CAPTURE_CMAKE_ERROR <result-var] [QUIET])
+
+/!\cmakecommand{ctest\_empty\_binary\_directory}!/(directory)
+
+/!\cmakecommand{ctest\_memcheck}!/([BUILD <build-dir>] [APPEND]
+  [START <start-number>] [END <end-number>]
+  [STRIDE <stride-number>]
+  [EXCLUDE <regex>] [INCLUDE <regex>]
+  [EXCLUDE_LABEL <regex>] [INCLUDE_LABEL <regex>]
+  [EXCLUDE_FIXTURE <regex>]
+  [EXCLUDE_FIXTURE_SETUP <regex>]
+  [EXCLUDE_FIXTURE_CLEANUP <regex>]
+  [PARALLEL_LEVEL <level>] [TEST_LOAD <threshold>]
+  [SCHEDULE_RANDOM <ON|OFF>]
+  [STOP_TIME <time-of-day>]
+  [RETURN_VALUE <result-var>]
+  [DEFECT_COUNT <defect-count-var>] [QUIET])
+
+/!\cmakecommand{ctest\_read\_custom\_files}!/(directory ...)
+
+/!\cmakecommand{ctest\_run\_script}!/([NEW_PROCESS] script_file_name
+  script_file_name1 script_file_name2 ...
+  [RETURN_VALUE var])
+
+/!\cmakecommand{ctest\_sleep}!/(<seconds>)
+/!\cmakecommand{ctest\_sleep}!/(<time1> <duration> <time2>)
+
+/!\cmakecommand{ctest\_start}!/(<model> [<source> [<binary>]]
+  [TRACK <track>] [QUIET])
+/!\cmakecommand{ctest\_start}!/([<model> [<source> [<binary>]]]
+  [TRACK <track>] APPEND [QUIET])
+
+/!\cmakecommand{ctest\_submit}!/([PARTS <part>...] [FILES <file>...]
+  [HTTPHEADER <header>] [RETRY_COUNT <count>]
+  [RETRY_DELAY <delay>] [RETURN_VALUE <result-var>]
+  [CAPTURE_CMAKE_ERROR <result-var>] [QUIET])
+/!\cmakecommand{ctest\_submit}!/(CDASH_UPLOAD <file>
+  [CDASH_UPLOAD_TYPE <type>] [HTTPHEADER <header>]
+  [RETRY_COUNT <count>] [RETRY_DELAY <delay>]
+  [RETURN_VALUE <result-var>] [QUIET])
+
+/!\cmakecommand{ctest\_test}!/([BUILD <build-dir>] [APPEND]
+  [START <start-number>] [END <end-number>]
+  [STRIDE <stride-number>]
+  [EXCLUDE <regex>] [INCLUDE <regex>]
+  [EXCLUDE_LABEL <regex>] [INCLUDE_LABEL <regex>]
+  [EXCLUDE_FIXTURE <regex>]
+  [EXCLUDE_FIXTURE_SETUP <regex>]
+  [EXCLUDE_FIXTURE_CLEANUP <regex>]
+  [PARALLEL_LEVEL <level>] [TEST_LOAD <threshold>]
+  [SCHEDULE_RANDOM <ON|OFF>]
+  [STOP_TIME <time-of-day>]
+  [RETURN_VALUE <result-var>]
+  [CAPTURE_CMAKE_ERROR <result-var>] [QUIET])
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
+/!\cmakecommand{ctest\_update}!/([SOURCE <source-dir>]
+  [RETURN_VALUE <result-var>]
+  [CAPTURE_CMAKE_ERROR <result-var>]
+  [QUIET])
+
+/!\cmakecommand{ctest\_upload}!/(FILES <file>... [QUIET]
+  [CAPTURE_CMAKE_ERROR <result-var>])
+\end{lstlisting}
+
+\textbf{Generator Logical Expr}
+\begin{lstlisting}[language=CMake]
+$<AND:?[,?]...>
+$<BOOL:...>
+$<COMPILE_FEATURES:feature[,feature]...>
+$<COMPILE_LANGUAGE:lang>
+$<CONFIG:cfg>
+$<CXX_COMPILER_ID:comp>
+$<CXX_COMPILER_VERSION:ver>
+$<C_COMPILER_ID:comp>
+$<C_COMPILER_VERSION:ver>
+$<EQUAL:a,b>
+$<IF:?,true-value...,false-value...>
+$<IN_LIST:a,b>
+$<NOT:?>
+$<OR:?[,?]...>
+$<PLATFORM_ID:comp>
+$<STREQUAL:a,b>
+$<TARGET_EXISTS:tgt>
+$<TARGET_POLICY:pol>
+$<VERSION_EQUAL:v1,v2>
+$<VERSION_GREATER:v1,v2>
+$<VERSION_GREATER_EQUAL:v1,v2>
+$<VERSION_LESS:v1,v2>
+$<VERSION_LESS_EQUAL:v1,v2>
+\end{lstlisting}
+
+\textbf{Generator Info Expr}
+\begin{lstlisting}[language=CMake]
+$<CONFIG>
+$<PLATFORM_ID>
+$<C_COMPILER_ID>
+$<CXX_COMPILER_ID>
+$<C_COMPILER_VERSION>
+$<CXX_COMPILER_VERSION>
+$<TARGET_FILE:tgt>
+$<TARGET_FILE_NAME:tgt>
+$<TARGET_FILE_DIR:tgt>
+$<TARGET_LINKER_FILE:tgt>
+$<TARGET_LINKER_FILE_NAME:tgt>
+$<TARGET_LINKER_FILE_DIR:tgt>
+$<TARGET_SONAME_FILE:tgt>
+$<TARGET_SONAME_FILE_NAME:tgt>
+$<TARGET_SONAME_FILE_DIR:tgt>
+$<TARGET_PDB_FILE:tgt>
+$<TARGET_PDB_FILE_NAME:tgt>
+$<TARGET_PDB_FILE_DIR:tgt>
+$<TARGET_BUNDLE_DIR:tgt>
+$<TARGET_BUNDLE_CONTENT_DIR:tgt>
+$<TARGET_PROPERTY:tgt,prop>
+$<TARGET_PROPERTY:prop>
+$<INSTALL_PREFIX>
+$<COMPILE_LANGUAGE>
+\end{lstlisting}
+
+\textbf{Generator Output Expr}
+\begin{lstlisting}[language=CMake]
+$<0:...>
+$<1:...>
+$<ANGLE-R>
+$<BUILD_INTERFACE:...>
+$<COMMA>
+$<GENEX_EVAL:...>
+$<INSTALL_INTERFACE:...>
+$<JOIN:list,...>
+$<LINK_ONLY:...>
+$<LOWER_CASE:...>
+$<MAKE_C_IDENTIFIER:...>
+$<SEMICOLON>
+$<SHELL_PATH:...>
+$<TARGET_GENEX_EVAL:tgt,...>
+$<TARGET_NAME:...>
+$<TARGET_NAME_IF_EXISTS:...>
+$<TARGET_OBJECTS:objLib>
+$<UPPER_CASE:...>
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{CMake CLI - General}
+{\tiny \em (incomplete list)}
+\begin{verbatim}
+--help
+--version
+--help-full
+--help-manual <man> [<f>]
+--help-command <cmd> [<f>]
+--help-module <mod> [<f>]
+--help-policy <cmp> [<f>]
+--help-property <prop> [<f>]
+--help-variable <var> [<f>]
+--system-information [file]
+--debug-output
+--trace
+--trace-source=<file>
+--warn-unitialized
+--graphviz=<file>
+--find-package <options>...
+-S <path-to-source>
+-B <path-to-build>
+-D <var>[=<value>]
+-D <var>:<type>=<value>
+-U <glob_expr>
+-G <generator-name>
+-T <toolset-spec>
+-A <platform-name>
+-L[A|H]
+\end{verbatim}
+\textbf{CMake CLI - Build Tool}
+{\tiny \em (incomplete list)}
+\begin{verbatim}
+--build <dir>
+--config <cfg>
+--target <tgt>
+--use-stderr
+--clean-first
+-j [<jobs>] | --parallel [<jobs>]
+\end{verbatim}
+\textbf{CMake CLI - Scripting Tool}
+\begin{verbatim}
+-P <file>
+\end{verbatim}
+\textbf{CMake CLI - Command Tool}
+\begin{verbatim}
+-E <command> [<options>...]
+
+capabilities
+chdir <dir> <cmd> [<arg>...]
+compare_files <file1> <file2>
+copy <file>... <destination>
+copy_directory <dir>... <dest>
+copy_if_different <file>... <dest>
+echo [<string>...]
+echo_append [<string>...]
+env [--unset=NAME]... [NAME=VALUE]... COMMAND [ARG]...
+environment
+make_directory <dir>...
+md5sum <file>...
+sha1sum <file>...
+sha224sum <file>...
+sha256sum <file>...
+sha384sum <file>...
+sha512sum <file>...
+remove [-f] <file>...
+remove_directory <dir>
+rename <oldname> <newname>
+server
+tar [cxt][vf][zjJ] file.tar [<options>...] [--] [<file>...]
+  --files-from=<file>
+  --mtime=<date>
+  --format=<7zip|gnutar|pax|paxr|zip>
+time <command> [<args>...]
+touch <file>
+touch_nocreate <file>
+create_symlink <old> <new>
+\end{verbatim}
+\textbf{CMake CLI - Windows Tools}
+\begin{verbatim}
+delete_regv <key>
+env_vs8_wince <sdkname>
+env_vs9_wince <sdkname>
+write_regv <key> <value>
+\end{verbatim}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Properties - Global Scope}
+\begin{verbatim}
+ALLOW_DUPLICATE_CUSTOM_TARGETS
+AUTOGEN_SOURCE_GROUP
+AUTOGEN_TARGETS_FOLDER
+AUTOMOC_SOURCE_GROUP
+AUTOMOC_TARGETS_FOLDER
+AUTORCC_SOURCE_GROUP
+CMAKE_C_KNOWN_FEATURES
+CMAKE_CXX_KNOWN_FEATURES
+DEBUG_CONFIGURATIONS
+DISABLED_FEATURES
+ENABLED_FEATURES
+ENABLED_LANGUAGES
+FIND_LIBRARY_USE_LIB32_PATHS
+FIND_LIBRARY_USE_LIB64_PATHS
+FIND_LIBRARY_USE_LIBX32_PATHS
+FIND_LIBRARY_USE_OPENBSD_VERSIONING
+GENERATOR_IS_MULTI_CONFIG
+GLOBAL_DEPENDS_DEBUG_MODE
+GLOBAL_DEPENDS_NO_CYCLES
+IN_TRY_COMPILE
+PACKAGES_FOUND
+PACKAGES_NOT_FOUND
+JOB_POOLS
+PREDEFINED_TARGETS_FOLDER
+ECLIPSE_EXTRA_NATURES
+ECLIPSE_EXTRA_CPROJECT_CONTENTS
+REPORT_UNDEFINED_PROPERTIES
+RULE_LAUNCH_COMPILE
+RULE_LAUNCH_CUSTOM
+RULE_LAUNCH_LINK
+RULE_MESSAGES
+TARGET_ARCHIVES_MAY_BE_SHARED_LIBS
+TARGET_MESSAGES
+TARGET_SUPPORTS_SHARED_LIBS
+USE_FOLDERS
+XCODE_EMIT_EFFECTIVE_PLATFORM_NAME
+\end{verbatim}
+
+\textbf{Properties - Directories}
+\begin{verbatim}
+ADDITIONAL_MAKE_CLEAN_FILES
+BINARY_DIR
+BUILDSYSTEM_TARGETS
+CACHE_VARIABLES
+CLEAN_NO_CUSTOM
+CMAKE_CONFIGURE_DEPENDS
+COMPILE_DEFINITIONS
+COMPILE_OPTIONS
+DEFINITIONS
+EXCLUDE_FROM_ALL
+IMPLICIT_DEPENDS_INCLUDE_TRANSFORM
+INCLUDE_DIRECTORIES
+INCLUDE_REGULAR_EXPRESSION
+INTERPROCEDURAL_OPTIMIZATION_<CONFIG>
+INTERPROCEDURAL_OPTIMIZATION
+LABELS
+LINK_DIRECTORIES
+LINK_OPTIONS
+LISTFILE_STACK
+MACROS
+PARENT_DIRECTORY
+RULE_LAUNCH_COMPILE
+RULE_LAUNCH_CUSTOM
+RULE_LAUNCH_LINK
+SOURCE_DIR
+SUBDIRECTORIES
+TESTS
+TEST_INCLUDE_FILES
+VARIABLES
+VS_GLOBAL_SECTION_POST_<section>
+VS_GLOBAL_SECTION_PRE_<section>
+VS_STARTUP_PROJECT
+\end{verbatim}
+
+\textbf{Properties - Source Files}
+\begin{verbatim}
+ABSTRACT
+AUTOUIC_OPTIONS
+AUTORCC_OPTIONS
+COMPILE_DEFINITIONS
+COMPILE_FLAGS
+COMPILE_OPTIONS
+EXTERNAL_OBJECT
+Fortran_FORMAT
+GENERATED
+HEADER_FILE_ONLY
+INCLUDE_DIRECTORIES
+\end{verbatim}
+
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+KEEP_EXTENSION
+LABELS
+LANGUAGE
+LOCATION
+MACOSX_PACKAGE_LOCATION
+OBJECT_DEPENDS
+OBJECT_OUTPUTS
+SKIP_AUTOGEN
+SKIP_AUTOMOC
+SKIP_AUTORCC
+SKIP_AUTOUIC
+SYMBOLIC
+VS_COPY_TO_OUT_DIR
+VS_CSHARP_<tagname>
+VS_DEPLOYMENT_CONTENT
+VS_DEPLOYMENT_LOCATION
+VS_INCLUDE_IN_VSIX
+VS_RESOURCE_GENERATOR
+VS_SHADER_DISABLE_OPTIMIZATIONS
+VS_SHADER_ENABLE_DEBUG
+VS_SHADER_ENTRYPOINT
+VS_SHADER_FLAGS
+VS_SHADER_MODEL
+VS_SHADER_OBJECT_FILE_NAME
+VS_SHADER_OUTPUT_HEADER_FILE
+VS_SHADER_TYPE
+VS_SHADER_VARIABLE_NAME
+VS_TOOL_OVERRIDE
+VS_XAML_TYPE
+WRAP_EXCLUDE
+XCODE_EXPLICIT_FILE_TYPE
+XCODE_FILE_ATTRIBUTES
+XCODE_LAST_KNOWN_FILE_TYPE
+\end{verbatim}
+
+\textbf{Properties - Targets}
+\begin{verbatim}
+ALIASED_TARGET
+ANDROID_ANT_ADDITIONAL_OPTIONS
+ANDROID_API
+ANDROID_API_MIN
+ANDROID_ARCH
+ANDROID_ASSETS_DIRECTORIES
+ANDROID_GUI
+ANDROID_JAR_DEPENDENCIES
+ANDROID_JAR_DIRECTORIES
+ANDROID_JAVA_SOURCE_DIR
+ANDROID_NATIVE_LIB_DEPENDENCIES
+ANDROID_NATIVE_LIB_DIRECTORIES
+ANDROID_PROCESS_MAX
+ANDROID_PROGUARD
+ANDROID_PROGUARD_CONFIG_PATH
+ANDROID_SECURE_PROPS_PATH
+ANDROID_SKIP_ANT_STEP
+ANDROID_STL_TYPE
+ARCHIVE_OUTPUT_DIRECTORY_<CONFIG>
+ARCHIVE_OUTPUT_DIRECTORY
+ARCHIVE_OUTPUT_NAME_<CONFIG>
+ARCHIVE_OUTPUT_NAME
+AUTOGEN_BUILD_DIR
+AUTOGEN_PARALLEL
+AUTOGEN_TARGET_DEPENDS
+AUTOMOC_COMPILER_PREDEFINES
+AUTOMOC_DEPEND_FILTERS
+AUTOMOC_MACRO_NAMES
+AUTOMOC_MOC_OPTIONS
+AUTOMOC
+AUTOUIC
+AUTOUIC_OPTIONS
+AUTOUIC_SEARCH_PATHS
+AUTORCC
+AUTORCC_OPTIONS
+BINARY_DIR
+BUILD_RPATH
+BUILD_WITH_INSTALL_NAME_DIR
+BUILD_WITH_INSTALL_RPATH
+BUNDLE_EXTENSION
+BUNDLE
+C_EXTENSIONS
+C_STANDARD
+C_STANDARD_REQUIRED
+COMMON_LANGUAGE_RUNTIME
+COMPATIBLE_INTERFACE_BOOL
+COMPATIBLE_INTERFACE_NUMBER_MAX
+COMPATIBLE_INTERFACE_NUMBER_MIN
+COMPATIBLE_INTERFACE_STRING
+COMPILE_DEFINITIONS
+COMPILE_FEATURES
+COMPILE_FLAGS
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+COMPILE_OPTIONS
+COMPILE_PDB_NAME
+COMPILE_PDB_NAME_<CONFIG>
+COMPILE_PDB_OUTPUT_DIRECTORY
+COMPILE_PDB_OUTPUT_DIRECTORY_<CONFIG>
+<CONFIG>_OUTPUT_NAME
+<CONFIG>_POSTFIX
+CROSSCOMPILING_EMULATOR
+CUDA_PTX_COMPILATION
+CUDA_SEPARABLE_COMPILATION
+CUDA_RESOLVE_DEVICE_SYMBOLS
+CUDA_EXTENSIONS
+CUDA_STANDARD
+CUDA_STANDARD_REQUIRED
+CXX_EXTENSIONS
+CXX_STANDARD
+CXX_STANDARD_REQUIRED
+DEBUG_POSTFIX
+DEFINE_SYMBOL
+DEPLOYMENT_REMOTE_DIRECTORY
+DEPLOYMENT_ADDITIONAL_FILES
+DOTNET_TARGET_FRAMEWORK_VERSION
+EchoString
+ENABLE_EXPORTS
+EXCLUDE_FROM_ALL
+EXCLUDE_FROM_DEFAULT_BUILD_<CONFIG>
+EXCLUDE_FROM_DEFAULT_BUILD
+EXPORT_NAME
+EXPORT_PROPERTIES
+FOLDER
+Fortran_FORMAT
+Fortran_MODULE_DIRECTORY
+FRAMEWORK
+FRAMEWORK_VERSION
+GENERATOR_FILE_NAME
+GNUtoMS
+HAS_CXX
+IMPLICIT_DEPENDS_INCLUDE_TRANSFORM
+IMPORTED_COMMON_LANGUAGE_RUNTIME
+IMPORTED_CONFIGURATIONS
+IMPORTED_GLOBAL
+IMPORTED_IMPLIB_<CONFIG>
+IMPORTED_IMPLIB
+IMPORTED_LIBNAME_<CONFIG>
+IMPORTED_LIBNAME
+IMPORTED_LINK_DEPENDENT_LIBRARIES_<CONFIG>
+IMPORTED_LINK_DEPENDENT_LIBRARIES
+IMPORTED_LINK_INTERFACE_LANGUAGES_<CONFIG>
+IMPORTED_LINK_INTERFACE_LANGUAGES
+IMPORTED_LINK_INTERFACE_LIBRARIES_<CONFIG>
+IMPORTED_LINK_INTERFACE_LIBRARIES
+IMPORTED_LINK_INTERFACE_MULTIPLICITY_<CONFIG>
+IMPORTED_LINK_INTERFACE_MULTIPLICITY
+IMPORTED_LOCATION_<CONFIG>
+IMPORTED_LOCATION
+IMPORTED_NO_SONAME_<CONFIG>
+IMPORTED_NO_SONAME
+IMPORTED_OBJECTS_<CONFIG>
+IMPORTED_OBJECTS
+IMPORTED
+IMPORTED_SONAME_<CONFIG>
+IMPORTED_SONAME
+IMPORT_PREFIX
+IMPORT_SUFFIX
+INCLUDE_DIRECTORIES
+INSTALL_NAME_DIR
+INSTALL_RPATH
+INSTALL_RPATH_USE_LINK_PATH
+INTERFACE_AUTOUIC_OPTIONS
+INTERFACE_COMPILE_DEFINITIONS
+INTERFACE_COMPILE_FEATURES
+INTERFACE_COMPILE_OPTIONS
+INTERFACE_INCLUDE_DIRECTORIES
+INTERFACE_LINK_DEPENDS
+INTERFACE_LINK_DIRECTORIES
+INTERFACE_LINK_LIBRARIES
+INTERFACE_LINK_OPTIONS
+INTERFACE_POSITION_INDEPENDENT_CODE
+INTERFACE_SOURCES
+INTERFACE_SYSTEM_INCLUDE_DIRECTORIES
+INTERPROCEDURAL_OPTIMIZATION_<CONFIG>
+INTERPROCEDURAL_OPTIMIZATION
+IOS_INSTALL_COMBINED
+JOB_POOL_COMPILE
+JOB_POOL_LINK
+LABELS
+<LANG>_CLANG_TIDY
+<LANG>_COMPILER_LAUNCHER
+<LANG>_CPPCHECK
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+<LANG>_CPPLINT
+<LANG>_INCLUDE_WHAT_YOU_USE
+<LANG>_VISIBILITY_PRESET
+LIBRARY_OUTPUT_DIRECTORY_<CONFIG>
+LIBRARY_OUTPUT_DIRECTORY
+LIBRARY_OUTPUT_NAME_<CONFIG>
+LIBRARY_OUTPUT_NAME
+LINK_DEPENDS_NO_SHARED
+LINK_DEPENDS
+LINKER_LANGUAGE
+LINK_DIRECTORIES
+LINK_FLAGS_<CONFIG>
+LINK_FLAGS
+LINK_INTERFACE_LIBRARIES_<CONFIG>
+LINK_INTERFACE_LIBRARIES
+LINK_INTERFACE_MULTIPLICITY_<CONFIG>
+LINK_INTERFACE_MULTIPLICITY
+LINK_LIBRARIES
+LINK_OPTIONS
+LINK_SEARCH_END_STATIC
+LINK_SEARCH_START_STATIC
+LINK_WHAT_YOU_USE
+LOCATION_<CONFIG>
+LOCATION
+MACOSX_BUNDLE_INFO_PLIST
+MACOSX_BUNDLE
+MACOSX_FRAMEWORK_INFO_PLIST
+MACOSX_RPATH
+MANUALLY_ADDED_DEPENDENCIES
+MAP_IMPORTED_CONFIG_<CONFIG
+NAME
+NO_SONAME
+NO_SYSTEM_FROM_IMPORTED
+OSX_ARCHITECTURES_<CONFIG>
+OSX_ARCHITECTURES
+OUTPUT_NAME_<CONFIG>
+OUTPUT_NAME
+PDB_NAME_<CONFIG>
+PDB_NAME
+PDB_OUTPUT_DIRECTORY_<CONFIG>
+PDB_OUTPUT_DIRECTORY
+POSITION_INDEPENDENT_CODE
+PREFIX
+PRIVATE_HEADER
+PROJECT_LABEL
+PUBLIC_HEADER
+RESOURCE
+RULE_LAUNCH_COMPILE
+RULE_LAUNCH_CUSTOM
+RULE_LAUNCH_LINK
+RUNTIME_OUTPUT_DIRECTORY_<CONFIG>
+RUNTIME_OUTPUT_DIRECTORY
+RUNTIME_OUTPUT_NAME_<CONFIG>
+RUNTIME_OUTPUT_NAME
+SKIP_BUILD_RPATH
+SOURCE_DIR
+SOURCES
+SOVERSION
+STATIC_LIBRARY_FLAGS_<CONFIG>
+STATIC_LIBRARY_FLAGS
+STATIC_LIBRARY_OPTIONS
+SUFFIX
+TYPE
+VERSION
+VISIBILITY_INLINES_HIDDEN
+VS_CONFIGURATION_TYPE
+VS_DEBUGGER_COMMAND
+VS_DEBUGGER_COMMAND_ARGUMENTS
+VS_DEBUGGER_ENVIRONMENT
+VS_DEBUGGER_WORKING_DIRECTORY
+VS_DESKTOP_EXTENSIONS_VERSION
+VS_DOTNET_REFERENCE_<refname>
+VS_DOTNET_REFERENCEPROP_<refname>_TAG_<tagname>
+VS_DOTNET_REFERENCES
+VS_DOTNET_REFERENCES_COPY_LOCAL
+VS_DOTNET_TARGET_FRAMEWORK_VERSION
+VS_GLOBAL_KEYWORD
+VS_GLOBAL_PROJECT_TYPES
+VS_GLOBAL_ROOTNAMESPACE
+VS_GLOBAL_<variable>
+VS_IOT_EXTENSIONS_VERSION
+VS_IOT_STARTUP_TASK
+VS_KEYWORD
+VS_MOBILE_EXTENSIONS_VERSION
+VS_SCC_AUXPATH
+VS_SCC_LOCALPATH
+VS_SCC_PROJECTNAME
+VS_SCC_PROVIDER
+VS_SDK_REFERENCES
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+VS_USER_PROPS
+VS_WINDOWS_TARGET_PLATFORM_MIN_VERSION
+VS_WINRT_COMPONENT
+VS_WINRT_EXTENSIONS
+VS_WINRT_REFERENCES
+WIN32_EXECUTABLE
+WINDOWS_EXPORT_ALL_SYMBOLS
+XCODE_ATTRIBUTE_<an-attribute>
+XCODE_EXPLICIT_FILE_TYPE
+XCODE_PRODUCT_TYPE
+XCODE_SCHEME_ADDRESS_SANITIZER
+XCODE_SCHEME_ADDRESS_SANITIZER_USE_AFTER_RETURN
+XCODE_SCHEME_THREAD_SANITIZER
+XCODE_SCHEME_THREAD_SANITIZER_STOP
+XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER
+XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER_STOP
+XCODE_SCHEME_DISABLE_MAIN_THREAD_CHECKER
+XCODE_SCHEME_MAIN_THREAD_CHECKER_STOP
+XCODE_SCHEME_MALLOC_SCRIBBLE
+XCODE_SCHEME_MALLOC_GUARD_EDGES
+XCODE_SCHEME_GUARD_MALLOC
+XCODE_SCHEME_ZOMBIE_OBJECTS
+XCODE_SCHEME_MALLOC_STACK
+XCODE_SCHEME_DYNAMIC_LINKER_API_USAGE
+XCODE_SCHEME_DYNAMIC_LIBRARY_LOADS
+XCODE_SCHEME_EXECUTABLE
+XCODE_SCHEME_ARGUMENTS
+XCODE_SCHEME_ENVIRONMENT
+XCTEST
+\end{verbatim}
+
+\textbf{Properties - Tests}
+\begin{verbatim}
+ATTACHED_FILES_ON_FAIL
+ATTACHED_FILES
+COST
+DEPENDS
+DISABLED
+ENVIRONMENT
+FAIL_REGULAR_EXPRESSION
+FIXTURES_CLEANUP
+FIXTURES_REQUIRED
+FIXTURES_SETUP
+LABELS
+MEASUREMENT
+PASS_REGULAR_EXPRESSION
+PROCESSOR_AFFINITY
+PROCESSORS
+REQUIRED_FILES
+RESOURCE_LOCK
+RUN_SERIAL
+SKIP_RETURN_CODE
+TIMEOUT
+TIMEOUT_AFTER_MATCH
+WILL_FAIL
+WORKING_DIRECTORY
+\end{verbatim}
+
+\textbf{Properties - Cache Entries}
+\begin{verbatim}
+ADVANCED
+HELPSTRING
+MODIFIED
+STRINGS
+TYPE
+VALUE
+\end{verbatim}
+
+\textbf{Properties - Installed Files}
+\begin{verbatim}
+CPACK_DESKTOP_SHORTCUTS
+CPACK_NEVER_OVERWRITE
+CPACK_PERMANENT
+CPACK_START_MENU_SHORTCUTS
+CPACK_STARTUP_SHORTCUTS
+CPACK_WIX_ACL
+\end{verbatim}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Variables - Information}
+\begin{verbatim}
+CMAKE_AR
+CMAKE_ARGC
+CMAKE_ARGV0
+CMAKE_BINARY_DIR
+CMAKE_BUILD_TOOL
+CMAKE_CACHEFILE_DIR
+CMAKE_CACHE_MAJOR_VERSION
+CMAKE_CACHE_MINOR_VERSION
+CMAKE_CACHE_PATCH_VERSION
+CMAKE_CFG_INTDIR
+CMAKE_COMMAND
+CMAKE_CPACK_COMMAND
+CMAKE_CROSSCOMPILING
+CMAKE_CROSSCOMPILING_EMULATOR
+CMAKE_CTEST_COMMAND
+CMAKE_CURRENT_BINARY_DIR
+CMAKE_CURRENT_LIST_DIR
+CMAKE_CURRENT_LIST_FILE
+CMAKE_CURRENT_LIST_LINE
+CMAKE_CURRENT_SOURCE_DIR
+CMAKE_DIRECTORY_LABELS
+CMAKE_DL_LIBS
+CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION
+CMAKE_EDIT_COMMAND
+CMAKE_EXECUTABLE_SUFFIX
+CMAKE_EXTRA_GENERATOR
+CMAKE_EXTRA_SHARED_LIBRARY_SUFFIXES
+CMAKE_FIND_PACKAGE_NAME
+CMAKE_FIND_PACKAGE_SORT_DIRECTION
+CMAKE_FIND_PACKAGE_SORT_ORDER
+CMAKE_GENERATOR
+CMAKE_GENERATOR_INSTANCE
+CMAKE_GENERATOR_PLATFORM
+CMAKE_GENERATOR_TOOLSET
+CMAKE_HOME_DIRECTORY
+CMAKE_IMPORT_LIBRARY_PREFIX
+CMAKE_IMPORT_LIBRARY_SUFFIX
+CMAKE_JOB_POOL_COMPILE
+CMAKE_JOB_POOL_LINK
+CMAKE_JOB_POOLS
+CMAKE_<LANG>_COMPILER_AR
+CMAKE_<LANG>_COMPILER_RANLIB
+CMAKE_LINK_LIBRARY_SUFFIX
+CMAKE_LINK_SEARCH_END_STATIC
+CMAKE_LINK_SEARCH_START_STATIC
+CMAKE_MAJOR_VERSION
+CMAKE_MAKE_PROGRAM
+CMAKE_MATCH_COUNT
+CMAKE_MATCH_<n>
+CMAKE_MINIMUM_REQUIRED_VERSION
+CMAKE_MINOR_VERSION
+CMAKE_NETRC
+CMAKE_NETRC_FILE
+CMAKE_PARENT_LIST_FILE
+CMAKE_PATCH_VERSION
+CMAKE_PROJECT_DESCRIPTION
+CMAKE_PROJECT_HOMEPAGE_URL
+CMAKE_PROJECT_NAME
+CMAKE_PROJECT_VERSION
+CMAKE_PROJECT_VERSION_MAJOR
+CMAKE_PROJECT_VERSION_MINOR
+CMAKE_PROJECT_VERSION_PATCH
+CMAKE_PROJECT_VERSION_TWEAK
+CMAKE_RANLIB
+CMAKE_ROOT
+CMAKE_RULE_MESSAGES
+CMAKE_SCRIPT_MODE_FILE
+CMAKE_SHARED_LIBRARY_PREFIX
+CMAKE_SHARED_LIBRARY_SUFFIX
+CMAKE_SHARED_MODULE_PREFIX
+CMAKE_SHARED_MODULE_SUFFIX
+CMAKE_SIZEOF_VOID_P
+CMAKE_SKIP_INSTALL_RULES
+CMAKE_SKIP_RPATH
+CMAKE_SOURCE_DIR
+CMAKE_STATIC_LIBRARY_PREFIX
+CMAKE_STATIC_LIBRARY_SUFFIX
+CMAKE_TOOLCHAIN_FILE
+CMAKE_TWEAK_VERSION
+CMAKE_VERBOSE_MAKEFILE
+CMAKE_VERSION
+CMAKE_VS_DEVENV_COMMAND
+CMAKE_VS_INTEL_Fortran_PROJECT_VERSION
+CMAKE_VS_MSBUILD_COMMAND
+CMAKE_VS_NsightTegra_VERSION
+CMAKE_VS_PLATFORM_NAME
+CMAKE_VS_PLATFORM_TOOLSET
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+CMAKE_VS_PLATFORM_TOOLSET_CUDA
+CMAKE_VS_PLATFORM_TOOLSET_HOST_ARCHITECTURE
+CMAKE_VS_PLATFORM_TOOLSET_VERSION
+CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION
+CMAKE_XCODE_GENERATE_SCHEME
+CMAKE_XCODE_PLATFORM_TOOLSET
+<PROJECT-NAME>_BINARY_DIR
+<PROJECT-NAME>_DESCRIPTION
+<PROJECT-NAME>_HOMEPAGE_URL
+<PROJECT-NAME>_SOURCE_DIR
+<PROJECT-NAME>_VERSION
+<PROJECT-NAME>_VERSION_MAJOR
+<PROJECT-NAME>_VERSION_MINOR
+<PROJECT-NAME>_VERSION_PATCH
+<PROJECT-NAME>_VERSION_TWEAK
+PROJECT_BINARY_DIR
+PROJECT_DESCRIPTION
+PROJECT_HOMEPAGE_URL
+PROJECT_NAME
+PROJECT_SOURCE_DIR
+PROJECT_VERSION
+PROJECT_VERSION_MAJOR
+PROJECT_VERSION_MINOR
+PROJECT_VERSION_PATCH
+PROJECT_VERSION_TWEAK
+\end{verbatim}
+
+\textbf{Variables - Change Behavior}
+\begin{verbatim}
+BUILD_SHARED_LIBS
+CMAKE_ABSOLUTE_DESTINATION_FILES
+CMAKE_APPBUNDLE_PATH
+CMAKE_AUTOMOC_RELAXED_MODE
+CMAKE_BACKWARDS_COMPATIBILITY
+CMAKE_BUILD_TYPE
+CMAKE_CODEBLOCKS_COMPILER_ID
+CMAKE_CODEBLOCKS_EXCLUDE_EXTERNAL_FILES
+CMAKE_CODELITE_USE_TARGETS
+CMAKE_COLOR_MAKEFILE
+CMAKE_CONFIGURATION_TYPES
+CMAKE_DEBUG_TARGET_PROPERTIES
+CMAKE_DEPENDS_IN_PROJECT_ONLY
+CMAKE_DISABLE_FIND_PACKAGE_<PackageName>
+CMAKE_ECLIPSE_GENERATE_LINKED_RESOURCES
+CMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT
+CMAKE_ECLIPSE_MAKE_ARGUMENTS
+CMAKE_ECLIPSE_VERSION
+CMAKE_ERROR_DEPRECATED
+CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION
+CMAKE_EXPORT_COMPILE_COMMANDS
+CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+CMAKE_FIND_APPBUNDLE
+CMAKE_FIND_FRAMEWORK
+CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX
+CMAKE_FIND_LIBRARY_PREFIXES
+CMAKE_FIND_LIBRARY_SUFFIXES
+CMAKE_FIND_NO_INSTALL_PREFIX
+CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY
+CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY
+CMAKE_FIND_PACKAGE_WARN_NO_MODULE
+CMAKE_FIND_ROOT_PATH
+CMAKE_FIND_ROOT_PATH_MODE_INCLUDE
+CMAKE_FIND_ROOT_PATH_MODE_LIBRARY
+CMAKE_FIND_ROOT_PATH_MODE_PACKAGE
+CMAKE_FIND_ROOT_PATH_MODE_PROGRAM
+CMAKE_FRAMEWORK_PATH
+CMAKE_IGNORE_PATH
+CMAKE_INCLUDE_DIRECTORIES_BEFORE
+CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE
+CMAKE_INCLUDE_PATH
+CMAKE_INSTALL_DEFAULT_COMPONENT_NAME
+CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS
+CMAKE_INSTALL_MESSAGE
+CMAKE_INSTALL_PREFIX
+CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT
+CMAKE_LIBRARY_PATH
+CMAKE_LINK_DIRECTORIES_BEFORE
+CMAKE_MFC_FLAG
+CMAKE_MODULE_PATH
+CMAKE_NOT_USING_CONFIG_FLAGS
+CMAKE_POLICY_DEFAULT_CMP<NNNN>
+CMAKE_POLICY_WARNING_CMP<NNNN>
+CMAKE_PREFIX_PATH
+CMAKE_PROGRAM_PATH
+CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE
+CMAKE_SKIP_INSTALL_ALL_DEPENDENCY
+CMAKE_STAGING_PREFIX
+CMAKE_SUBLIME_TEXT_2_ENV_SETTINGS
+CMAKE_SUBLIME_TEXT_2_EXCLUDE_BUILD_TREE
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+CMAKE_SUPPRESS_REGENERATION
+CMAKE_SYSROOT
+CMAKE_SYSROOT_COMPILE
+CMAKE_SYSROOT_LINK
+CMAKE_SYSTEM_APPBUNDLE_PATH
+CMAKE_SYSTEM_FRAMEWORK_PATH
+CMAKE_SYSTEM_IGNORE_PATH
+CMAKE_SYSTEM_INCLUDE_PATH
+CMAKE_SYSTEM_LIBRARY_PATH
+CMAKE_SYSTEM_PREFIX_PATH
+CMAKE_SYSTEM_PROGRAM_PATH
+CMAKE_USER_MAKE_RULES_OVERRIDE
+CMAKE_WARN_DEPRECATED
+CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION
+CMAKE_XCODE_GENERATE_TOP_LEVEL_PROJECT_ONLY
+CMAKE_XCODE_SCHEME_ADDRESS_SANITIZER
+CMAKE_XCODE_SCHEME_ADDRESS_SANITIZER_USE_AFTER_RETURN
+CMAKE_XCODE_SCHEME_THREAD_SANITIZER
+CMAKE_XCODE_SCHEME_THREAD_SANITIZER_STOP
+CMAKE_XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER
+CMAKE_XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER_STOP
+CMAKE_XCODE_SCHEME_DISABLE_MAIN_THREAD_CHECKER
+CMAKE_XCODE_SCHEME_MAIN_THREAD_CHECKER_STOP
+CMAKE_XCODE_SCHEME_MALLOC_SCRIBBLE
+CMAKE_XCODE_SCHEME_MALLOC_GUARD_EDGES
+CMAKE_XCODE_SCHEME_GUARD_MALLOC
+CMAKE_XCODE_SCHEME_ZOMBIE_OBJECTS
+CMAKE_XCODE_SCHEME_MALLOC_STACK
+CMAKE_XCODE_SCHEME_DYNAMIC_LINKER_API_USAGE
+CMAKE_XCODE_SCHEME_DYNAMIC_LIBRARY_LOADS
+<PackageName>_ROOT
+\end{verbatim}
+
+\textbf{Variables - System Description}
+\begin{verbatim}
+ANDROID
+APPLE
+BORLAND
+CACHE
+CMAKE_CL_64
+CMAKE_COMPILER_2005
+CMAKE_HOST_APPLE
+CMAKE_HOST_SOLARIS
+CMAKE_HOST_SYSTEM
+CMAKE_HOST_SYSTEM_NAME
+CMAKE_HOST_SYSTEM_PROCESSOR
+CMAKE_HOST_SYSTEM_VERSION
+CMAKE_HOST_UNIX
+CMAKE_HOST_WIN32
+CMAKE_LIBRARY_ARCHITECTURE
+CMAKE_LIBRARY_ARCHITECTURE_REGEX
+CMAKE_OBJECT_PATH_MAX
+CMAKE_SYSTEM
+CMAKE_SYSTEM_NAME
+CMAKE_SYSTEM_PROCESSOR
+CMAKE_SYSTEM_VERSION
+CYGWIN
+ENV
+GHS-MULTI
+MINGW
+MSVC
+MSVC10
+MSVC11
+MSVC12
+MSVC14
+MSVC60
+MSVC70
+MSVC71
+MSVC80
+MSVC90
+MSVC_IDE
+MSVC_TOOLSET_VERSION
+MSVC_VERSION
+UNIX
+WIN32
+WINCE
+WINDOWS_PHONE
+WINDOWS_STORE
+XCODE
+XCODE_VERSION
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Variables - Build Control}
+\begin{verbatim}
+CMAKE_ANDROID_ANT_ADDITIONAL_OPTIONS
+CMAKE_ANDROID_API
+CMAKE_ANDROID_API_MIN
+CMAKE_ANDROID_ARCH
+CMAKE_ANDROID_ARCH_ABI
+CMAKE_ANDROID_ARM_MODE
+CMAKE_ANDROID_ARM_NEON
+CMAKE_ANDROID_ASSETS_DIRECTORIES
+CMAKE_ANDROID_GUI
+CMAKE_ANDROID_JAR_DEPENDENCIES
+CMAKE_ANDROID_JAR_DIRECTORIES
+CMAKE_ANDROID_JAVA_SOURCE_DIR
+CMAKE_ANDROID_NATIVE_LIB_DEPENDENCIES
+CMAKE_ANDROID_NATIVE_LIB_DIRECTORIES
+CMAKE_ANDROID_NDK
+CMAKE_ANDROID_NDK_DEPRECATED_HEADERS
+CMAKE_ANDROID_NDK_TOOLCHAIN_HOST_TAG
+CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION
+CMAKE_ANDROID_PROCESS_MAX
+CMAKE_ANDROID_PROGUARD
+CMAKE_ANDROID_PROGUARD_CONFIG_PATH
+CMAKE_ANDROID_SECURE_PROPS_PATH
+CMAKE_ANDROID_SKIP_ANT_STEP
+CMAKE_ANDROID_STANDALONE_TOOLCHAIN
+CMAKE_ANDROID_STL_TYPE
+CMAKE_ARCHIVE_OUTPUT_DIRECTORY
+CMAKE_ARCHIVE_OUTPUT_DIRECTORY_<CONFIG>
+CMAKE_AUTOGEN_PARALLEL
+CMAKE_AUTOGEN_VERBOSE
+CMAKE_AUTOMOC
+CMAKE_AUTOMOC_COMPILER_PREDEFINES
+CMAKE_AUTOMOC_DEPEND_FILTERS
+CMAKE_AUTOMOC_MACRO_NAMES
+CMAKE_AUTOMOC_MOC_OPTIONS
+CMAKE_AUTORCC
+CMAKE_AUTORCC_OPTIONS
+CMAKE_AUTOUIC
+CMAKE_AUTOUIC_OPTIONS
+CMAKE_AUTOUIC_SEARCH_PATHS
+CMAKE_BUILD_RPATH
+CMAKE_BUILD_WITH_INSTALL_NAME_DIR
+CMAKE_BUILD_WITH_INSTALL_RPATH
+CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY
+CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY_<CONFIG>
+CMAKE_<CONFIG>_POSTFIX
+CMAKE_CUDA_SEPARABLE_COMPILATION
+CMAKE_DEBUG_POSTFIX
+CMAKE_ENABLE_EXPORTS
+CMAKE_EXE_LINKER_FLAGS
+CMAKE_EXE_LINKER_FLAGS_<CONFIG>
+CMAKE_EXE_LINKER_FLAGS_<CONFIG>_INIT
+CMAKE_EXE_LINKER_FLAGS_INIT
+CMAKE_FOLDER
+CMAKE_Fortran_FORMAT
+CMAKE_Fortran_MODULE_DIRECTORY
+CMAKE_GNUtoMS
+CMAKE_INCLUDE_CURRENT_DIR
+CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE
+CMAKE_INSTALL_NAME_DIR
+CMAKE_INSTALL_RPATH
+CMAKE_INSTALL_RPATH_USE_LINK_PATH
+CMAKE_INTERPROCEDURAL_OPTIMIZATION
+CMAKE_INTERPROCEDURAL_OPTIMIZATION_<CONFIG>
+CMAKE_IOS_INSTALL_COMBINED
+CMAKE_<LANG>_CLANG_TIDY
+CMAKE_<LANG>_COMPILER_LAUNCHER
+CMAKE_<LANG>_CPPCHECK
+CMAKE_<LANG>_CPPLINT
+CMAKE_<LANG>_INCLUDE_WHAT_YOU_USE
+CMAKE_<LANG>_VISIBILITY_PRESET
+CMAKE_LIBRARY_OUTPUT_DIRECTORY
+CMAKE_LIBRARY_OUTPUT_DIRECTORY_<CONFIG>
+CMAKE_LIBRARY_PATH_FLAG
+CMAKE_LINK_DEF_FILE_FLAG
+CMAKE_LINK_DEPENDS_NO_SHARED
+CMAKE_LINK_INTERFACE_LIBRARIES
+CMAKE_LINK_LIBRARY_FILE_FLAG
+CMAKE_LINK_LIBRARY_FLAG
+CMAKE_LINK_WHAT_YOU_USE
+CMAKE_MACOSX_BUNDLE
+CMAKE_MACOSX_RPATH
+CMAKE_MAP_IMPORTED_CONFIG_<CONFIG>
+CMAKE_MODULE_LINKER_FLAGS
+CMAKE_MODULE_LINKER_FLAGS_<CONFIG>
+CMAKE_MODULE_LINKER_FLAGS_<CONFIG>_INIT
+CMAKE_MODULE_LINKER_FLAGS_INIT
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+CMAKE_MSVCIDE_RUN_PATH
+CMAKE_NINJA_OUTPUT_PATH_PREFIX
+CMAKE_NO_BUILTIN_CHRPATH
+CMAKE_NO_SYSTEM_FROM_IMPORTED
+CMAKE_OSX_ARCHITECTURES
+CMAKE_OSX_DEPLOYMENT_TARGET
+CMAKE_OSX_SYSROOT
+CMAKE_PDB_OUTPUT_DIRECTORY
+CMAKE_PDB_OUTPUT_DIRECTORY_<CONFIG>
+CMAKE_POSITION_INDEPENDENT_CODE
+CMAKE_RUNTIME_OUTPUT_DIRECTORY
+CMAKE_RUNTIME_OUTPUT_DIRECTORY_<CONFIG>
+CMAKE_SHARED_LINKER_FLAGS
+CMAKE_SHARED_LINKER_FLAGS_<CONFIG>
+CMAKE_SHARED_LINKER_FLAGS_<CONFIG>_INIT
+CMAKE_SHARED_LINKER_FLAGS_INIT
+CMAKE_SKIP_BUILD_RPATH
+CMAKE_SKIP_INSTALL_RPATH
+CMAKE_STATIC_LINKER_FLAGS
+CMAKE_STATIC_LINKER_FLAGS_<CONFIG>
+CMAKE_STATIC_LINKER_FLAGS_<CONFIG>_INIT
+CMAKE_STATIC_LINKER_FLAGS_INIT
+CMAKE_TRY_COMPILE_CONFIGURATION
+CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
+CMAKE_TRY_COMPILE_TARGET_TYPE
+CMAKE_USE_RELATIVE_PATHS
+CMAKE_VISIBILITY_INLINES_HIDDEN
+CMAKE_VS_GLOBALS
+CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD
+CMAKE_VS_INCLUDE_PACKAGE_TO_DEFAULT_BUILD
+CMAKE_VS_SDK_EXCLUDE_DIRECTORIES
+CMAKE_VS_SDK_EXECUTABLE_DIRECTORIES
+CMAKE_VS_SDK_INCLUDE_DIRECTORIES
+CMAKE_VS_SDK_LIBRARY_DIRECTORIES
+CMAKE_VS_SDK_LIBRARY_WINRT_DIRECTORIES
+CMAKE_VS_SDK_REFERENCE_DIRECTORIES
+CMAKE_VS_SDK_SOURCE_DIRECTORIES
+CMAKE_VS_WINRT_BY_DEFAULT
+CMAKE_WIN32_EXECUTABLE
+CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS
+CMAKE_XCODE_ATTRIBUTE_<an-attribute>
+EXECUTABLE_OUTPUT_PATH
+LIBRARY_OUTPUT_PATH
+\end{verbatim}
+
+\textbf{Variables - Languages}
+\begin{verbatim}
+CMAKE_COMPILER_IS_GNUCC
+CMAKE_COMPILER_IS_GNUCXX
+CMAKE_COMPILER_IS_GNUG77
+CMAKE_CUDA_HOST_COMPILER
+CMAKE_CUDA_EXTENSIONS
+CMAKE_CUDA_STANDARD
+CMAKE_CUDA_STANDARD_REQUIRED
+CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES
+CMAKE_CXX_COMPILE_FEATURES
+CMAKE_CXX_EXTENSIONS
+CMAKE_CXX_STANDARD
+CMAKE_CXX_STANDARD_REQUIRED
+CMAKE_C_COMPILE_FEATURES
+CMAKE_C_EXTENSIONS
+CMAKE_C_STANDARD
+CMAKE_C_STANDARD_REQUIRED
+CMAKE_Fortran_MODDIR_DEFAULT
+CMAKE_Fortran_MODDIR_FLAG
+CMAKE_Fortran_MODOUT_FLAG
+CMAKE_INTERNAL_PLATFORM_ABI
+CMAKE_<LANG>_ANDROID_TOOLCHAIN_MACHINE
+CMAKE_<LANG>_ANDROID_TOOLCHAIN_PREFIX
+CMAKE_<LANG>_ANDROID_TOOLCHAIN_SUFFIX
+CMAKE_<LANG>_ARCHIVE_APPEND
+CMAKE_<LANG>_ARCHIVE_CREATE
+CMAKE_<LANG>_ARCHIVE_FINISH
+CMAKE_<LANG>_COMPILER
+CMAKE_<LANG>_COMPILER_ABI
+CMAKE_<LANG>_COMPILER_ARCHITECTURE_ID
+CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN
+CMAKE_<LANG>_COMPILER_ID
+CMAKE_<LANG>_COMPILER_LOADED
+CMAKE_<LANG>_COMPILER_PREDEFINES_COMMAND
+CMAKE_<LANG>_COMPILER_TARGET
+CMAKE_<LANG>_COMPILER_VERSION
+CMAKE_<LANG>_COMPILER_VERSION_INTERNAL
+CMAKE_<LANG>_COMPILE_OBJECT
+CMAKE_<LANG>_CREATE_SHARED_LIBRARY
+CMAKE_<LANG>_CREATE_SHARED_MODULE
+CMAKE_<LANG>_CREATE_STATIC_LIBRARY
+\end{verbatim}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+CMAKE_<LANG>_FLAGS
+CMAKE_<LANG>_FLAGS_<CONFIG>
+CMAKE_<LANG>_FLAGS_<CONFIG>_INIT
+CMAKE_<LANG>_FLAGS_DEBUG
+CMAKE_<LANG>_FLAGS_DEBUG_INIT
+CMAKE_<LANG>_FLAGS_INIT
+CMAKE_<LANG>_FLAGS_MINSIZEREL
+CMAKE_<LANG>_FLAGS_MINSIZEREL_INIT
+CMAKE_<LANG>_FLAGS_RELEASE
+CMAKE_<LANG>_FLAGS_RELEASE_INIT
+CMAKE_<LANG>_FLAGS_RELWITHDEBINFO
+CMAKE_<LANG>_FLAGS_RELWITHDEBINFO_INIT
+CMAKE_<LANG>_GHS_KERNEL_FLAGS_<CONFIG>
+CMAKE_<LANG>_GHS_KERNEL_FLAGS_DEBUG
+CMAKE_<LANG>_GHS_KERNEL_FLAGS_MINSIZEREL
+CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELEASE
+CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELWITHDEBINFO
+CMAKE_<LANG>_IGNORE_EXTENSIONS
+CMAKE_<LANG>_IMPLICIT_INCLUDE_DIRECTORIES
+CMAKE_<LANG>_IMPLICIT_LINK_DIRECTORIES
+CMAKE_<LANG>_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES
+CMAKE_<LANG>_IMPLICIT_LINK_LIBRARIES
+CMAKE_<LANG>_LIBRARY_ARCHITECTURE
+CMAKE_<LANG>_LINKER_PREFERENCE
+CMAKE_<LANG>_LINKER_PREFERENCE_PROPAGATES
+CMAKE_<LANG>_LINKER_WRAPPER_FLAG
+CMAKE_<LANG>_LINKER_WRAPPER_FLAG_SEP
+CMAKE_<LANG>_LINK_EXECUTABLE
+CMAKE_<LANG>_OUTPUT_EXTENSION
+CMAKE_<LANG>_PLATFORM_ID
+CMAKE_<LANG>_SIMULATE_ID
+CMAKE_<LANG>_SIMULATE_VERSION
+CMAKE_<LANG>_SIZEOF_DATA_PTR
+CMAKE_<LANG>_SOURCE_FILE_EXTENSIONS
+CMAKE_<LANG>_STANDARD_INCLUDE_DIRECTORIES
+CMAKE_<LANG>_STANDARD_LIBRARIES
+CMAKE_Swift_LANGUAGE_VERSION
+CMAKE_USER_MAKE_RULES_OVERRIDE_<LANG>
+\end{verbatim}
+
+\textbf{Variables - CTest}
+\begin{verbatim}
+CTEST_BINARY_DIRECTORY
+CTEST_BUILD_COMMAND
+CTEST_BUILD_NAME
+CTEST_BZR_COMMAND
+CTEST_BZR_UPDATE_OPTIONS
+CTEST_CHANGE_ID
+CTEST_CHECKOUT_COMMAND
+CTEST_CONFIGURATION_TYPE
+CTEST_CONFIGURE_COMMAND
+CTEST_COVERAGE_COMMAND
+CTEST_COVERAGE_EXTRA_FLAGS
+CTEST_CURL_OPTIONS
+CTEST_CUSTOM_COVERAGE_EXCLUDE
+CTEST_CUSTOM_ERROR_EXCEPTION
+CTEST_CUSTOM_ERROR_MATCH
+CTEST_CUSTOM_ERROR_POST_CONTEXT
+CTEST_CUSTOM_ERROR_PRE_CONTEXT
+CTEST_CUSTOM_MAXIMUM_FAILED_TEST_OUTPUT_SIZE
+CTEST_CUSTOM_MAXIMUM_NUMBER_OF_ERRORS
+CTEST_CUSTOM_MAXIMUM_NUMBER_OF_WARNINGS
+CTEST_CUSTOM_MAXIMUM_PASSED_TEST_OUTPUT_SIZE
+CTEST_CUSTOM_MEMCHECK_IGNORE
+CTEST_CUSTOM_POST_MEMCHECK
+CTEST_CUSTOM_POST_TEST
+CTEST_CUSTOM_PRE_MEMCHECK
+CTEST_CUSTOM_PRE_TEST
+CTEST_CUSTOM_TEST_IGNORE
+CTEST_CUSTOM_WARNING_EXCEPTION
+CTEST_CUSTOM_WARNING_MATCH
+CTEST_CVS_CHECKOUT
+CTEST_CVS_COMMAND
+CTEST_CVS_UPDATE_OPTIONS
+CTEST_DROP_LOCATION
+CTEST_DROP_METHOD
+CTEST_DROP_SITE
+CTEST_DROP_SITE_CDASH
+CTEST_DROP_SITE_PASSWORD
+CTEST_DROP_SITE_USER
+CTEST_EXTRA_COVERAGE_GLOB
+CTEST_GIT_COMMAND
+CTEST_GIT_INIT_SUBMODULES
+CTEST_GIT_UPDATE_CUSTOM
+CTEST_GIT_UPDATE_OPTIONS
+CTEST_HG_COMMAND
+CTEST_HG_UPDATE_OPTIONS
+CTEST_LABELS_FOR_SUBPROJECTS
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+CTEST_MEMORYCHECK_COMMAND
+CTEST_MEMORYCHECK_COMMAND_OPTIONS
+CTEST_MEMORYCHECK_SANITIZER_OPTIONS
+CTEST_MEMORYCHECK_SUPPRESSIONS_FILE
+CTEST_MEMORYCHECK_TYPE
+CTEST_NIGHTLY_START_TIME
+CTEST_P4_CLIENT
+CTEST_P4_COMMAND
+CTEST_P4_OPTIONS
+CTEST_P4_UPDATE_OPTIONS
+CTEST_RUN_CURRENT_SCRIPT
+CTEST_SCP_COMMAND
+CTEST_SITE
+CTEST_SOURCE_DIRECTORY
+CTEST_SVN_COMMAND
+CTEST_SVN_OPTIONS
+CTEST_SVN_UPDATE_OPTIONS
+CTEST_TEST_LOAD
+CTEST_TEST_TIMEOUT
+CTEST_TRIGGER_SITE
+CTEST_UPDATE_COMMAND
+CTEST_UPDATE_OPTIONS
+CTEST_UPDATE_VERSION_ONLY
+CTEST_USE_LAUNCHERS
+\end{verbatim}
+
+\textbf{Variables - CPack}
+\begin{verbatim}
+CPACK_ABSOLUTE_DESTINATION_FILES
+CPACK_COMPONENT_INCLUDE_TOPLEVEL_DIRECTORY
+CPACK_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION
+CPACK_INCLUDE_TOPLEVEL_DIRECTORY
+CPACK_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS
+CPACK_INSTALL_SCRIPT
+CPACK_PACKAGING_INSTALL_PREFIX
+CPACK_SET_DESTDIR
+CPACK_WARN_ON_ABSOLUTE_INSTALL_DESTINATION
+\end{verbatim}
+
+\textbf{C++ Features}
+\begin{verbatim}
+cxx_std_98
+cxx_std_11
+cxx_std_14
+cxx_std_17
+cxx_std_20
+cxx_aggregate_default_initializers
+cxx_alias_templates
+cxx_alignas
+cxx_alignof
+cxx_attributes
+cxx_attribute_deprecated
+cxx_auto_type
+cxx_binary_literals
+cxx_constexpr
+cxx_contextual_conversions
+cxx_decltype_incomplete_return_types
+cxx_decltype
+cxx_decltype_auto
+cxx_default_function_template_args
+cxx_defaulted_functions
+cxx_defaulted_move_initializers
+cxx_delegating_constructors
+cxx_deleted_functions
+cxx_digit_separators
+cxx_enum_forward_declarations
+cxx_explicit_conversions
+cxx_extended_friend_declarations
+cxx_extern_templates
+cxx_final
+cxx_func_identifier
+cxx_generalized_initializers
+cxx_generic_lambdas
+cxx_inheriting_constructors
+cxx_inline_namespaces
+cxx_lambdas
+cxx_lambda_init_captures
+cxx_local_type_template_args
+cxx_long_long_type
+cxx_noexcept
+cxx_nonstatic_member_init
+cxx_nullptr
+cxx_override
+cxx_range_for
+cxx_raw_string_literals
+cxx_reference_qualified_functions
+cxx_relaxed_constexpr
+cxx_return_type_deduction
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+cxx_right_angle_brackets
+cxx_rvalue_references
+cxx_sizeof_member
+cxx_static_assert
+cxx_strong_enums
+cxx_thread_local
+cxx_trailing_return_types
+cxx_unicode_literals
+cxx_uniform_initialization
+cxx_unrestricted_unions
+cxx_user_literals
+cxx_variable_templates
+cxx_variadic_macros
+cxx_variadic_templates
+cxx_template_template_parameters
+\end{verbatim}
+
+\textbf{Modules}
+\begin{verbatim}
+AddFileDependencies
+AndroidTestUtilities
+BundleUtilities
+CheckCCompilerFlag
+CheckCSourceCompiles
+CheckCSourceRuns
+CheckCXXCompilerFlag
+CheckCXXSourceCompiles
+CheckCXXSourceRuns
+CheckCXXSymbolExists
+CheckFortranCompilerFlag
+CheckFortranFunctionExists
+CheckFortranSourceCompiles
+CheckFunctionExists
+CheckIPOSupported
+CheckIncludeFileCXX
+CheckIncludeFile
+CheckIncludeFiles
+CheckLanguage
+CheckLibraryExists
+CheckPrototypeDefinition
+CheckStructHasMember
+CheckSymbolExists
+CheckTypeSize
+CheckVariableExists
+CMakeAddFortranSubdirectory
+CMakeBackwardCompatibilityCXX
+CMakeDependentOption
+CMakeDetermineVSServicePack
+CMakeExpandImportedTargets
+CMakeFindDependencyMacro
+CMakeFindFrameworks
+CMakeFindPackageMode
+CMakeForceCompiler
+CMakeGraphVizOptions
+CMakePackageConfigHelpers
+CMakeParseArguments
+CMakePrintHelpers
+CMakePrintSystemInformation
+CMakePushCheckState
+CMakeVerifyManifest
+CPackComponent
+CPackIFW
+CPackIFWConfigureFile
+CPack
+CSharpUtilities
+CTest
+CTestCoverageCollectGCOV
+CTestScriptMode
+CTestUseLaunchers
+Dart
+DeployQt4
+Documentation
+ExternalData
+ExternalProject
+FeatureSummary
+FetchContent
+FindALSA
+FindArmadillo
+FindASPELL
+FindAVIFile
+FindBISON
+FindBLAS
+FindBacktrace
+FindBoost
+FindBullet
+FindBZip2
+FindCABLE
+FindCoin3D
+FindCUDA
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+FindCups
+FindCURL
+FindCurses
+FindCVS
+FindCxxTest
+FindCygwin
+FindDart
+FindDCMTK
+FindDevIL
+FindDoxygen
+FindEXPAT
+FindFLEX
+FindFLTK2
+FindFLTK
+FindFreetype
+FindGCCXML
+FindGDAL
+FindGettext
+FindGIF
+FindGit
+FindGLEW
+FindGLUT
+FindGnuplot
+FindGnuTLS
+FindGSL
+FindGTest
+FindGTK2
+FindGTK
+FindHDF5
+FindHg
+FindHSPELL
+FindHTMLHelp
+FindIce
+FindIcotool
+FindICU
+FindImageMagick
+FindIconv
+FindIntl
+FindITK
+FindJasper
+FindJava
+FindJNI
+FindJPEG
+FindKDE3
+FindKDE4
+FindLAPACK
+FindLATEX
+FindLibArchive
+FindLibLZMA
+FindLibXml2
+FindLibXslt
+FindLTTngUST
+FindLua50
+FindLua51
+FindLua
+FindMatlab
+FindMFC
+FindMotif
+FindMPEG2
+FindMPEG
+FindMPI
+FindODBC
+FindOpenACC
+FindOpenAL
+FindOpenCL
+FindOpenGL
+FindOpenMP
+FindOpenSceneGraph
+FindOpenSSL
+FindOpenThreads
+FindosgAnimation
+FindosgDB
+Findosg_functions
+FindosgFX
+FindosgGA
+FindosgIntrospection
+FindosgManipulator
+FindosgParticle
+FindosgPresentation
+FindosgProducer
+FindosgQt
+Findosg
+FindosgShadow
+FindosgSim
+FindosgTerrain
+FindosgText
+FindosgUtil
+FindosgViewer
+FindosgVolume
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{verbatim}
+FindosgWidget
+FindPackageHandleStandardArgs
+FindPackageMessage
+FindPatch
+FindPerlLibs
+FindPerl
+FindPHP4
+FindPhysFS
+FindPike
+FindPkgConfig
+FindPNG
+FindPostgreSQL
+FindProducer
+FindProtobuf
+FindPython
+FindPython2
+FindPython3
+FindPythonInterp
+FindPythonLibs
+FindQt3
+FindQt4
+FindQt
+FindQuickTime
+FindRTI
+FindRuby
+FindSDL_image
+FindSDL_mixer
+FindSDL_net
+FindSDL
+FindSDL_sound
+FindSDL_ttf
+FindSelfPackers
+FindSquish
+FindSubversion
+FindSWIG
+FindTCL
+FindTclsh
+FindTclStub
+FindThreads
+FindTIFF
+FindUnixCommands
+FindVTK
+FindVulkan
+FindWget
+FindWish
+FindwxWidgets
+FindwxWindows
+FindXCTest
+FindXalanC
+FindXercesC
+FindX11
+FindXMLRPC
+FindZLIB
+FortranCInterface
+GenerateExportHeader
+GetPrerequisites
+GNUInstallDirs
+GoogleTest
+InstallRequiredSystemLibraries
+MacroAddFileDependencies
+ProcessorCount
+SelectLibraryConfigurations
+SquishTestScript
+TestBigEndian
+TestCXXAcceptsFlag
+TestForANSIForScope
+TestForANSIStreamHeaders
+TestForSSTREAM
+TestForSTDNamespace
+UseEcos
+UseJavaClassFilelist
+UseJava
+UseJavaSymlinks
+UsePkgConfig
+UseSWIG
+UsewxWidgets
+Use_wxWindows
+WriteBasicConfigVersionFile
+WriteCompilerDetectionHeader
+\end{verbatim}
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.20\linewidth}
+\textbf{Simple Executable}
+\lstinputlisting[language=CMake]{src/simple_executable/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Static Library}
+\lstinputlisting[language=CMake]{src/static_library/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Shared Library}
+\lstinputlisting[language=CMake]{src/shared_library/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Object Library}
+\lstinputlisting[language=CMake]{src/object_library/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Header Only Library}
+\lstinputlisting[language=CMake]{src/headeronly_library/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Find Packages}
+\lstinputlisting[language=CMake]{src/find_package/CMakeLists.txt}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.26\linewidth}
+\textbf{Add CTest}
+\lstinputlisting[language=CMake]{src/add_test/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Import Library}
+\lstinputlisting[language=CMake]{src/import_library/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{Module: ExternalProject}
+\lstinputlisting[language=CMake]{src/externalproject/CMakeLists.txt}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.20\linewidth}
+\textbf{Qt Support}
+\lstinputlisting[language=CMake]{src/app_qt5/CMakeLists.txt}
+\noindent\rule{\textwidth}{0.1pt}
+\textbf{CPack}
+\lstinputlisting[language=CMake]{src/package/CMakeLists.txt}
+\textbf{Build:}
+\begin{verbatim}
+cmake -B builddir source-dir
+cmake --bulid builddir
+cd builddir
+cpack -G ZIP
+\end{verbatim}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.25\linewidth}
+\textbf{Libray Installation}
+\lstinputlisting[language=CMake]{src/lib_install/CMakeLists.txt}
+\textbf{Build:}
+\begin{verbatim}
+cmake -B builddir -DCMAKE_INSTALL_PREFIX=install-dir source-dir
+cmake --bulid builddir
+cmake --build builddir --target install
+\end{verbatim}
+\end{minipage}
+
+\end{document}
