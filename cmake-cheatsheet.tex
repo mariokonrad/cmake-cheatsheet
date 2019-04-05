@@ -2853,7 +2853,7 @@ write_regv <key> <value>
 \textbf{Build:}
 \begin{verbatim}
 cmake -B builddir source-dir
-cmake --bulid builddir
+cmake --build builddir
 cd builddir
 cpack -G ZIP
 \end{verbatim}
@@ -2865,7 +2865,7 @@ cpack -G ZIP
 \textbf{Build:}
 \begin{verbatim}
 cmake -B builddir -DCMAKE_INSTALL_PREFIX=install-dir source-dir
-cmake --bulid builddir
+cmake --build builddir
 cmake --build builddir --target install
 \end{verbatim}
 \end{minipage}
