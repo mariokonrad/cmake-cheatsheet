@@ -77,6 +77,45 @@ clean :
 	rm -f *.out
 	rm -f *.pdf
 	rm -fr build
+	rm -f cmake-*.txt
+	rm -f sheet-*.txt
 
 %.pdf : %.tex
 	pdflatex $<
+
+
+# following targets are to list parts of the cheatsheet in order to compare
+# them to the cmake help output. Example:
+#
+# $ make prepare-diff
+# $ gvimdiff cmake-module.txt sheet-module.txt
+#
+
+list = @grep -E "cmake$(1)$(2)" cmake-cheatsheet.tex \
+		| grep -Ev "newcommand" \
+		| sed -e 's/^.*cmake$(1)$(2){\(.*\)}.*/\1/' \
+		| sort -u
+
+listcmd = @grep -E "cmake$(1)" cmake-cheatsheet.tex \
+		| grep -Ev "newcommand" \
+		| sed -e 's/^.*cmake$(1){\([a-zA-Z0-9\_]*\)}.*/\1/' \
+		| sed -e 's/\\_/_/g' \
+		| sort -u
+
+prepare-diff :
+	@cmake --help-module-list   | sort -u > cmake-module.txt
+	@cmake --help-command-list  | sort -u > cmake-command.txt
+	@cmake --help-variable-list | sort -u > cmake-variable.txt
+	@cmake --help-property-list | sort -u > cmake-property.txt
+
+	@$(call list,module)            >  sheet-module.txt
+	@$(call listcmd,command)        >  sheet-command.txt
+	@$(call list,variable)          >  sheet-variable.txt
+	@$(call list,prop,gbl)          >  sheet-property.tmp.txt
+	@$(call list,prop,dir)          >> sheet-property.tmp.txt
+	@$(call list,prop,sourcefiles)  >> sheet-property.tmp.txt
+	@$(call list,prop,target)       >> sheet-property.tmp.txt
+	@$(call list,prop,test)         >> sheet-property.tmp.txt
+	@sort -u sheet-property.tmp.txt >  sheet-property.txt
+	@rm sheet-property.tmp.txt
+
