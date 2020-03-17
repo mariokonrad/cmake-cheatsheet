@@ -1,12 +1,12 @@
 # cmake-cheatsheet
 
-(c) 2019 Mario Konrad
+(c) 2020 Mario Konrad
 
 Cheat sheet for CMake 3.13
 
 ## Download
 
-Latest Release: [cmake-cheatsheet.pdf](https://github.com/mariokonrad/cmake-cheatsheet/releases/download/v1.0/cmake-cheatsheet.pdf)
+Latest Release: [cmake-cheatsheet.pdf](https://github.com/mariokonrad/cmake-cheatsheet/releases/download/v1.1/cmake-cheatsheet.pdf)
 
 
 ## License
