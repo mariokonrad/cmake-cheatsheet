@@ -102,20 +102,45 @@ listcmd = @grep -E "cmake$(1)" cmake-cheatsheet.tex \
 		| sed -e 's/\\_/_/g' \
 		| sort -u
 
-prepare-diff :
-	@cmake --help-module-list   | sort -u > cmake-module.txt
-	@cmake --help-command-list  | sort -u > cmake-command.txt
-	@cmake --help-variable-list | sort -u > cmake-variable.txt
-	@cmake --help-property-list | sort -u > cmake-property.txt
+# ignore deprecated commands
+cmakelist-command = @cmake --help-command-list \
+		| sort -u \
+		| grep -Ev "\<(build_name|exec_program|export_library_dependencies|install_files|install_programs|install_targets|load_command|make_directory|output_required_files|remove|subdir_depends|subdirs|use_mangled_mesa|utility_source|variable_requires|write_file)\>"
 
-	@$(call list,module)            >  sheet-module.txt
-	@$(call listcmd,command)        >  sheet-command.txt
-	@$(call list,variable)          >  sheet-variable.txt
-	@$(call list,prop,gbl)          >  sheet-property.tmp.txt
-	@$(call list,prop,dir)          >> sheet-property.tmp.txt
-	@$(call list,prop,sourcefiles)  >> sheet-property.tmp.txt
-	@$(call list,prop,target)       >> sheet-property.tmp.txt
-	@$(call list,prop,test)         >> sheet-property.tmp.txt
-	@sort -u sheet-property.tmp.txt >  sheet-property.txt
+# ignore deprecated modules
+cmakelist-module = @cmake --help-module-list \
+		| sort -u \
+		| grep -Ev "\<(CPackArchive|CPackBundle|CPackCygwin|CPackDeb|CPackDMG|CPackFreeBSD|CPackNSIS|CPackNuGet|CPackPackageMaker|CPackProductBuild|CPackRPM|CPackWIX)\>"
+
+# ignore deprecated properties
+cmakelist-property = @cmake --help-property-list \
+		| sort -u \
+		| grep -Ev "\<COMPILE_DEFINITIONS_<CONFIG>|\<(TEST_INCLUDE_FILE|POST_INSTALL_SCRIPT|PRE_INSTALL_SCRIPT)\>"
+
+cmakelist-variable = @cmake --help-variable-list \
+		| sort -u
+
+prepare-diff :
+	@$(call cmakelist-command)  > cmake-command.txt
+	@$(call cmakelist-module)   > cmake-module.txt
+	@$(call cmakelist-property) > cmake-property.txt
+	@$(call cmakelist-variable) > cmake-variable.txt
+
+	@$(call listcmd,command)          >  sheet-command.txt
+	@$(call list,module)              >  sheet-module.txt
+	@$(call list,prop,gbl)            >  sheet-property.tmp.txt
+	@$(call list,prop,dir)            >> sheet-property.tmp.txt
+	@$(call list,prop,sourcefiles)    >> sheet-property.tmp.txt
+	@$(call list,prop,cache)          >> sheet-property.tmp.txt
+	@$(call list,prop,installedfiles) >> sheet-property.tmp.txt
+	@$(call list,prop,target)         >> sheet-property.tmp.txt
+	@$(call list,prop,test)           >> sheet-property.tmp.txt
+	@sort -u sheet-property.tmp.txt   >  sheet-property.txt
 	@rm sheet-property.tmp.txt
+	@$(call list,variable)            >  sheet-variable.txt
+
+	@-diff cmake-command.txt  sheet-command.txt  1>/dev/null && rm cmake-command.txt  sheet-command.txt  ; true
+	@-diff cmake-module.txt   sheet-module.txt   1>/dev/null && rm cmake-module.txt   sheet-module.txt   ; true
+	@-diff cmake-property.txt sheet-property.txt 1>/dev/null && rm cmake-property.txt sheet-property.txt ; true
+	@-diff cmake-variable.txt sheet-variable.txt 1>/dev/null && rm cmake-variable.txt sheet-variable.txt ; true
 

@@ -3,3 +3,5 @@ build
 *.log
 *.pdf
 *.out
+cmake-*.txt
+sheet-*.txt
