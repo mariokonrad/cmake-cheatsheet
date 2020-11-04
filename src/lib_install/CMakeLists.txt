@@ -30,8 +30,9 @@ install(TARGETS ${PROJECT_NAME}
   INCLUDES DESTINATION ${include_install_dir})
 install(EXPORT ${targets_export_name}
   DESTINATION lib/cmake/${PROJECT_NAME})
-file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/config.cmake.in
-  include(${CMAKE_CURRENT_LIST_DIR}/@targets_export_name@.cmake))
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/config.cmake.in [==[
+  include("${CMAKE_CURRENT_LIST_DIR}/@targets_export_name@.cmake")
+]==])
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
   ${CMAKE_CURRENT_BINARY_DIR}/config.cmake.in
