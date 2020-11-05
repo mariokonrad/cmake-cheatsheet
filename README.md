@@ -6,7 +6,7 @@ Cheat sheet for CMake 3.13
 
 ## Download
 
-Latest Release: [cmake-cheatsheet.pdf](https://github.com/mariokonrad/cmake-cheatsheet/releases/download/v1.1/cmake-cheatsheet.pdf)
+Latest Release: [cmake-cheatsheet.pdf](https://github.com/mariokonrad/cmake-cheatsheet/releases/download/v1.2/cmake-cheatsheet.pdf)
 
 
 ## License
