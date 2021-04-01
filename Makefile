@@ -1,5 +1,5 @@
 CMAKE_FILES=$(shell find src -name "CMakeLists.txt")
-CXX=g++-8
+CXX=g++
 
 .PHONY: all
 all : cmake-cheatsheet.pdf

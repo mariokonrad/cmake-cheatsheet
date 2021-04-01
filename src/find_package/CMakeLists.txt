@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.20)
 project(executable_with_libs)
 find_package(ZLIB REQUIRED)
 find_package(Boost 1.58 COMPONENTS program_options REQUIRED)

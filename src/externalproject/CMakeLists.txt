@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.20)
 project(externalproject)
 
 find_package(Boost 1.58 COMPONENTS program_options REQUIRED)

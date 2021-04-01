@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.20)
 project(library_with_test)
 
 add_library(${PROJECT_NAME} STATIC)

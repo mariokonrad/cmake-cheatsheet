@@ -20,10 +20,10 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{}
-\fancyhead[C]{Modern CMake - CMake 3.13}
-\fancyhead[R]{{\tiny https://cmake.org/cmake/help/v3.13/}}
-\fancyfoot[L]{\footnotesize \copyright 2020 Mario Konrad}
-\fancyfoot[C]{\footnotesize Version 1.2 --- License: CC-BY}
+\fancyhead[C]{Modern CMake - CMake 3.20}
+\fancyhead[R]{{\tiny https://cmake.org/cmake/help/v3.20/}}
+\fancyfoot[L]{\footnotesize \copyright 2021 Mario Konrad}
+\fancyfoot[C]{\footnotesize Version 2.0 --- License: CC-BY}
 \fancyfoot[R]{\tiny https://github.com/mariokonrad/cmake-cheatsheet}
 
 \renewcommand{\headrulewidth}{0.1pt}
@@ -47,7 +47,9 @@
     break,
     build_command,
     cmake_host_system_information,
+    cmake_language,
     cmake_minimum_required,
+    cmake_path,
     cmake_parse_arguments,
     cmake_policy,
     configure_file,
@@ -132,6 +134,7 @@
     target_link_directories,
     target_link_libraries,
     target_link_options,
+    target_precompile_headers,
     target_sources,
     try_compile,
     try_run,
@@ -142,6 +145,7 @@
   morekeywords = [2]{
     @ONLY,
     ABSOLUTE,
+    ABSOLUTE_PATH,
     AFTER,
     ALIAS,
     AND,
@@ -159,6 +163,7 @@
     AVAILABLE_PHYSICAL_MEMORY,
     AVAILABLE_VIRTUAL_MEMORY,
     BASE_DIR,
+    BASE_DIRECTORY,
     BEFORE,
     BOOL,
     BRIEF_DOCS,
@@ -168,6 +173,7 @@
     BYPRODUCTS,
     CACHE,
     CACHED_VARIABLE,
+    CALL,
     CAPTURE_CMAKE_ERROR,
     CDASH_UPLOAD,
     CDASH_UPLOAD_TYPE,
@@ -185,6 +191,7 @@
     CODE,
     COMMA,
     COMMAND,
+    COMMAND_CONFIG,
     COMMAND_EXPAND_LISTS,
     COMMENT,
     COMPARE
@@ -194,6 +201,7 @@
     COMPILE_DEFINITIONS,
     COMPILE_FEATURES,
     COMPILE_LANGUAGE,
+    COMPILE_LANG_AND_ID,
     COMPILE_OUTPUT_VARIABLE,
     COMPONENT,
     COMPONENTS,
@@ -203,23 +211,28 @@
     CONFIGURATION,
     CONFIGURATIONS,
     CONFIGURE,
+    CONVERT,
     COPY,
     COPYONLY,
     COPY_FILE,
     COPY_FILE_ERROR,
     CRLF,
+    CUDA_COMPILER_ID,
+    CUDA_COMPILER_VERSION,
     CXX_COMPILER_ID,
     CXX_COMPILER_VERSION,
     C_COMPILER_ID,
     C_COMPILER_VERSION,
     DECIMAL,
     DEFECT_COUNT,
+    DEFER,
     DEFINED,
     DEPENDS,
     DEPFILE,
     DEPRECATION,
     DESCRIPTION,
     DESTINATION,
+    DEVICE_LINK,
     DIRECTORY,
     DIRECTORY_PERMISSIONS,
     DOC,
@@ -234,6 +247,7 @@
     ERROR_STRIP_TRAILING_WHITESPACE,
     ERROR_VARIABLE,
     ESCAPE_QUOTES,
+    EVAL,
     EXACT,
     EXCLUDE,
     EXCLUDE_FIXTURE,
@@ -247,10 +261,12 @@
     EXPORT_LINK_INTERFACE_LIBRARIES,
     EXPR,
     EXT,
+    EXTENSION,
     EXTRA_INCLUDE,
     FALSE,
     FATAL_ERROR,
     FILE,
+    FILENAME,
     FILEPATH,
     FILES,
     FILES_MATCHING,
@@ -263,6 +279,8 @@
     FRAMEWORK,
     FULL_DOCS,
     FUNCTION,
+    Fortran_COMPILER_ID,
+    Fortran_COMPILER_VERSION,
     GENERATE,
     GENEX_EVAL,
     GENEX_STRIP,
@@ -274,21 +292,31 @@
     GREATER,
     GREATER_EQUAL,
     GUID,
+    HASH,
     HAS_AMD_3DNOW,
     HAS_AMD_3DNOW_PLUS,
+    HAS_EXTENSION,
+    HAS_FILENAME,
     HAS_FPU,
     HAS_IA64,
     HAS_MMX,
     HAS_MMX_PLUS,
+    HAS_PARENT_PATH,
+    HAS_RELATIVE_PART,
+    HAS_ROOT_DIRECTORY,
+    HAS_ROOT_NAME,
+    HAS_ROOT_PATH,
     HAS_SERIAL_NUMBER,
     HAS_SSE,
     HAS_SSE2,
     HAS_SSE_FP,
     HAS_SSE_MMX,
+    HAS_STEM,
     HEXADECIMAL,
     HINTS,
     HOMEPAGE_URL,
     HOSTNAME,
+    HOST_LINK,
     HTTPHEADER,
     IF,
     IMPLICIT_DEPENDS,
@@ -315,20 +343,27 @@
     INTERFACE_INCLUDE_DIRECTORIES,
     INTERNAL,
     IN_LIST,
+    ISPC_COMPILER_ID,
+    ISPC_COMPILER_VERSION,
     IS_64BIT,
     IS_ABSOLUTE,
     IS_DIRECTORY,
     IS_NEWER_THAN,
+    IS_PREFIX,
+    IS_RELATIVE,
     IS_SYMLINK,
     ITEMS,
     JOIN,
     LABELS,
     LANGUAGES,
+    LAST_ONLY,
     LENGTH,
     LESS,
     LESS_EQUAL,
     LF,
     LIBRARY,
+    LINK_LANGUAGE,
+    LINK_LANG_AND_ID,
     LINK_LIBRARIES,
     LINK_ONLY,
     LISTS,
@@ -353,10 +388,13 @@
     NAMES_PER_DIR,
     NAME_WE,
     NATIVE,
+    NATIVE_PATH,
     NEW,
     NEWLINE_STYLE,
     NEW_PROCESS,
     NONE,
+    NORMALIZE,
+    NORMAL_PATH,
     NOT,
     NO_CMAKE_ENVIRONMENT_PATH,
     NO_CMAKE_FIND_ROOT_PATH,
@@ -373,6 +411,10 @@
     NUMBER_OF_LOGICAL_CORES,
     NUMBER_OF_PHYSICAL_CORES,
     NUMBER_WARNINGS,
+    OBJCXX_COMPILER_ID,
+    OBJCXX_COMPILER_VERSION,
+    OBJC_COMPILER_ID,
+    OBJC_COMPILER_VERSION,
     OBJECT,
     OBJECTS,
     OEM,
@@ -380,6 +422,7 @@
     OLD,
     ON,
     ONLY_CMAKE_FIND_ROOT_PATH,
+    OP,
     OPTIONAL,
     OPTIONAL_COMPONENTS,
     OPTIONS,
@@ -389,6 +432,7 @@
     OS_RELEASE,
     OS_VERSION,
     OUTPUT,
+    OUTPUT_CONFIG,
     OUTPUT_FILE,
     OUTPUT_FORMAT,
     OUTPUT_QUIET,
@@ -396,6 +440,7 @@
     OUTPUT_VARIABLE,
     PACKAGE,
     PARALLEL_LEVEL,
+    PARENT_PATH,
     PARENT_SCOPE,
     PARTS,
     PATH,
@@ -437,14 +482,19 @@
     REALPATH,
     REGEX,
     REGULAR_EXPRESSION,
+    RELATIVE_PART,
     RELATIVE_PATH,
     REMOVE,
     REMOVE_AT,
     REMOVE_DUPLICATES,
+    REMOVE_EXTENSION,
+    REMOVE_FILENAME,
     REMOVE_ITEM,
     REMOVE_RECURSE,
     RENAME,
     REPLACE,
+    REPLACE_EXTENSION,
+    REPLACE_FILENAME,
     REQUIRED,
     RESOURCE,
     RESULT,
@@ -455,6 +505,9 @@
     RETRY_DELAY,
     RETURN_VALUE,
     REVERSE,
+    ROOT_DIRECTORY,
+    ROOT_NAME,
+    ROOT_PATH,
     RUNTIME,
     RUN_OUTPUT_VARIABLE,
     SCHEDULE_RANDOM,
@@ -470,6 +523,7 @@
     START,
     STATIC,
     STATUS,
+    STEM,
     STOP_TIME,
     STREQUAL,
     STRGREATER,
@@ -489,16 +543,23 @@
     TARGET_BUNDLE_DIR,
     TARGET_EXISTS,
     TARGET_FILE,
+    TARGET_FILE_BASE_NAME,
     TARGET_FILE_DIR,
     TARGET_FILE_NAME,
+    TARGET_FILE_PREFIX,
+    TARGET_FILE_SUFFIX,
     TARGET_GENEX_EVAL,
     TARGET_LINKER_FILE,
+    TARGET_LINKER_FILE_BASE_NAME,
     TARGET_LINKER_FILE_DIR,
     TARGET_LINKER_FILE_NAME,
+    TARGET_LINKER_FILE_PREFIX,
+    TARGET_LINKER_FILE_SUFFIX,
     TARGET_NAME,
     TARGET_NAME_IF_EXISTS,
     TARGET_OBJECTS,
     TARGET_PDB_FILE,
+    TARGET_PDB_FILE_BASE_NAME,
     TARGET_PDB_FILE_DIR,
     TARGET_PDB_FILE_NAME,
     TARGET_POLICY,
@@ -517,7 +578,9 @@
     TOUCH_NOCREATE,
     TOUPPER,
     TO_CMAKE_PATH,
+    TO_CMAKE_PATH_LIST,
     TO_NATIVE_PATH,
+    TO_NATIVE_PATH_LIST,
     TRACK,
     TRANSFORM,
     TREE,
@@ -584,41 +647,41 @@
 	pdfborder={0, 0, 0}
 }
 
-\newcommand{\cmakecommand}[1]{{\href{https://cmake.org/cmake/help/v3.13/command/#1.html}{#1}}}
+\newcommand{\cmakecommand}[1]{{\href{https://cmake.org/cmake/help/v3.20/command/#1.html}{#1}}}
 
-\newcommand{\cmakemodule}[1]{{\href{https://cmake.org/cmake/help/v3.13/module/#1.html}{{\lstinline{#1}}}}}
+\newcommand{\cmakemodule}[1]{{\href{https://cmake.org/cmake/help/v3.20/module/#1.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakepropgbl}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_gbl/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_gbl/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakepropdir}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_dir/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_dir/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakeproptarget}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_tgt/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_tgt/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakepropsourcefiles}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_sf/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_sf/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakeproptest}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_test/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_test/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakepropcache}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_cache/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_cache/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakepropinstalledfiles}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/prop_inst/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/prop_inst/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakevariable}[1]{{%
 	\StrDel{#1}{<}[\tmp]%
 	\StrDel{\tmp}{>}[\tmp]%
-	\href{https://cmake.org/cmake/help/v3.13/variable/\tmp.html}{{\lstinline{#1}}}}}
+	\href{https://cmake.org/cmake/help/v3.20/variable/\tmp.html}{{\lstinline{#1}}}}}
 \newcommand{\cmakecxxfeature}[1]{\lstinline{#1}}
 
 \begin{document}
@@ -957,6 +1020,10 @@
 /!\cmakecommand{target\_compile\_features}!/(<target>
   <PRIVATE|PUBLIC|INTERFACE> <feature> [...])
 
+/!\cmakecommand{target\_precompile\_headers}!/(<target>
+  <INTERFACE|PUBLIC|PRIVATE> [header1...]
+  [<INTERFACE|PUBLIC|PRIVATE> [header2...] ...])
+
 /!\cmakecommand{source\_group}!/(<name> [FILES <src>...]
   [REGULAR_EXPRESSION <regex>])
 /!\cmakecommand{source\_group}!/(TREE <root> [PREFIX <prefix>]
@@ -1035,9 +1102,7 @@
   SourcesDestName SourceLists ...)
 \end{lstlisting}
 \end{minipage}
-
 \pagebreak
-
 \begin{minipage}[t]{0.18\linewidth}
 \textbf{Commands - Scripting}
 \begin{lstlisting}[language=CMake]
@@ -1046,6 +1111,10 @@
   <BOOL|FILEPATH|PATH|STRING|INTERNAL> <docstring>
   [FORCE])
 /!\cmakecommand{set}!/(ENV{<var>} <value>...)
+
+/!\cmakecommand{cmake\_language}!/(CALL <cmd> [<arg>...])
+/!\cmakecommand{cmake\_language}!/(EVAL CODE <code>...)
+/!\cmakecommand{cmake\_language}!/(DEFER <options>... CALL <cmd> [<arg>...])
 
 /!\cmakecommand{mark\_as\_advanced}!/([CLEAR|FORCE] var [var2 ...])
 
@@ -1123,11 +1192,45 @@
 /!\cmakecommand{file}!/(UPLOAD <file> <url> [...])
 /!\cmakecommand{file}!/(LOCK <path> [...])
 \end{lstlisting}
-
 \end{minipage}
 \hfill\vline\hfill
 \begin{minipage}[t]{0.18\linewidth}
 \begin{lstlisting}[language=CMake]
+/!\cmakecommand{cmake\_path}!/(GET <path-var> ROOT_NAME <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> ROOT_DIRECTORY <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> ROOT_PATH <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> FILENAME <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> EXTENSION [LAST_ONLY] <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> STEM [LAST_ONLY] <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> RELATIVE_PART <out-var>)
+/!\cmakecommand{cmake\_path}!/(GET <path-var> PARENT_PATH <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_ROOT_NAME <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_ROOT_DIRECTORY <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_ROOT_PATH <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_FILENAME <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_EXTENSION <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_STEM <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_RELATIVE_PART <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(HAS_PARENT_PATH <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(IS_ABSOLUTE <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(IS_RELATIVE <path-var> <out-var>)
+/!\cmakecommand{cmake\_path}!/(IS_PREFIX <path-var> <input> [NORMALIZE] <out-var>)
+/!\cmakecommand{cmake\_path}!/(COMPARE <input1> <OP> <input2> <out-var>)
+/!\cmakecommand{cmake\_path}!/(SET <path-var> [NORMALIZE] <input>)
+/!\cmakecommand{cmake\_path}!/(APPEND <path-var> [<input>...] [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(APPEND_STRING <path-var> [<input>...] [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(REMOVE_FILENAME <path-var> [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(REPLACE_FILENAME <path-var> <input> [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(REMOVE_EXTENSION <path-var> [LAST_ONLY] [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(REPLACE_EXTENSION <path-var> [LAST_ONLY] <input> [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(NORMAL_PATH <path-var> [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(RELATIVE_PATH <path-var> [BASE_DIRECTORY <input>] [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(ABSOLUTE_PATH <path-var> [BASE_DIRECTORY <input>] [NORMALIZE] [OUTPUT_VARIABLE <out-var>])
+/!\cmakecommand{cmake\_path}!/(NATIVE_PATH <path-var> [NORMALIZE] <out-var>)
+/!\cmakecommand{cmake\_path}!/(CONVERT <input> TO_CMAKE_PATH_LIST <out-var>)
+/!\cmakecommand{cmake\_path}!/(CONVERT <input> TO_NATIVE_PATH_LIST <out-var>)
+/!\cmakecommand{cmake\_path}!/(HASH <path-var> <out-var>)
+
 /!\cmakecommand{get\_filename\_component}!/(<var> <FileName>
   <DIRECTORY|NAME|EXT|NAME_WE|PATH> [CACHE])
 /!\cmakecommand{get\_filename\_component}!/<ABSOLUTE|REALPATH>
@@ -1163,11 +1266,14 @@
 /!\cmakecommand{foreach}!/(loop_var RANGE start stop [step])
 /!\cmakecommand{foreach}!/(loop_var IN
   [LISTS [list1 [...]]] [ITEMS [item1 [...]]])
-
 /!\cmakecommand{while}!/(condition)
   command(ARGS ...)...
 /!\cmakecommand{endwhile}!/()
-
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
 /!\cmakecommand{break}!/()
 
 /!\cmakecommand{continue}!/()
@@ -1214,9 +1320,7 @@
 /!\cmakecommand{if}!/(<var|str> VERSION_GREATER_EQUAL <var|str>)
 /!\cmakecommand{if}!/(<var|str> IN_LIST <var>)
 \end{lstlisting}
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
+
 \textbf{Commands - Test}
 \begin{lstlisting}[language=CMake]
 /!\cmakecommand{enable\_testing}!/()
@@ -1252,7 +1356,11 @@
   [CAPTURE_CMAKE_ERROR <result-var] [QUIET])
 
 /!\cmakecommand{ctest\_empty\_binary\_directory}!/(directory)
-
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\begin{lstlisting}[language=CMake]
 /!\cmakecommand{ctest\_memcheck}!/([BUILD <build-dir>] [APPEND]
   [START <start-number>] [END <end-number>]
   [STRIDE <stride-number>]
@@ -1303,11 +1411,7 @@
   [STOP_TIME <time-of-day>]
   [RETURN_VALUE <result-var>]
   [CAPTURE_CMAKE_ERROR <result-var>] [QUIET])
-\end{lstlisting}
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
-\begin{lstlisting}[language=CMake]
+
 /!\cmakecommand{ctest\_update}!/([SOURCE <source-dir>]
   [RETURN_VALUE <result-var>]
   [CAPTURE_CMAKE_ERROR <result-var>]
@@ -1319,19 +1423,41 @@
 
 \textbf{Generator Logical Expr}
 \begin{lstlisting}[language=CMake]
+$<<condition>:true-string>
 $<AND:?[,?]...>
 $<BOOL:...>
 $<COMPILE_FEATURES:feature[,feature]...>
 $<COMPILE_LANGUAGE:lang>
+$<COMPILE_LANG_AND_ID:lang,compiler_id>
 $<CONFIG:cfg>
+$<CUDA_COMPILER_ID:comp>
+$<CUDA_COMPILER_VERSION:ver>
 $<CXX_COMPILER_ID:comp>
 $<CXX_COMPILER_VERSION:ver>
 $<C_COMPILER_ID:comp>
 $<C_COMPILER_VERSION:ver>
+$<DEVICE_LINK:list>
 $<EQUAL:a,b>
+$<Fortran_COMPILER_ID:comp>
+$<Fortran_COMPILER_VERSION:ver>
+$<HOST_LINK:list>
 $<IF:?,true-value...,false-value...>
 $<IN_LIST:a,b>
+$<ISPC_COMPILER_ID:comp>
+$<ISPC_COMPILER_VERSION:ver>
+$<LINK_LANGUAGE:lang>
+$<LINK_LANG_AND_ID:lang,compiler_id>
 $<NOT:?>
+\end{lstlisting}
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{Generator Info Expr}
+\begin{lstlisting}[language=CMake]
+$<OBJCXX_COMPILER_ID:comp>
+$<OBJCXX_COMPILER_VERSION:ver>
+$<OBJC_COMPILER_ID:comp>
+$<OBJC_COMPILER_VERSION:ver>
 $<OR:?[,?]...>
 $<PLATFORM_ID:comp>
 $<STREQUAL:a,b>
@@ -1346,30 +1472,49 @@ $<VERSION_LESS_EQUAL:v1,v2>
 
 \textbf{Generator Info Expr}
 \begin{lstlisting}[language=CMake]
-$<CONFIG>
-$<PLATFORM_ID>
-$<C_COMPILER_ID>
-$<CXX_COMPILER_ID>
-$<C_COMPILER_VERSION>
-$<CXX_COMPILER_VERSION>
-$<TARGET_FILE:tgt>
-$<TARGET_FILE_NAME:tgt>
-$<TARGET_FILE_DIR:tgt>
-$<TARGET_LINKER_FILE:tgt>
-$<TARGET_LINKER_FILE_NAME:tgt>
-$<TARGET_LINKER_FILE_DIR:tgt>
-$<TARGET_SONAME_FILE:tgt>
-$<TARGET_SONAME_FILE_NAME:tgt>
-$<TARGET_SONAME_FILE_DIR:tgt>
-$<TARGET_PDB_FILE:tgt>
-$<TARGET_PDB_FILE_NAME:tgt>
-$<TARGET_PDB_FILE_DIR:tgt>
-$<TARGET_BUNDLE_DIR:tgt>
-$<TARGET_BUNDLE_CONTENT_DIR:tgt>
-$<TARGET_PROPERTY:tgt,prop>
-$<TARGET_PROPERTY:prop>
-$<INSTALL_PREFIX>
 $<COMPILE_LANGUAGE>
+$<CONFIG>
+$<CUDA_COMPILER_ID>
+$<CUDA_COMPILER_VERSION>
+$<CXX_COMPILER_ID>
+$<CXX_COMPILER_VERSION>
+$<C_COMPILER_ID>
+$<C_COMPILER_VERSION>
+$<Fortran_COMPILER_ID>
+$<Fortran_COMPILER_VERSION>
+$<INSTALL_PREFIX>
+$<INSTALL_PREFIX>
+$<ISPC_COMPILER_ID>
+$<ISPC_COMPILER_VERSION>
+$<LINK_LANGUAGE>
+$<OBJCXX_COMPILER_ID>
+$<OBJCXX_COMPILER_VERSION>
+$<OBJC_COMPILER_ID>
+$<OBJC_COMPILER_VERSION>
+$<PLATFORM_ID>
+$<TARGET_BUNDLE_CONTENT_DIR:tgt>
+$<TARGET_BUNDLE_DIR:tgt>
+$<TARGET_FILE:tgt>
+$<TARGET_FILE_BASE_NAME:tgt>
+$<TARGET_FILE_DIR:tgt>
+$<TARGET_FILE_NAME:tgt>
+$<TARGET_FILE_PREFIX:tgt>
+$<TARGET_FILE_SUFFIX:tgt>
+$<TARGET_LINKER_FILE:tgt>
+$<TARGET_LINKER_FILE_BASE_NAME:tgt>
+$<TARGET_LINKER_FILE_DIR:tgt>
+$<TARGET_LINKER_FILE_NAME:tgt>
+$<TARGET_LINKER_FILE_PREFIX:tgt>
+$<TARGET_LINKER_FILE_SUFFIX:tgt>
+$<TARGET_PDB_FILE:tgt>
+$<TARGET_PDB_FILE_BASE_NAME:tgt>
+$<TARGET_PDB_FILE_DIR:tgt>
+$<TARGET_PDB_FILE_NAME:tgt>
+$<TARGET_PROPERTY:prop>
+$<TARGET_PROPERTY:tgt,prop>
+$<TARGET_SONAME_FILE:tgt>
+$<TARGET_SONAME_FILE_DIR:tgt>
+$<TARGET_SONAME_FILE_NAME:tgt>
 \end{lstlisting}
 
 \textbf{Generator Output Expr}
@@ -1379,12 +1524,16 @@ $<1:...>
 $<ANGLE-R>
 $<BUILD_INTERFACE:...>
 $<COMMA>
+$<COMMAND_CONFIG:...>
+$<FILTER:list,INCLUDE|EXCLUDE,regex>
 $<GENEX_EVAL:...>
 $<INSTALL_INTERFACE:...>
 $<JOIN:list,...>
 $<LINK_ONLY:...>
 $<LOWER_CASE:...>
 $<MAKE_C_IDENTIFIER:...>
+$<OUTPUT_CONFIG:...>
+$<REMOVE_DUPLICATES:list>
 $<SEMICOLON>
 $<SHELL_PATH:...>
 $<TARGET_GENEX_EVAL:tgt,...>
@@ -1393,93 +1542,6 @@ $<TARGET_NAME_IF_EXISTS:...>
 $<TARGET_OBJECTS:objLib>
 $<UPPER_CASE:...>
 \end{lstlisting}
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
-\textbf{CMake CLI - General}
-{\tiny \em (incomplete list)}
-\begin{verbatim}
---help
---version
---help-full
---help-manual <man> [<f>]
---help-command <cmd> [<f>]
---help-module <mod> [<f>]
---help-policy <cmp> [<f>]
---help-property <prop> [<f>]
---help-variable <var> [<f>]
---system-information [file]
---debug-output
---trace
---trace-source=<file>
---warn-unitialized
---graphviz=<file>
---find-package <options>...
--S <path-to-source>
--B <path-to-build>
--D <var>[=<value>]
--D <var>:<type>=<value>
--U <glob_expr>
--G <generator-name>
--T <toolset-spec>
--A <platform-name>
--L[A|H]
-\end{verbatim}
-\textbf{CMake CLI - Build Tool}
-{\tiny \em (incomplete list)}
-\begin{verbatim}
---build <dir>
---config <cfg>
---target <tgt>
---use-stderr
---clean-first
--j [<jobs>] | --parallel [<jobs>]
-\end{verbatim}
-\textbf{CMake CLI - Scripting Tool}
-\begin{verbatim}
--P <file>
-\end{verbatim}
-\textbf{CMake CLI - Command Tool}
-\begin{verbatim}
--E <command> [<options>...]
-
-capabilities
-chdir <dir> <cmd> [<arg>...]
-compare_files <file1> <file2>
-copy <file>... <destination>
-copy_directory <dir>... <dest>
-copy_if_different <file>... <dest>
-echo [<string>...]
-echo_append [<string>...]
-env [--unset=NAME]... [NAME=VALUE]... COMMAND [ARG]...
-environment
-make_directory <dir>...
-md5sum <file>...
-sha1sum <file>...
-sha224sum <file>...
-sha256sum <file>...
-sha384sum <file>...
-sha512sum <file>...
-remove [-f] <file>...
-remove_directory <dir>
-rename <oldname> <newname>
-server
-tar [cxt][vf][zjJ] file.tar [<options>...] [--] [<file>...]
-  --files-from=<file>
-  --mtime=<date>
-  --format=<7zip|gnutar|pax|paxr|zip>
-time <command> [<args>...]
-touch <file>
-touch_nocreate <file>
-create_symlink <old> <new>
-\end{verbatim}
-\textbf{CMake CLI - Windows Tools}
-\begin{verbatim}
-delete_regv <key>
-env_vs8_wince <sdkname>
-env_vs9_wince <sdkname>
-write_regv <key> <value>
-\end{verbatim}
 \end{minipage}
 
 \pagebreak
@@ -1494,16 +1556,21 @@ write_regv <key> <value>
 
 \begin{minipage}[t]{0.18\linewidth}
 \textbf{Properties - Global Scope}\\
+\cmakepropgbl{ADDITIONAL_CLEAN_FILES}\\
 \cmakepropgbl{ALLOW_DUPLICATE_CUSTOM_TARGETS}\\
 \cmakepropgbl{AUTOGEN_SOURCE_GROUP}\\
 \cmakepropgbl{AUTOGEN_TARGETS_FOLDER}\\
 \cmakepropgbl{AUTOMOC_SOURCE_GROUP}\\
 \cmakepropgbl{AUTOMOC_TARGETS_FOLDER}\\
 \cmakepropgbl{AUTORCC_SOURCE_GROUP}\\
-\cmakepropgbl{CMAKE_C_KNOWN_FEATURES}\\
+\cmakepropgbl{CMAKE_CUDA_KNOWN_FEATURES}\\
 \cmakepropgbl{CMAKE_CXX_KNOWN_FEATURES}\\
+\cmakepropgbl{CMAKE_C_KNOWN_FEATURES}\\
+\cmakepropgbl{CMAKE_ROLE}\\
 \cmakepropgbl{DEBUG_CONFIGURATIONS}\\
 \cmakepropgbl{DISABLED_FEATURES}\\
+\cmakepropgbl{ECLIPSE_EXTRA_CPROJECT_CONTENTS}\\
+\cmakepropgbl{ECLIPSE_EXTRA_NATURES}\\
 \cmakepropgbl{ENABLED_FEATURES}\\
 \cmakepropgbl{ENABLED_LANGUAGES}\\
 \cmakepropgbl{FIND_LIBRARY_USE_LIB32_PATHS}\\
@@ -1514,12 +1581,10 @@ write_regv <key> <value>
 \cmakepropgbl{GLOBAL_DEPENDS_DEBUG_MODE}\\
 \cmakepropgbl{GLOBAL_DEPENDS_NO_CYCLES}\\
 \cmakepropgbl{IN_TRY_COMPILE}\\
+\cmakepropgbl{JOB_POOLS}\\
 \cmakepropgbl{PACKAGES_FOUND}\\
 \cmakepropgbl{PACKAGES_NOT_FOUND}\\
-\cmakepropgbl{JOB_POOLS}\\
 \cmakepropgbl{PREDEFINED_TARGETS_FOLDER}\\
-\cmakepropgbl{ECLIPSE_EXTRA_NATURES}\\
-\cmakepropgbl{ECLIPSE_EXTRA_CPROJECT_CONTENTS}\\
 \cmakepropgbl{REPORT_UNDEFINED_PROPERTIES}\\
 \cmakepropgbl{RULE_LAUNCH_COMPILE}\\
 \cmakepropgbl{RULE_LAUNCH_CUSTOM}\\
@@ -1532,6 +1597,7 @@ write_regv <key> <value>
 \cmakepropgbl{XCODE_EMIT_EFFECTIVE_PLATFORM_NAME}\\
 
 \textbf{Properties - Directories}\\
+\cmakepropdir{ADDITIONAL_CLEAN_FILES}\\
 \cmakepropdir{ADDITIONAL_MAKE_CLEAN_FILES}\\
 \cmakepropdir{BINARY_DIR}\\
 \cmakepropdir{BUILDSYSTEM_TARGETS}\\
@@ -1567,8 +1633,8 @@ write_regv <key> <value>
 
 \textbf{Properties - Source Files}\\
 \cmakepropsourcefiles{ABSTRACT}\\
-\cmakepropsourcefiles{AUTOUIC_OPTIONS}\\
 \cmakepropsourcefiles{AUTORCC_OPTIONS}\\
+\cmakepropsourcefiles{AUTOUIC_OPTIONS}\\
 \cmakepropsourcefiles{COMPILE_DEFINITIONS}\\
 \cmakepropsourcefiles{COMPILE_FLAGS}\\
 \cmakepropsourcefiles{COMPILE_OPTIONS}\\
@@ -1578,14 +1644,13 @@ write_regv <key> <value>
 \cmakepropsourcefiles{HEADER_FILE_ONLY}\\
 \cmakepropsourcefiles{INCLUDE_DIRECTORIES}\\
 \cmakepropsourcefiles{KEEP_EXTENSION}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakepropsourcefiles{LABELS}\\
 \cmakepropsourcefiles{LANGUAGE}\\
 \cmakepropsourcefiles{LOCATION}\\
 \cmakepropsourcefiles{MACOSX_PACKAGE_LOCATION}\\
-
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakepropsourcefiles{OBJECT_DEPENDS}\\
 \cmakepropsourcefiles{OBJECT_OUTPUTS}\\
 \cmakepropsourcefiles{SKIP_AUTOGEN}\\
@@ -1614,12 +1679,76 @@ write_regv <key> <value>
 \cmakepropsourcefiles{XCODE_EXPLICIT_FILE_TYPE}\\
 \cmakepropsourcefiles{XCODE_FILE_ATTRIBUTES}\\
 \cmakepropsourcefiles{XCODE_LAST_KNOWN_FILE_TYPE}\\
-
+\cmakepropsourcefiles{ABSTRACT}\\
+\cmakepropsourcefiles{AUTORCC_OPTIONS}\\
+\cmakepropsourcefiles{AUTOUIC_OPTIONS}\\
+\cmakepropsourcefiles{COMPILE_DEFINITIONS}\\
+\cmakepropsourcefiles{COMPILE_FLAGS}\\
+\cmakepropsourcefiles{COMPILE_OPTIONS}\\
+\cmakepropsourcefiles{EXTERNAL_OBJECT}\\
+\cmakepropsourcefiles{Fortran_FORMAT}\\
+\cmakepropsourcefiles{Fortran_PREPROCESS}\\
+\cmakepropsourcefiles{GENERATED}\\
+\cmakepropsourcefiles{HEADER_FILE_ONLY}\\
+\cmakepropsourcefiles{INCLUDE_DIRECTORIES}\\
+\cmakepropsourcefiles{KEEP_EXTENSION}\\
+\cmakepropsourcefiles{LABELS}\\
+\cmakepropsourcefiles{LANGUAGE}\\
+\cmakepropsourcefiles{LOCATION}\\
+\cmakepropsourcefiles{MACOSX_PACKAGE_LOCATION}\\
+\cmakepropsourcefiles{OBJECT_DEPENDS}\\
+\cmakepropsourcefiles{OBJECT_OUTPUTS}\\
+\cmakepropsourcefiles{SKIP_AUTOGEN}\\
+\cmakepropsourcefiles{SKIP_AUTOMOC}\\
+\cmakepropsourcefiles{SKIP_AUTORCC}\\
+\cmakepropsourcefiles{SKIP_AUTOUIC}\\
+\cmakepropsourcefiles{SKIP_PRECOMPILE_HEADERS}\\
+\cmakepropsourcefiles{SKIP_UNITY_BUILD_INCLUSION}\\
+\cmakepropsourcefiles{Swift_DEPENDENCIES_FILE}\\
+\cmakepropsourcefiles{Swift_DIAGNOSTICS_FILE}\\
+\cmakepropsourcefiles{SYMBOLIC}\\
+\cmakepropsourcefiles{UNITY_GROUP}\\
+\cmakepropsourcefiles{VS_COPY_TO_OUT_DIR}\\
+\cmakepropsourcefiles{VS_CSHARP_<tagname>}\\
+\cmakepropsourcefiles{VS_DEPLOYMENT_CONTENT}\\
+\cmakepropsourcefiles{VS_DEPLOYMENT_LOCATION}\\
+\cmakepropsourcefiles{VS_INCLUDE_IN_VSIX}\\
+\cmakepropsourcefiles{VS_RESOURCE_GENERATOR}\\
+\cmakepropsourcefiles{VS_SETTINGS}\\
+\cmakepropsourcefiles{VS_SHADER_DISABLE_OPTIMIZATIONS}\\
+\cmakepropsourcefiles{VS_SHADER_ENABLE_DEBUG}\\
+\cmakepropsourcefiles{VS_SHADER_ENTRYPOINT}\\
+\cmakepropsourcefiles{VS_SHADER_FLAGS}\\
+\cmakepropsourcefiles{VS_SHADER_MODEL}\\
+\cmakepropsourcefiles{VS_SHADER_OBJECT_FILE_NAME}\\
+\cmakepropsourcefiles{VS_SHADER_OUTPUT_HEADER_FILE}\\
+\cmakepropsourcefiles{VS_SHADER_TYPE}\\
+\cmakepropsourcefiles{VS_SHADER_VARIABLE_NAME}\\
+\cmakepropsourcefiles{VS_TOOL_OVERRIDE}\\
+\cmakepropsourcefiles{VS_XAML_TYPE}\\
+\cmakepropsourcefiles{WRAP_EXCLUDE}\\
+\cmakepropsourcefiles{XCODE_EXPLICIT_FILE_TYPE}\\
+\cmakepropsourcefiles{XCODE_FILE_ATTRIBUTES}\\
+\cmakepropsourcefiles{XCODE_LAST_KNOWN_FILE_TYPE}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \textbf{Properties - Targets}\\
+\cmakeproptarget{<CONFIG>_OUTPUT_NAME}\\
+\cmakeproptarget{<CONFIG>_POSTFIX}\\
+\cmakeproptarget{<LANG>_CLANG_TIDY}\\
+\cmakeproptarget{<LANG>_COMPILER_LAUNCHER}\\
+\cmakeproptarget{<LANG>_CPPCHECK}\\
+\cmakeproptarget{<LANG>_CPPLINT}\\
+\cmakeproptarget{<LANG>_INCLUDE_WHAT_YOU_USE}\\
+\cmakeproptarget{<LANG>_VISIBILITY_PRESET}\\
+\cmakeproptarget{ADDITIONAL_CLEAN_FILES}\\
+\cmakeproptarget{AIX_EXPORT_ALL_SYMBOLS}\\
 \cmakeproptarget{ALIASED_TARGET}\\
+\cmakeproptarget{ALIAS_GLOBAL}\\
 \cmakeproptarget{ANDROID_ANT_ADDITIONAL_OPTIONS}\\
-\cmakeproptarget{ANDROID_API}\\
 \cmakeproptarget{ANDROID_API_MIN}\\
+\cmakeproptarget{ANDROID_API}\\
 \cmakeproptarget{ANDROID_ARCH}\\
 \cmakeproptarget{ANDROID_ASSETS_DIRECTORIES}\\
 \cmakeproptarget{ANDROID_GUI}\\
@@ -1629,8 +1758,8 @@ write_regv <key> <value>
 \cmakeproptarget{ANDROID_NATIVE_LIB_DEPENDENCIES}\\
 \cmakeproptarget{ANDROID_NATIVE_LIB_DIRECTORIES}\\
 \cmakeproptarget{ANDROID_PROCESS_MAX}\\
-\cmakeproptarget{ANDROID_PROGUARD}\\
 \cmakeproptarget{ANDROID_PROGUARD_CONFIG_PATH}\\
+\cmakeproptarget{ANDROID_PROGUARD}\\
 \cmakeproptarget{ANDROID_SECURE_PROPS_PATH}\\
 \cmakeproptarget{ANDROID_SKIP_ANT_STEP}\\
 \cmakeproptarget{ANDROID_STL_TYPE}\\
@@ -1639,27 +1768,30 @@ write_regv <key> <value>
 \cmakeproptarget{ARCHIVE_OUTPUT_NAME_<CONFIG>}\\
 \cmakeproptarget{ARCHIVE_OUTPUT_NAME}\\
 \cmakeproptarget{AUTOGEN_BUILD_DIR}\\
+\cmakeproptarget{AUTOGEN_ORIGIN_DEPENDS}\\
 \cmakeproptarget{AUTOGEN_PARALLEL}\\
 \cmakeproptarget{AUTOGEN_TARGET_DEPENDS}\\
 \cmakeproptarget{AUTOMOC_COMPILER_PREDEFINES}\\
 \cmakeproptarget{AUTOMOC_DEPEND_FILTERS}\\
+\cmakeproptarget{AUTOMOC_EXECUTABLE}\\
 \cmakeproptarget{AUTOMOC_MACRO_NAMES}\\
 \cmakeproptarget{AUTOMOC_MOC_OPTIONS}\\
+\cmakeproptarget{AUTOMOC_PATH_PREFIX}\\
 \cmakeproptarget{AUTOMOC}\\
-\cmakeproptarget{AUTOUIC}\\
+\cmakeproptarget{AUTORCC_EXECUTABLE}\\
+\cmakeproptarget{AUTORCC_OPTIONS}\\
+\cmakeproptarget{AUTORCC}\\
+\cmakeproptarget{AUTOUIC_EXECUTABLE}\\
 \cmakeproptarget{AUTOUIC_OPTIONS}\\
 \cmakeproptarget{AUTOUIC_SEARCH_PATHS}\\
-\cmakeproptarget{AUTORCC}\\
-\cmakeproptarget{AUTORCC_OPTIONS}\\
+\cmakeproptarget{AUTOUIC}\\
 \cmakeproptarget{BINARY_DIR}\\
+\cmakeproptarget{BUILD_RPATH_USE_ORIGIN}\\
 \cmakeproptarget{BUILD_RPATH}\\
 \cmakeproptarget{BUILD_WITH_INSTALL_NAME_DIR}\\
 \cmakeproptarget{BUILD_WITH_INSTALL_RPATH}\\
 \cmakeproptarget{BUNDLE_EXTENSION}\\
 \cmakeproptarget{BUNDLE}\\
-\cmakeproptarget{C_EXTENSIONS}\\
-\cmakeproptarget{C_STANDARD}\\
-\cmakeproptarget{C_STANDARD_REQUIRED}\\
 \cmakeproptarget{COMMON_LANGUAGE_RUNTIME}\\
 \cmakeproptarget{COMPATIBLE_INTERFACE_BOOL}\\
 \cmakeproptarget{COMPATIBLE_INTERFACE_NUMBER_MAX}\\
@@ -1669,43 +1801,54 @@ write_regv <key> <value>
 \cmakeproptarget{COMPILE_FEATURES}\\
 \cmakeproptarget{COMPILE_FLAGS}\\
 \cmakeproptarget{COMPILE_OPTIONS}\\
-\cmakeproptarget{COMPILE_PDB_NAME}\\
 \cmakeproptarget{COMPILE_PDB_NAME_<CONFIG>}\\
-\cmakeproptarget{COMPILE_PDB_OUTPUT_DIRECTORY}\\
+\cmakeproptarget{COMPILE_PDB_NAME}\\
 \cmakeproptarget{COMPILE_PDB_OUTPUT_DIRECTORY_<CONFIG>}\\
-\cmakeproptarget{<CONFIG>_OUTPUT_NAME}\\
-\cmakeproptarget{<CONFIG>_POSTFIX}\\
+\cmakeproptarget{COMPILE_PDB_OUTPUT_DIRECTORY}\\
+\cmakeproptarget{CROSSCOMPILING_EMULATOR}\\
+\cmakeproptarget{CUDA_ARCHITECTURES}\\
+\cmakeproptarget{CUDA_EXTENSIONS}\\
+\cmakeproptarget{CUDA_PTX_COMPILATION}\\
+\cmakeproptarget{CUDA_RESOLVE_DEVICE_SYMBOLS}\\
+\cmakeproptarget{CUDA_RUNTIME_LIBRARY}\\
+\cmakeproptarget{CUDA_SEPARABLE_COMPILATION}\\
+\cmakeproptarget{CUDA_STANDARD_REQUIRED}\\
+\cmakeproptarget{CUDA_STANDARD}\\
+\cmakeproptarget{CXX_EXTENSIONS}\\
+\cmakeproptarget{CXX_STANDARD_REQUIRED}\\
+\cmakeproptarget{CXX_STANDARD}\\
+\cmakeproptarget{C_EXTENSIONS}\\
+\cmakeproptarget{C_STANDARD_REQUIRED}\\
+\cmakeproptarget{C_STANDARD}\\
+\cmakeproptarget{DEBUG_POSTFIX}\\
+\cmakeproptarget{DEFINE_SYMBOL}\\
 \end{minipage}
 \hfill\vline\hfill
 \begin{minipage}[t]{0.18\linewidth}
-\cmakeproptarget{CROSSCOMPILING_EMULATOR}\\
-\cmakeproptarget{CUDA_PTX_COMPILATION}\\
-\cmakeproptarget{CUDA_SEPARABLE_COMPILATION}\\
-\cmakeproptarget{CUDA_RESOLVE_DEVICE_SYMBOLS}\\
-\cmakeproptarget{CUDA_EXTENSIONS}\\
-\cmakeproptarget{CUDA_STANDARD}\\
-\cmakeproptarget{CUDA_STANDARD_REQUIRED}\\
-\cmakeproptarget{CXX_EXTENSIONS}\\
-\cmakeproptarget{CXX_STANDARD}\\
-\cmakeproptarget{CXX_STANDARD_REQUIRED}\\
-\cmakeproptarget{DEBUG_POSTFIX}\\
-\cmakeproptarget{DEFINE_SYMBOL}\\
-\cmakeproptarget{DEPLOYMENT_REMOTE_DIRECTORY}\\
 \cmakeproptarget{DEPLOYMENT_ADDITIONAL_FILES}\\
+\cmakeproptarget{DEPLOYMENT_REMOTE_DIRECTORY}\\
+\cmakeproptarget{DEPRECATION}\\
+\cmakeproptarget{DISABLE_PRECOMPILE_HEADERS}\\
 \cmakeproptarget{DOTNET_TARGET_FRAMEWORK_VERSION}\\
-\cmakeproptarget{EchoString}\\
+\cmakeproptarget{DOTNET_TARGET_FRAMEWORK}\\
 \cmakeproptarget{ENABLE_EXPORTS}\\
 \cmakeproptarget{EXCLUDE_FROM_ALL}\\
 \cmakeproptarget{EXCLUDE_FROM_DEFAULT_BUILD_<CONFIG>}\\
 \cmakeproptarget{EXCLUDE_FROM_DEFAULT_BUILD}\\
+\cmakeproptarget{EXPORT_COMPILE_COMMANDS}\\
 \cmakeproptarget{EXPORT_NAME}\\
 \cmakeproptarget{EXPORT_PROPERTIES}\\
+\cmakeproptarget{EchoString}\\
 \cmakeproptarget{FOLDER}\\
+\cmakeproptarget{FRAMEWORK_MULTI_CONFIG_POSTFIX_<CONFIG>}\\
+\cmakeproptarget{FRAMEWORK_VERSION}\\
+\cmakeproptarget{FRAMEWORK}\\
 \cmakeproptarget{Fortran_FORMAT}\\
 \cmakeproptarget{Fortran_MODULE_DIRECTORY}\\
-\cmakeproptarget{FRAMEWORK}\\
-\cmakeproptarget{FRAMEWORK_VERSION}\\
+\cmakeproptarget{Fortran_PREPROCESS}\\
 \cmakeproptarget{GENERATOR_FILE_NAME}\\
+\cmakeproptarget{GHS_INTEGRITY_APP}\\
+\cmakeproptarget{GHS_NO_SOURCE_GROUP_FILE}\\
 \cmakeproptarget{GNUtoMS}\\
 \cmakeproptarget{HAS_CXX}\\
 \cmakeproptarget{IMPLICIT_DEPENDS_INCLUDE_TRANSFORM}\\
@@ -1730,15 +1873,16 @@ write_regv <key> <value>
 \cmakeproptarget{IMPORTED_NO_SONAME}\\
 \cmakeproptarget{IMPORTED_OBJECTS_<CONFIG>}\\
 \cmakeproptarget{IMPORTED_OBJECTS}\\
-\cmakeproptarget{IMPORTED}\\
 \cmakeproptarget{IMPORTED_SONAME_<CONFIG>}\\
 \cmakeproptarget{IMPORTED_SONAME}\\
+\cmakeproptarget{IMPORTED}\\
 \cmakeproptarget{IMPORT_PREFIX}\\
 \cmakeproptarget{IMPORT_SUFFIX}\\
 \cmakeproptarget{INCLUDE_DIRECTORIES}\\
 \cmakeproptarget{INSTALL_NAME_DIR}\\
-\cmakeproptarget{INSTALL_RPATH}\\
+\cmakeproptarget{INSTALL_REMOVE_ENVIRONMENT_RPATH}\\
 \cmakeproptarget{INSTALL_RPATH_USE_LINK_PATH}\\
+\cmakeproptarget{INSTALL_RPATH}\\
 \cmakeproptarget{INTERFACE_AUTOUIC_OPTIONS}\\
 \cmakeproptarget{INTERFACE_COMPILE_DEFINITIONS}\\
 \cmakeproptarget{INTERFACE_COMPILE_FEATURES}\\
@@ -1749,31 +1893,30 @@ write_regv <key> <value>
 \cmakeproptarget{INTERFACE_LINK_LIBRARIES}\\
 \cmakeproptarget{INTERFACE_LINK_OPTIONS}\\
 \cmakeproptarget{INTERFACE_POSITION_INDEPENDENT_CODE}\\
+\cmakeproptarget{INTERFACE_PRECOMPILE_HEADERS}\\
 \cmakeproptarget{INTERFACE_SOURCES}\\
 \cmakeproptarget{INTERFACE_SYSTEM_INCLUDE_DIRECTORIES}\\
 \cmakeproptarget{INTERPROCEDURAL_OPTIMIZATION_<CONFIG>}\\
 \cmakeproptarget{INTERPROCEDURAL_OPTIMIZATION}\\
 \cmakeproptarget{IOS_INSTALL_COMBINED}\\
+\cmakeproptarget{ISPC_HEADER_DIRECTORY}\\
+\cmakeproptarget{ISPC_HEADER_SUFFIX}\\
+\cmakeproptarget{ISPC_INSTRUCTION_SETS}\\
 \cmakeproptarget{JOB_POOL_COMPILE}\\
 \cmakeproptarget{JOB_POOL_LINK}\\
+\cmakeproptarget{JOB_POOL_PRECOMPILE_HEADER}\\
 \cmakeproptarget{LABELS}\\
-\cmakeproptarget{<LANG>_CLANG_TIDY}\\
-\cmakeproptarget{<LANG>_COMPILER_LAUNCHER}\\
-\cmakeproptarget{<LANG>_CPPCHECK}\\
-\cmakeproptarget{<LANG>_CPPLINT}\\
-\cmakeproptarget{<LANG>_INCLUDE_WHAT_YOU_USE}\\
-\cmakeproptarget{<LANG>_VISIBILITY_PRESET}\\
 \cmakeproptarget{LIBRARY_OUTPUT_DIRECTORY_<CONFIG>}\\
 \cmakeproptarget{LIBRARY_OUTPUT_DIRECTORY}\\
 \cmakeproptarget{LIBRARY_OUTPUT_NAME_<CONFIG>}\\
 \cmakeproptarget{LIBRARY_OUTPUT_NAME}\\
+\cmakeproptarget{LINKER_LANGUAGE}\\
+\cmakeproptarget{LINK_DEPENDS_NO_SHARED}\\
+\cmakeproptarget{LINK_DEPENDS}\\
+\cmakeproptarget{LINK_DIRECTORIES}\\
 \end{minipage}
 \hfill\vline\hfill
 \begin{minipage}[t]{0.18\linewidth}
-\cmakeproptarget{LINK_DEPENDS_NO_SHARED}\\
-\cmakeproptarget{LINK_DEPENDS}\\
-\cmakeproptarget{LINKER_LANGUAGE}\\
-\cmakeproptarget{LINK_DIRECTORIES}\\
 \cmakeproptarget{LINK_FLAGS_<CONFIG>}\\
 \cmakeproptarget{LINK_FLAGS}\\
 \cmakeproptarget{LINK_INTERFACE_LIBRARIES_<CONFIG>}\\
@@ -1787,24 +1930,38 @@ write_regv <key> <value>
 \cmakeproptarget{LINK_WHAT_YOU_USE}\\
 \cmakeproptarget{LOCATION_<CONFIG>}\\
 \cmakeproptarget{LOCATION}\\
+\cmakeproptarget{MACHO_COMPATIBILITY_VERSION}\\
+\cmakeproptarget{MACHO_CURRENT_VERSION}\\
 \cmakeproptarget{MACOSX_BUNDLE_INFO_PLIST}\\
 \cmakeproptarget{MACOSX_BUNDLE}\\
 \cmakeproptarget{MACOSX_FRAMEWORK_INFO_PLIST}\\
 \cmakeproptarget{MACOSX_RPATH}\\
 \cmakeproptarget{MANUALLY_ADDED_DEPENDENCIES}\\
 \cmakeproptarget{MAP_IMPORTED_CONFIG_<CONFIG>}\\
+\cmakeproptarget{MSVC_RUNTIME_LIBRARY}\\
 \cmakeproptarget{NAME}\\
 \cmakeproptarget{NO_SONAME}\\
 \cmakeproptarget{NO_SYSTEM_FROM_IMPORTED}\\
+\cmakeproptarget{OBJCXX_EXTENSIONS}\\
+\cmakeproptarget{OBJCXX_STANDARD_REQUIRED}\\
+\cmakeproptarget{OBJCXX_STANDARD}\\
+\cmakeproptarget{OBJC_EXTENSIONS}\\
+\cmakeproptarget{OBJC_STANDARD_REQUIRED}\\
+\cmakeproptarget{OBJC_STANDARD}\\
+\cmakeproptarget{OPTIMIZE_DEPENDENCIES}\\
 \cmakeproptarget{OSX_ARCHITECTURES_<CONFIG>}\\
 \cmakeproptarget{OSX_ARCHITECTURES}\\
 \cmakeproptarget{OUTPUT_NAME_<CONFIG>}\\
 \cmakeproptarget{OUTPUT_NAME}\\
+\cmakeproptarget{PCH_INSTANTIATE_TEMPLATES}\\
+\cmakeproptarget{PCH_WARN_INVALID}\\
 \cmakeproptarget{PDB_NAME_<CONFIG>}\\
 \cmakeproptarget{PDB_NAME}\\
 \cmakeproptarget{PDB_OUTPUT_DIRECTORY_<CONFIG>}\\
 \cmakeproptarget{PDB_OUTPUT_DIRECTORY}\\
 \cmakeproptarget{POSITION_INDEPENDENT_CODE}\\
+\cmakeproptarget{PRECOMPILE_HEADERS_REUSE_FROM}\\
+\cmakeproptarget{PRECOMPILE_HEADERS}\\
 \cmakeproptarget{PREFIX}\\
 \cmakeproptarget{PRIVATE_HEADER}\\
 \cmakeproptarget{PROJECT_LABEL}\\
@@ -1818,40 +1975,64 @@ write_regv <key> <value>
 \cmakeproptarget{RUNTIME_OUTPUT_NAME_<CONFIG>}\\
 \cmakeproptarget{RUNTIME_OUTPUT_NAME}\\
 \cmakeproptarget{SKIP_BUILD_RPATH}\\
-\cmakeproptarget{SOURCE_DIR}\\
 \cmakeproptarget{SOURCES}\\
+\cmakeproptarget{SOURCE_DIR}\\
 \cmakeproptarget{SOVERSION}\\
 \cmakeproptarget{STATIC_LIBRARY_FLAGS_<CONFIG>}\\
 \cmakeproptarget{STATIC_LIBRARY_FLAGS}\\
 \cmakeproptarget{STATIC_LIBRARY_OPTIONS}\\
 \cmakeproptarget{SUFFIX}\\
+\cmakeproptarget{Swift_DEPENDENCIES_FILE}\\
+\cmakeproptarget{Swift_LANGUAGE_VERSION}\\
+\cmakeproptarget{Swift_MODULE_DIRECTORY}\\
+\cmakeproptarget{Swift_MODULE_NAME}\\
 \cmakeproptarget{TYPE}\\
+\cmakeproptarget{UNITY_BUILD_BATCH_SIZE}\\
+\cmakeproptarget{UNITY_BUILD_CODE_AFTER_INCLUDE}\\
+\cmakeproptarget{UNITY_BUILD_CODE_BEFORE_INCLUDE}\\
+\cmakeproptarget{UNITY_BUILD_MODE}\\
+\cmakeproptarget{UNITY_BUILD_UNIQUE_ID}\\
+\cmakeproptarget{UNITY_BUILD}\\
 \cmakeproptarget{VERSION}\\
 \cmakeproptarget{VISIBILITY_INLINES_HIDDEN}\\
 \cmakeproptarget{VS_CONFIGURATION_TYPE}\\
-\cmakeproptarget{VS_DEBUGGER_COMMAND}\\
 \cmakeproptarget{VS_DEBUGGER_COMMAND_ARGUMENTS}\\
+\cmakeproptarget{VS_DEBUGGER_COMMAND}\\
 \cmakeproptarget{VS_DEBUGGER_ENVIRONMENT}\\
 \cmakeproptarget{VS_DEBUGGER_WORKING_DIRECTORY}\\
 \cmakeproptarget{VS_DESKTOP_EXTENSIONS_VERSION}\\
-\cmakeproptarget{VS_DOTNET_REFERENCE_<refname>}\\
+\cmakeproptarget{VS_DOTNET_DOCUMENTATION_FILE}\\
 \cmakeproptarget{VS_DOTNET_REFERENCEPROP_<refname>_TAG_<tagname>}\\
-\cmakeproptarget{VS_DOTNET_REFERENCES}\\
 \cmakeproptarget{VS_DOTNET_REFERENCES_COPY_LOCAL}\\
+\cmakeproptarget{VS_DOTNET_REFERENCES}\\
+\cmakeproptarget{VS_DOTNET_REFERENCE_<refname>}\\
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
 \cmakeproptarget{VS_DOTNET_TARGET_FRAMEWORK_VERSION}\\
+\cmakeproptarget{VS_DPI_AWARE}\\
+\cmakeproptarget{VS_GLOBAL_<variable>}\\
 \cmakeproptarget{VS_GLOBAL_KEYWORD}\\
 \cmakeproptarget{VS_GLOBAL_PROJECT_TYPES}\\
 \cmakeproptarget{VS_GLOBAL_ROOTNAMESPACE}\\
-\cmakeproptarget{VS_GLOBAL_<variable>}\\
 \cmakeproptarget{VS_IOT_EXTENSIONS_VERSION}\\
 \cmakeproptarget{VS_IOT_STARTUP_TASK}\\
+\cmakeproptarget{VS_JUST_MY_CODE_DEBUGGING}\\
 \cmakeproptarget{VS_KEYWORD}\\
 \cmakeproptarget{VS_MOBILE_EXTENSIONS_VERSION}\\
+\cmakeproptarget{VS_NO_SOLUTION_DEPLOY}\\
+\cmakeproptarget{VS_PACKAGE_REFERENCES}\\
+\cmakeproptarget{VS_PLATFORM_TOOLSET}\\
+\cmakeproptarget{VS_PROJECT_IMPORT}\\
 \cmakeproptarget{VS_SCC_AUXPATH}\\
 \cmakeproptarget{VS_SCC_LOCALPATH}\\
 \cmakeproptarget{VS_SCC_PROJECTNAME}\\
 \cmakeproptarget{VS_SCC_PROVIDER}\\
 \cmakeproptarget{VS_SDK_REFERENCES}\\
+\cmakeproptarget{VS_SOLUTION_DEPLOY}\\
+\cmakeproptarget{VS_SOURCE_SETTINGS_<tool>}\\
 \cmakeproptarget{VS_USER_PROPS}\\
 \cmakeproptarget{VS_WINDOWS_TARGET_PLATFORM_MIN_VERSION}\\
 \cmakeproptarget{VS_WINRT_COMPONENT}\\
@@ -1859,30 +2040,36 @@ write_regv <key> <value>
 \cmakeproptarget{VS_WINRT_REFERENCES}\\
 \cmakeproptarget{WIN32_EXECUTABLE}\\
 \cmakeproptarget{WINDOWS_EXPORT_ALL_SYMBOLS}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakeproptarget{XCODE_ATTRIBUTE_<an-attribute>}\\
+\cmakeproptarget{XCODE_EMBED_<type>_PATH}\\
+\cmakeproptarget{XCODE_EMBED_<type>}\\
+\cmakeproptarget{XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY}\\
+\cmakeproptarget{XCODE_EMBED_FRAMEWORKS_REMOVE_HEADERS_ON_COPY}\\
 \cmakeproptarget{XCODE_EXPLICIT_FILE_TYPE}\\
+\cmakeproptarget{XCODE_GENERATE_SCHEME}\\
+\cmakeproptarget{XCODE_LINK_BUILD_PHASE_MODE}\\
 \cmakeproptarget{XCODE_PRODUCT_TYPE}\\
-\cmakeproptarget{XCODE_SCHEME_ADDRESS_SANITIZER}\\
 \cmakeproptarget{XCODE_SCHEME_ADDRESS_SANITIZER_USE_AFTER_RETURN}\\
-\cmakeproptarget{XCODE_SCHEME_THREAD_SANITIZER}\\
-\cmakeproptarget{XCODE_SCHEME_THREAD_SANITIZER_STOP}\\
-\cmakeproptarget{XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER}\\
-\cmakeproptarget{XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER_STOP}\\
-\cmakeproptarget{XCODE_SCHEME_DISABLE_MAIN_THREAD_CHECKER}\\
-\cmakeproptarget{XCODE_SCHEME_MAIN_THREAD_CHECKER_STOP}\\
-\cmakeproptarget{XCODE_SCHEME_MALLOC_SCRIBBLE}\\
-\cmakeproptarget{XCODE_SCHEME_MALLOC_GUARD_EDGES}\\
-\cmakeproptarget{XCODE_SCHEME_GUARD_MALLOC}\\
-\cmakeproptarget{XCODE_SCHEME_ZOMBIE_OBJECTS}\\
-\cmakeproptarget{XCODE_SCHEME_MALLOC_STACK}\\
-\cmakeproptarget{XCODE_SCHEME_DYNAMIC_LINKER_API_USAGE}\\
-\cmakeproptarget{XCODE_SCHEME_DYNAMIC_LIBRARY_LOADS}\\
-\cmakeproptarget{XCODE_SCHEME_EXECUTABLE}\\
+\cmakeproptarget{XCODE_SCHEME_ADDRESS_SANITIZER}\\
 \cmakeproptarget{XCODE_SCHEME_ARGUMENTS}\\
+\cmakeproptarget{XCODE_SCHEME_DEBUG_AS_ROOT}\\
+\cmakeproptarget{XCODE_SCHEME_DEBUG_DOCUMENT_VERSIONING}\\
+\cmakeproptarget{XCODE_SCHEME_DISABLE_MAIN_THREAD_CHECKER}\\
+\cmakeproptarget{XCODE_SCHEME_DYNAMIC_LIBRARY_LOADS}\\
+\cmakeproptarget{XCODE_SCHEME_DYNAMIC_LINKER_API_USAGE}\\
 \cmakeproptarget{XCODE_SCHEME_ENVIRONMENT}\\
+\cmakeproptarget{XCODE_SCHEME_EXECUTABLE}\\
+\cmakeproptarget{XCODE_SCHEME_GUARD_MALLOC}\\
+\cmakeproptarget{XCODE_SCHEME_MAIN_THREAD_CHECKER_STOP}\\
+\cmakeproptarget{XCODE_SCHEME_MALLOC_GUARD_EDGES}\\
+\cmakeproptarget{XCODE_SCHEME_MALLOC_SCRIBBLE}\\
+\cmakeproptarget{XCODE_SCHEME_MALLOC_STACK}\\
+\cmakeproptarget{XCODE_SCHEME_THREAD_SANITIZER_STOP}\\
+\cmakeproptarget{XCODE_SCHEME_THREAD_SANITIZER}\\
+\cmakeproptarget{XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER_STOP}\\
+\cmakeproptarget{XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER}\\
+\cmakeproptarget{XCODE_SCHEME_WORKING_DIRECTORY}\\
+\cmakeproptarget{XCODE_SCHEME_ZOMBIE_OBJECTS}\\
 \cmakeproptarget{XCTEST}\\
 
 \textbf{Properties - Tests}\\
@@ -1899,17 +2086,21 @@ write_regv <key> <value>
 \cmakeproptest{LABELS}\\
 \cmakeproptest{MEASUREMENT}\\
 \cmakeproptest{PASS_REGULAR_EXPRESSION}\\
-\cmakeproptest{PROCESSOR_AFFINITY}\\
 \cmakeproptest{PROCESSORS}\\
+\cmakeproptest{PROCESSOR_AFFINITY}\\
 \cmakeproptest{REQUIRED_FILES}\\
+\cmakeproptest{RESOURCE_GROUPS}\\
 \cmakeproptest{RESOURCE_LOCK}\\
 \cmakeproptest{RUN_SERIAL}\\
+\cmakeproptest{SKIP_REGULAR_EXPRESSION}\\
 \cmakeproptest{SKIP_RETURN_CODE}\\
-\cmakeproptest{TIMEOUT}\\
 \cmakeproptest{TIMEOUT_AFTER_MATCH}\\
+\cmakeproptest{TIMEOUT}\\
 \cmakeproptest{WILL_FAIL}\\
 \cmakeproptest{WORKING_DIRECTORY}\\
-
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \textbf{Properties - Cache Entries}\\
 \cmakepropcache{ADVANCED}\\
 \cmakepropcache{HELPSTRING}\\
@@ -1925,15 +2116,12 @@ write_regv <key> <value>
 \cmakepropinstalledfiles{CPACK_START_MENU_SHORTCUTS}\\
 \cmakepropinstalledfiles{CPACK_STARTUP_SHORTCUTS}\\
 \cmakepropinstalledfiles{CPACK_WIX_ACL}\\
-\end{minipage}
 
-\pagebreak
-
-\begin{minipage}[t]{0.18\linewidth}
 \textbf{Variables - Information}\\
 \cmakevariable{CMAKE_AR}\\
 \cmakevariable{CMAKE_ARGC}\\
 \cmakevariable{CMAKE_ARGV0}\\
+\cmakevariable{CMAKE_AUTOGEN_ORIGIN_DEPENDS}\\
 \cmakevariable{CMAKE_BINARY_DIR}\\
 \cmakevariable{CMAKE_BUILD_TOOL}\\
 \cmakevariable{CMAKE_CACHEFILE_DIR}\\
@@ -1941,21 +2129,32 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_CACHE_MINOR_VERSION}\\
 \cmakevariable{CMAKE_CACHE_PATCH_VERSION}\\
 \cmakevariable{CMAKE_CFG_INTDIR}\\
+\cmakevariable{CMAKE_CLANG_VFS_OVERLAY}\\
 \cmakevariable{CMAKE_COMMAND}\\
 \cmakevariable{CMAKE_CPACK_COMMAND}\\
 \cmakevariable{CMAKE_CROSSCOMPILING}\\
 \cmakevariable{CMAKE_CROSSCOMPILING_EMULATOR}\\
+\cmakevariable{CMAKE_CROSS_CONFIGS}\\
+\cmakevariable{CMAKE_CTEST_ARGUMENTS}\\
 \cmakevariable{CMAKE_CTEST_COMMAND}\\
+\cmakevariable{CMAKE_CUDA_ARCHITECTURES}\\
+\cmakevariable{CMAKE_CUDA_COMPILE_FEATURES}\\
 \cmakevariable{CMAKE_CURRENT_BINARY_DIR}\\
+\cmakevariable{CMAKE_CURRENT_FUNCTION}\\
+\cmakevariable{CMAKE_CURRENT_FUNCTION_LIST_DIR}\\
+\cmakevariable{CMAKE_CURRENT_FUNCTION_LIST_FILE}\\
+\cmakevariable{CMAKE_CURRENT_FUNCTION_LIST_LINE}\\
 \cmakevariable{CMAKE_CURRENT_LIST_DIR}\\
 \cmakevariable{CMAKE_CURRENT_LIST_FILE}\\
 \cmakevariable{CMAKE_CURRENT_LIST_LINE}\\
 \cmakevariable{CMAKE_CURRENT_SOURCE_DIR}\\
 \cmakevariable{CMAKE_DIRECTORY_LABELS}\\
 \cmakevariable{CMAKE_DL_LIBS}\\
+\cmakevariable{CMAKE_DOTNET_TARGET_FRAMEWORK}\\
 \cmakevariable{CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION}\\
 \cmakevariable{CMAKE_EDIT_COMMAND}\\
 \cmakevariable{CMAKE_EXECUTABLE_SUFFIX}\\
+\cmakevariable{CMAKE_EXECUTE_PROCESS_COMMAND_ECHO}\\
 \cmakevariable{CMAKE_EXTRA_GENERATOR}\\
 \cmakevariable{CMAKE_EXTRA_SHARED_LIBRARY_SUFFIXES}\\
 \cmakevariable{CMAKE_FIND_PACKAGE_NAME}\\
@@ -1965,11 +2164,17 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_GENERATOR_INSTANCE}\\
 \cmakevariable{CMAKE_GENERATOR_PLATFORM}\\
 \cmakevariable{CMAKE_GENERATOR_TOOLSET}\\
+\cmakevariable{CMAKE_GHS_NO_SOURCE_GROUP_FILE}\\
+\cmakevariable{CMAKE_GLOBAL_AUTOGEN_TARGET}\\
+\cmakevariable{CMAKE_GLOBAL_AUTOGEN_TARGET_NAME}\\
+\cmakevariable{CMAKE_GLOBAL_AUTORCC_TARGET}\\
+\cmakevariable{CMAKE_GLOBAL_AUTORCC_TARGET_NAME}\\
 \cmakevariable{CMAKE_HOME_DIRECTORY}\\
 \cmakevariable{CMAKE_IMPORT_LIBRARY_PREFIX}\\
 \cmakevariable{CMAKE_IMPORT_LIBRARY_SUFFIX}\\
 \cmakevariable{CMAKE_JOB_POOL_COMPILE}\\
 \cmakevariable{CMAKE_JOB_POOL_LINK}\\
+\cmakevariable{CMAKE_JOB_POOL_PRECOMPILE_HEADER}\\
 \cmakevariable{CMAKE_JOB_POOLS}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER_AR}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER_RANLIB}\\
@@ -1979,15 +2184,27 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_MAJOR_VERSION}\\
 \cmakevariable{CMAKE_MAKE_PROGRAM}\\
 \cmakevariable{CMAKE_MATCH_COUNT}\\
+\cmakevariable{CMAKE_MAXIMUM_RECURSION_DEPTH}\\
+\cmakevariable{CMAKE_MESSAGE_CONTEXT}\\
+\cmakevariable{CMAKE_MESSAGE_CONTEXT_SHOW}\\
+\cmakevariable{CMAKE_MESSAGE_INDENT}\\
+\cmakevariable{CMAKE_MESSAGE_LOG_LEVEL}\\
 \cmakevariable{CMAKE_MATCH_<n>}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_MINIMUM_REQUIRED_VERSION}\\
 \cmakevariable{CMAKE_MINOR_VERSION}\\
 \cmakevariable{CMAKE_NETRC}\\
 \cmakevariable{CMAKE_NETRC_FILE}\\
 \cmakevariable{CMAKE_PARENT_LIST_FILE}\\
 \cmakevariable{CMAKE_PATCH_VERSION}\\
+\cmakevariable{CMAKE_PCH_INSTANTIATE_TEMPLATES}\\
+\cmakevariable{CMAKE_PCH_WARN_INVALID}\\
 \cmakevariable{CMAKE_PROJECT_DESCRIPTION}\\
 \cmakevariable{CMAKE_PROJECT_HOMEPAGE_URL}\\
+\cmakevariable{CMAKE_PROJECT_INCLUDE}\\
+\cmakevariable{CMAKE_PROJECT_INCLUDE_BEFORE}\\
 \cmakevariable{CMAKE_PROJECT_NAME}\\
 \cmakevariable{CMAKE_PROJECT_VERSION}\\
 \cmakevariable{CMAKE_PROJECT_VERSION_MAJOR}\\
@@ -2010,21 +2227,25 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_STATIC_LIBRARY_SUFFIX}\\
 \cmakevariable{CMAKE_TOOLCHAIN_FILE}\\
 \cmakevariable{CMAKE_TWEAK_VERSION}\\
+\cmakevariable{CMAKE_UNITY_BUILD}\\
+\cmakevariable{CMAKE_UNITY_BUILD_BATCH_SIZE}\\
+\cmakevariable{CMAKE_UNITY_BUILD_UNIQUE_ID}\\
 \cmakevariable{CMAKE_VERBOSE_MAKEFILE}\\
 \cmakevariable{CMAKE_VERSION}\\
 \cmakevariable{CMAKE_VS_DEVENV_COMMAND}\\
 \cmakevariable{CMAKE_VS_INTEL_Fortran_PROJECT_VERSION}\\
+\cmakevariable{CMAKE_VS_JUST_MY_CODE_DEBUGGING}\\
 \cmakevariable{CMAKE_VS_MSBUILD_COMMAND}\\
 \cmakevariable{CMAKE_VS_NsightTegra_VERSION}\\
 \cmakevariable{CMAKE_VS_PLATFORM_NAME}\\
+\cmakevariable{CMAKE_VS_PLATFORM_NAME_DEFAULT}\\
 \cmakevariable{CMAKE_VS_PLATFORM_TOOLSET}\\
 \cmakevariable{CMAKE_VS_PLATFORM_TOOLSET_CUDA}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
+\cmakevariable{CMAKE_VS_PLATFORM_TOOLSET_CUDA_CUSTOM_DIR}\\
 \cmakevariable{CMAKE_VS_PLATFORM_TOOLSET_HOST_ARCHITECTURE}\\
 \cmakevariable{CMAKE_VS_PLATFORM_TOOLSET_VERSION}\\
 \cmakevariable{CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}\\
+\cmakevariable{CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION_MAXIMUM}\\
 \cmakevariable{CMAKE_XCODE_GENERATE_SCHEME}\\
 \cmakevariable{CMAKE_XCODE_PLATFORM_TOOLSET}\\
 \cmakevariable{<PROJECT-NAME>_BINARY_DIR}\\
@@ -2050,7 +2271,9 @@ write_regv <key> <value>
 \textbf{Variables - Change Behavior}\\
 \cmakevariable{BUILD_SHARED_LIBS}\\
 \cmakevariable{CMAKE_ABSOLUTE_DESTINATION_FILES}\\
+\cmakevariable{CMAKE_AIX_EXPORT_ALL_SYMBOLS}\\
 \cmakevariable{CMAKE_APPBUNDLE_PATH}\\
+\cmakevariable{CMAKE_APPLE_SILICON_PROCESSOR}\\
 \cmakevariable{CMAKE_AUTOMOC_RELAXED_MODE}\\
 \cmakevariable{CMAKE_BACKWARDS_COMPATIBILITY}\\
 \cmakevariable{CMAKE_BUILD_TYPE}\\
@@ -2059,18 +2282,28 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_CODELITE_USE_TARGETS}\\
 \cmakevariable{CMAKE_COLOR_MAKEFILE}\\
 \cmakevariable{CMAKE_CONFIGURATION_TYPES}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_DEBUG_TARGET_PROPERTIES}\\
+\cmakevariable{CMAKE_DEFAULT_BUILD_TYPE}\\
+\cmakevariable{CMAKE_DEFAULT_CONFIGS}\\
 \cmakevariable{CMAKE_DEPENDS_IN_PROJECT_ONLY}\\
+\cmakevariable{CMAKE_DEPENDS_USE_COMPILER}\\
 \cmakevariable{CMAKE_DISABLE_FIND_PACKAGE_<PackageName>}\\
+\cmakevariable{CMAKE_DISABLE_PRECOMPILE_HEADERS}\\
 \cmakevariable{CMAKE_ECLIPSE_GENERATE_LINKED_RESOURCES}\\
 \cmakevariable{CMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT}\\
 \cmakevariable{CMAKE_ECLIPSE_MAKE_ARGUMENTS}\\
+\cmakevariable{CMAKE_ECLIPSE_RESOURCE_ENCODING}\\
 \cmakevariable{CMAKE_ECLIPSE_VERSION}\\
 \cmakevariable{CMAKE_ERROR_DEPRECATED}\\
 \cmakevariable{CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION}\\
 \cmakevariable{CMAKE_EXPORT_COMPILE_COMMANDS}\\
 \cmakevariable{CMAKE_EXPORT_NO_PACKAGE_REGISTRY}\\
+\cmakevariable{CMAKE_EXPORT_PACKAGE_REGISTRY}\\
 \cmakevariable{CMAKE_FIND_APPBUNDLE}\\
+\cmakevariable{CMAKE_FIND_DEBUG_MODE}\\
 \cmakevariable{CMAKE_FIND_FRAMEWORK}\\
 \cmakevariable{CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX}\\
 \cmakevariable{CMAKE_FIND_LIBRARY_PREFIXES}\\
@@ -2078,12 +2311,21 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_FIND_NO_INSTALL_PREFIX}\\
 \cmakevariable{CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY}\\
 \cmakevariable{CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY}\\
+\cmakevariable{CMAKE_FIND_PACKAGE_PREFER_CONFIG}\\
+\cmakevariable{CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS}\\
 \cmakevariable{CMAKE_FIND_PACKAGE_WARN_NO_MODULE}\\
 \cmakevariable{CMAKE_FIND_ROOT_PATH}\\
 \cmakevariable{CMAKE_FIND_ROOT_PATH_MODE_INCLUDE}\\
 \cmakevariable{CMAKE_FIND_ROOT_PATH_MODE_LIBRARY}\\
 \cmakevariable{CMAKE_FIND_ROOT_PATH_MODE_PACKAGE}\\
 \cmakevariable{CMAKE_FIND_ROOT_PATH_MODE_PROGRAM}\\
+\cmakevariable{CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH}\\
+\cmakevariable{CMAKE_FIND_USE_CMAKE_PATH}\\
+\cmakevariable{CMAKE_FIND_USE_CMAKE_SYSTEM_PATH}\\
+\cmakevariable{CMAKE_FIND_USE_PACKAGE_REGISTRY}\\
+\cmakevariable{CMAKE_FIND_USE_PACKAGE_ROOT_PATH}\\
+\cmakevariable{CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH}\\
+\cmakevariable{CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY}\\
 \cmakevariable{CMAKE_FRAMEWORK_PATH}\\
 \cmakevariable{CMAKE_IGNORE_PATH}\\
 \cmakevariable{CMAKE_INCLUDE_DIRECTORIES_BEFORE}\\
@@ -2094,6 +2336,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_INSTALL_MESSAGE}\\
 \cmakevariable{CMAKE_INSTALL_PREFIX}\\
 \cmakevariable{CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT}\\
+\cmakevariable{CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH}\\
 \cmakevariable{CMAKE_LIBRARY_PATH}\\
 \cmakevariable{CMAKE_LINK_DIRECTORIES_BEFORE}\\
 \cmakevariable{CMAKE_MFC_FLAG}\\
@@ -2104,6 +2347,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_PREFIX_PATH}\\
 \cmakevariable{CMAKE_PROGRAM_PATH}\\
 \cmakevariable{CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE}\\
+\cmakevariable{CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE_BEFORE}\\
 \cmakevariable{CMAKE_SKIP_INSTALL_ALL_DEPENDENCY}\\
 \cmakevariable{CMAKE_STAGING_PREFIX}\\
 \cmakevariable{CMAKE_SUBLIME_TEXT_2_ENV_SETTINGS}\\
@@ -2111,9 +2355,6 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_SUPPRESS_REGENERATION}\\
 \cmakevariable{CMAKE_SYSROOT}\\
 \cmakevariable{CMAKE_SYSROOT_COMPILE}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_SYSROOT_LINK}\\
 \cmakevariable{CMAKE_SYSTEM_APPBUNDLE_PATH}\\
 \cmakevariable{CMAKE_SYSTEM_FRAMEWORK_PATH}\\
@@ -2126,12 +2367,18 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_WARN_DEPRECATED}\\
 \cmakevariable{CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION}\\
 \cmakevariable{CMAKE_XCODE_GENERATE_TOP_LEVEL_PROJECT_ONLY}\\
+\cmakevariable{CMAKE_XCODE_LINK_BUILD_PHASE_MODE}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_ADDRESS_SANITIZER}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_ADDRESS_SANITIZER_USE_AFTER_RETURN}\\
+\cmakevariable{CMAKE_XCODE_SCHEME_DEBUG_DOCUMENT_VERSIONING}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_THREAD_SANITIZER}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_THREAD_SANITIZER_STOP}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_XCODE_SCHEME_UNDEFINED_BEHAVIOUR_SANITIZER_STOP}\\
+\cmakevariable{CMAKE_XCODE_SCHEME_WORKING_DIRECTORY}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_DISABLE_MAIN_THREAD_CHECKER}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_MAIN_THREAD_CHECKER_STOP}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_MALLOC_SCRIBBLE}\\
@@ -2140,6 +2387,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_XCODE_SCHEME_ZOMBIE_OBJECTS}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_MALLOC_STACK}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_DYNAMIC_LINKER_API_USAGE}\\
+\cmakevariable{CMAKE_XCODE_SCHEME_ENVIRONMENT}\\
 \cmakevariable{CMAKE_XCODE_SCHEME_DYNAMIC_LIBRARY_LOADS}\\
 \cmakevariable{<PackageName>_ROOT}\\
 
@@ -2161,6 +2409,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_LIBRARY_ARCHITECTURE}\\
 \cmakevariable{CMAKE_LIBRARY_ARCHITECTURE_REGEX}\\
 \cmakevariable{CMAKE_OBJECT_PATH_MAX}\\
+\cmakevariable{CMAKE_OPTIMIZE_DEPENDENCIES}\\
 \cmakevariable{CMAKE_SYSTEM}\\
 \cmakevariable{CMAKE_SYSTEM_NAME}\\
 \cmakevariable{CMAKE_SYSTEM_PROCESSOR}\\
@@ -2168,6 +2417,7 @@ write_regv <key> <value>
 \cmakevariable{CYGWIN}\\
 \cmakevariable{ENV}\\
 \cmakevariable{GHS-MULTI}\\
+\cmakevariable{IOS}\\
 \cmakevariable{MINGW}\\
 \cmakevariable{MSVC}\\
 \cmakevariable{MSVC10}\\
@@ -2182,6 +2432,7 @@ write_regv <key> <value>
 \cmakevariable{MSVC_IDE}\\
 \cmakevariable{MSVC_TOOLSET_VERSION}\\
 \cmakevariable{MSVC_VERSION}\\
+\cmakevariable{MSYS}\\
 \cmakevariable{UNIX}\\
 \cmakevariable{WIN32}\\
 \cmakevariable{WINCE}\\
@@ -2189,9 +2440,7 @@ write_regv <key> <value>
 \cmakevariable{WINDOWS_STORE}\\
 \cmakevariable{XCODE}\\
 \cmakevariable{XCODE_VERSION}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
+
 \textbf{Variables - Build Control}\\
 \cmakevariable{CMAKE_ANDROID_ANT_ADDITIONAL_OPTIONS}\\
 \cmakevariable{CMAKE_ANDROID_API}\\
@@ -2201,6 +2450,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_ANDROID_ARM_MODE}\\
 \cmakevariable{CMAKE_ANDROID_ARM_NEON}\\
 \cmakevariable{CMAKE_ANDROID_ASSETS_DIRECTORIES}\\
+\cmakevariable{CMAKE_ANDROID_EXCEPTIONS}\\
 \cmakevariable{CMAKE_ANDROID_GUI}\\
 \cmakevariable{CMAKE_ANDROID_JAR_DEPENDENCIES}\\
 \cmakevariable{CMAKE_ANDROID_JAR_DIRECTORIES}\\
@@ -2211,9 +2461,16 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_ANDROID_NDK_DEPRECATED_HEADERS}\\
 \cmakevariable{CMAKE_ANDROID_NDK_TOOLCHAIN_HOST_TAG}\\
 \cmakevariable{CMAKE_ANDROID_NDK_TOOLCHAIN_VERSION}\\
+\cmakevariable{CMAKE_ANDROID_NDK_VERSION}\\
 \cmakevariable{CMAKE_ANDROID_PROCESS_MAX}\\
 \cmakevariable{CMAKE_ANDROID_PROGUARD}\\
 \cmakevariable{CMAKE_ANDROID_PROGUARD_CONFIG_PATH}\\
+\cmakevariable{CMAKE_ANDROID_RTTI}\\
+\end{minipage}
+
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_ANDROID_SECURE_PROPS_PATH}\\
 \cmakevariable{CMAKE_ANDROID_SKIP_ANT_STEP}\\
 \cmakevariable{CMAKE_ANDROID_STANDALONE_TOOLCHAIN}\\
@@ -2227,12 +2484,14 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_AUTOMOC_DEPEND_FILTERS}\\
 \cmakevariable{CMAKE_AUTOMOC_MACRO_NAMES}\\
 \cmakevariable{CMAKE_AUTOMOC_MOC_OPTIONS}\\
+\cmakevariable{CMAKE_AUTOMOC_PATH_PREFIX}\\
 \cmakevariable{CMAKE_AUTORCC}\\
 \cmakevariable{CMAKE_AUTORCC_OPTIONS}\\
 \cmakevariable{CMAKE_AUTOUIC}\\
 \cmakevariable{CMAKE_AUTOUIC_OPTIONS}\\
 \cmakevariable{CMAKE_AUTOUIC_SEARCH_PATHS}\\
 \cmakevariable{CMAKE_BUILD_RPATH}\\
+\cmakevariable{CMAKE_BUILD_RPATH_USE_ORIGIN}\\
 \cmakevariable{CMAKE_BUILD_WITH_INSTALL_NAME_DIR}\\
 \cmakevariable{CMAKE_BUILD_WITH_INSTALL_RPATH}\\
 \cmakevariable{CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY}\\
@@ -2246,8 +2505,11 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_EXE_LINKER_FLAGS_<CONFIG>_INIT}\\
 \cmakevariable{CMAKE_EXE_LINKER_FLAGS_INIT}\\
 \cmakevariable{CMAKE_FOLDER}\\
+\cmakevariable{CMAKE_FRAMEWORK}\\
+\cmakevariable{CMAKE_FRAMEWORK_MULTI_CONFIG_POSTFIX_<CONFIG>}\\
 \cmakevariable{CMAKE_Fortran_FORMAT}\\
 \cmakevariable{CMAKE_Fortran_MODULE_DIRECTORY}\\
+\cmakevariable{CMAKE_Fortran_PREPROCESS}\\
 \cmakevariable{CMAKE_GNUtoMS}\\
 \cmakevariable{CMAKE_INCLUDE_CURRENT_DIR}\\
 \cmakevariable{CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE}\\
@@ -2257,6 +2519,9 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_INTERPROCEDURAL_OPTIMIZATION}\\
 \cmakevariable{CMAKE_INTERPROCEDURAL_OPTIMIZATION_<CONFIG>}\\
 \cmakevariable{CMAKE_IOS_INSTALL_COMBINED}\\
+\cmakevariable{CMAKE_ISPC_HEADER_DIRECTORY}\\
+\cmakevariable{CMAKE_ISPC_HEADER_SUFFIX}\\
+\cmakevariable{CMAKE_ISPC_INSTRUCTION_SETS}\\
 \cmakevariable{CMAKE_<LANG>_CLANG_TIDY}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER_LAUNCHER}\\
 \cmakevariable{CMAKE_<LANG>_CPPCHECK}\\
@@ -2279,18 +2544,25 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_MODULE_LINKER_FLAGS_<CONFIG>}\\
 \cmakevariable{CMAKE_MODULE_LINKER_FLAGS_<CONFIG>_INIT}\\
 \cmakevariable{CMAKE_MODULE_LINKER_FLAGS_INIT}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_MSVCIDE_RUN_PATH}\\
+\cmakevariable{CMAKE_MSVC_RUNTIME_LIBRARY}\\
 \cmakevariable{CMAKE_NINJA_OUTPUT_PATH_PREFIX}\\
 \cmakevariable{CMAKE_NO_BUILTIN_CHRPATH}\\
 \cmakevariable{CMAKE_NO_SYSTEM_FROM_IMPORTED}\\
+\cmakevariable{CMAKE_OBJCXX_EXTENSIONS}\\
+\cmakevariable{CMAKE_OBJCXX_STANDARD}\\
+\cmakevariable{CMAKE_OBJCXX_STANDARD_REQUIRED}\\
+\cmakevariable{CMAKE_OBJC_EXTENSIONS}\\
+\cmakevariable{CMAKE_OBJC_STANDARD}\\
+\cmakevariable{CMAKE_OBJC_STANDARD_REQUIRED}\\
 \cmakevariable{CMAKE_OSX_ARCHITECTURES}\\
 \cmakevariable{CMAKE_OSX_DEPLOYMENT_TARGET}\\
 \cmakevariable{CMAKE_OSX_SYSROOT}\\
 \cmakevariable{CMAKE_PDB_OUTPUT_DIRECTORY}\\
 \cmakevariable{CMAKE_PDB_OUTPUT_DIRECTORY_<CONFIG>}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_POSITION_INDEPENDENT_CODE}\\
 \cmakevariable{CMAKE_RUNTIME_OUTPUT_DIRECTORY}\\
 \cmakevariable{CMAKE_RUNTIME_OUTPUT_DIRECTORY_<CONFIG>}\\
@@ -2323,6 +2595,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_WIN32_EXECUTABLE}\\
 \cmakevariable{CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS}\\
 \cmakevariable{CMAKE_XCODE_ATTRIBUTE_<an-attribute>}\\
+\cmakevariable{CMAKE_XCODE_BUILD_SYSTEM}\\
 \cmakevariable{EXECUTABLE_OUTPUT_PATH}\\
 \cmakevariable{LIBRARY_OUTPUT_PATH}\\
 
@@ -2331,6 +2604,8 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_COMPILER_IS_GNUCXX}\\
 \cmakevariable{CMAKE_COMPILER_IS_GNUG77}\\
 \cmakevariable{CMAKE_CUDA_HOST_COMPILER}\\
+\cmakevariable{CMAKE_CUDA_RESOLVE_DEVICE_SYMBOLS}\\
+\cmakevariable{CMAKE_CUDA_RUNTIME_LIBRARY}\\
 \cmakevariable{CMAKE_CUDA_EXTENSIONS}\\
 \cmakevariable{CMAKE_CUDA_STANDARD}\\
 \cmakevariable{CMAKE_CUDA_STANDARD_REQUIRED}\\
@@ -2353,6 +2628,7 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_<LANG>_ARCHIVE_APPEND}\\
 \cmakevariable{CMAKE_<LANG>_ARCHIVE_CREATE}\\
 \cmakevariable{CMAKE_<LANG>_ARCHIVE_FINISH}\\
+\cmakevariable{CMAKE_<LANG>_BYTE_ORDER}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER_ABI}\\
 \cmakevariable{CMAKE_<LANG>_COMPILER_ARCHITECTURE_ID}\\
@@ -2370,25 +2646,18 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_<LANG>_FLAGS}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_<CONFIG>}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_<CONFIG>_INIT}\\
-\end{minipage}
-
-\pagebreak
-
-\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_<LANG>_FLAGS_DEBUG}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_DEBUG_INIT}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_INIT}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_MINSIZEREL}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_MINSIZEREL_INIT}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_RELEASE}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CMAKE_<LANG>_FLAGS_RELEASE_INIT}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_RELWITHDEBINFO}\\
 \cmakevariable{CMAKE_<LANG>_FLAGS_RELWITHDEBINFO_INIT}\\
-\cmakevariable{CMAKE_<LANG>_GHS_KERNEL_FLAGS_<CONFIG>}\\
-\cmakevariable{CMAKE_<LANG>_GHS_KERNEL_FLAGS_DEBUG}\\
-\cmakevariable{CMAKE_<LANG>_GHS_KERNEL_FLAGS_MINSIZEREL}\\
-\cmakevariable{CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELEASE}\\
-\cmakevariable{CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELWITHDEBINFO}\\
 \cmakevariable{CMAKE_<LANG>_IGNORE_EXTENSIONS}\\
 \cmakevariable{CMAKE_<LANG>_IMPLICIT_INCLUDE_DIRECTORIES}\\
 \cmakevariable{CMAKE_<LANG>_IMPLICIT_LINK_DIRECTORIES}\\
@@ -2400,6 +2669,9 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_<LANG>_LINKER_WRAPPER_FLAG}\\
 \cmakevariable{CMAKE_<LANG>_LINKER_WRAPPER_FLAG_SEP}\\
 \cmakevariable{CMAKE_<LANG>_LINK_EXECUTABLE}\\
+\cmakevariable{CMAKE_<LANG>_LINK_LIBRARY_FILE_FLAG}\\
+\cmakevariable{CMAKE_<LANG>_LINK_LIBRARY_FLAG}\\
+\cmakevariable{CMAKE_<LANG>_LINK_LIBRARY_SUFFIX}\\
 \cmakevariable{CMAKE_<LANG>_OUTPUT_EXTENSION}\\
 \cmakevariable{CMAKE_<LANG>_PLATFORM_ID}\\
 \cmakevariable{CMAKE_<LANG>_SIMULATE_ID}\\
@@ -2409,6 +2681,8 @@ write_regv <key> <value>
 \cmakevariable{CMAKE_<LANG>_STANDARD_INCLUDE_DIRECTORIES}\\
 \cmakevariable{CMAKE_<LANG>_STANDARD_LIBRARIES}\\
 \cmakevariable{CMAKE_Swift_LANGUAGE_VERSION}\\
+\cmakevariable{CMAKE_Swift_MODULE_DIRECTORY}\\
+\cmakevariable{CMAKE_Swift_NUM_THREADS}\\
 \cmakevariable{CMAKE_USER_MAKE_RULES_OVERRIDE_<LANG>}\\
 
 \textbf{Variables - CTest}\\
@@ -2438,7 +2712,7 @@ write_regv <key> <value>
 \cmakevariable{CTEST_CUSTOM_POST_TEST}\\
 \cmakevariable{CTEST_CUSTOM_PRE_MEMCHECK}\\
 \cmakevariable{CTEST_CUSTOM_PRE_TEST}\\
-\cmakevariable{CTEST_CUSTOM_TEST_IGNORE}\\
+\cmakevariable{CTEST_CUSTOM_TESTS_IGNORE}\\
 \cmakevariable{CTEST_CUSTOM_WARNING_EXCEPTION}\\
 \cmakevariable{CTEST_CUSTOM_WARNING_MATCH}\\
 \cmakevariable{CTEST_CVS_CHECKOUT}\\
@@ -2464,17 +2738,19 @@ write_regv <key> <value>
 \cmakevariable{CTEST_MEMORYCHECK_SUPPRESSIONS_FILE}\\
 \cmakevariable{CTEST_MEMORYCHECK_TYPE}\\
 \cmakevariable{CTEST_NIGHTLY_START_TIME}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CTEST_P4_CLIENT}\\
 \cmakevariable{CTEST_P4_COMMAND}\\
 \cmakevariable{CTEST_P4_OPTIONS}\\
 \cmakevariable{CTEST_P4_UPDATE_OPTIONS}\\
+\cmakevariable{CTEST_RESOURCE_SPEC_FILE}\\
 \cmakevariable{CTEST_RUN_CURRENT_SCRIPT}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakevariable{CTEST_SCP_COMMAND}\\
 \cmakevariable{CTEST_SITE}\\
 \cmakevariable{CTEST_SOURCE_DIRECTORY}\\
+\cmakevariable{CTEST_SUBMIT_URL}\\
 \cmakevariable{CTEST_SVN_COMMAND}\\
 \cmakevariable{CTEST_SVN_OPTIONS}\\
 \cmakevariable{CTEST_SVN_UPDATE_OPTIONS}\\
@@ -2484,6 +2760,7 @@ write_regv <key> <value>
 \cmakevariable{CTEST_UPDATE_COMMAND}\\
 \cmakevariable{CTEST_UPDATE_OPTIONS}\\
 \cmakevariable{CTEST_UPDATE_VERSION_ONLY}\\
+\cmakevariable{CTEST_UPDATE_VERSION_OVERRIDE}\\
 \cmakevariable{CTEST_USE_LAUNCHERS}\\
 
 \textbf{Variables - CPack}\\
@@ -2492,7 +2769,6 @@ write_regv <key> <value>
 \cmakevariable{CPACK_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION}\\
 \cmakevariable{CPACK_INCLUDE_TOPLEVEL_DIRECTORY}\\
 \cmakevariable{CPACK_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS}\\
-\cmakevariable{CPACK_INSTALL_SCRIPT}\\
 \cmakevariable{CPACK_PACKAGING_INSTALL_PREFIX}\\
 \cmakevariable{CPACK_SET_DESTDIR}\\
 \cmakevariable{CPACK_WARN_ON_ABSOLUTE_INSTALL_DESTINATION}\\
@@ -2556,19 +2832,26 @@ write_regv <key> <value>
 \cmakecxxfeature{cxx_uniform_initialization}\\
 \cmakecxxfeature{cxx_unrestricted_unions}\\
 \cmakecxxfeature{cxx_user_literals}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakecxxfeature{cxx_variable_templates}\\
 \cmakecxxfeature{cxx_variadic_macros}\\
 \cmakecxxfeature{cxx_variadic_templates}\\
 \cmakecxxfeature{cxx_template_template_parameters}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+% empty column
+\hfill\vline\hfill
+\end{minipage}
 
+\pagebreak
+
+\begin{minipage}[t]{0.18\linewidth}
 \textbf{Modules}\\
 \cmakemodule{AddFileDependencies}\\
 \cmakemodule{AndroidTestUtilities}\\
 \cmakemodule{BundleUtilities}\\
 \cmakemodule{CheckCCompilerFlag}\\
+\cmakemodule{CheckCompilerFlag}\\
 \cmakemodule{CheckCSourceCompiles}\\
 \cmakemodule{CheckCSourceRuns}\\
 \cmakemodule{CheckCXXCompilerFlag}\\
@@ -2578,6 +2861,7 @@ write_regv <key> <value>
 \cmakemodule{CheckFortranCompilerFlag}\\
 \cmakemodule{CheckFortranFunctionExists}\\
 \cmakemodule{CheckFortranSourceCompiles}\\
+\cmakemodule{CheckFortranSourceRuns}\\
 \cmakemodule{CheckFunctionExists}\\
 \cmakemodule{CheckIPOSupported}\\
 \cmakemodule{CheckIncludeFileCXX}\\
@@ -2585,7 +2869,17 @@ write_regv <key> <value>
 \cmakemodule{CheckIncludeFiles}\\
 \cmakemodule{CheckLanguage}\\
 \cmakemodule{CheckLibraryExists}\\
+\cmakemodule{CheckLinkerFlag}\\
+\cmakemodule{CheckOBJCCompilerFlag}\\
+\cmakemodule{CheckOBJCSourceCompiles}\\
+\cmakemodule{CheckOBJCSourceRuns}\\
+\cmakemodule{CheckOBJCXXCompilerFlag}\\
+\cmakemodule{CheckOBJCXXSourceCompiles}\\
+\cmakemodule{CheckOBJCXXSourceRuns}\\
+\cmakemodule{CheckPIESupported}\\
 \cmakemodule{CheckPrototypeDefinition}\\
+\cmakemodule{CheckSourceCompiles}\\
+\cmakemodule{CheckSourceRuns}\\
 \cmakemodule{CheckStructHasMember}\\
 \cmakemodule{CheckSymbolExists}\\
 \cmakemodule{CheckTypeSize}\\
@@ -2635,22 +2929,25 @@ write_regv <key> <value>
 \cmakemodule{FindCABLE}\\
 \cmakemodule{FindCoin3D}\\
 \cmakemodule{FindCUDA}\\
+\cmakemodule{FindCUDAToolkit}\\
 \cmakemodule{FindCups}\\
 \cmakemodule{FindCURL}\\
 \cmakemodule{FindCurses}\\
 \cmakemodule{FindCVS}\\
 \cmakemodule{FindCxxTest}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakemodule{FindCygwin}\\
 \cmakemodule{FindDart}\\
 \cmakemodule{FindDCMTK}\\
 \cmakemodule{FindDevIL}\\
 \cmakemodule{FindDoxygen}\\
+\cmakemodule{FindEnvModules}\\
 \cmakemodule{FindEXPAT}\\
 \cmakemodule{FindFLEX}\\
 \cmakemodule{FindFLTK2}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
+\cmakemodule{FindFontconfig}\\
 \cmakemodule{FindFLTK}\\
 \cmakemodule{FindFreetype}\\
 \cmakemodule{FindGCCXML}\\
@@ -2686,6 +2983,7 @@ write_regv <key> <value>
 \cmakemodule{FindLAPACK}\\
 \cmakemodule{FindLATEX}\\
 \cmakemodule{FindLibArchive}\\
+\cmakemodule{FindLibinput}\\
 \cmakemodule{FindLibLZMA}\\
 \cmakemodule{FindLibXml2}\\
 \cmakemodule{FindLibXslt}\\
@@ -2729,6 +3027,9 @@ write_regv <key> <value>
 \cmakemodule{FindosgVolume}\\
 \cmakemodule{FindosgWidget}\\
 \cmakemodule{FindPackageHandleStandardArgs}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
 \cmakemodule{FindPackageMessage}\\
 \cmakemodule{FindPatch}\\
 \cmakemodule{FindPerlLibs}\\
@@ -2740,9 +3041,6 @@ write_regv <key> <value>
 \cmakemodule{FindPNG}\\
 \cmakemodule{FindPostgreSQL}\\
 \cmakemodule{FindProducer}\\
-\end{minipage}
-\hfill\vline\hfill
-\begin{minipage}[t]{0.18\linewidth}
 \cmakemodule{FindProtobuf}\\
 \cmakemodule{FindPython}\\
 \cmakemodule{FindPython2}\\
@@ -2762,6 +3060,7 @@ write_regv <key> <value>
 \cmakemodule{FindSDL_sound}\\
 \cmakemodule{FindSDL_ttf}\\
 \cmakemodule{FindSelfPackers}\\
+\cmakemodule{FindSQLite3}\\
 \cmakemodule{FindSquish}\\
 \cmakemodule{FindSubversion}\\
 \cmakemodule{FindSWIG}\\
@@ -2809,6 +3108,113 @@ write_regv <key> <value>
 \cmakemodule{Use_wxWindows}\\
 \cmakemodule{WriteBasicConfigVersionFile}\\
 \cmakemodule{WriteCompilerDetectionHeader}\\
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.18\linewidth}
+\textbf{CMake CLI - General}
+{\tiny \em (incomplete list)}
+\begin{verbatim}
+--help
+--version
+--help-full
+--help-manual <man> [<f>]
+--help-command <cmd> [<f>]
+--help-module <mod> [<f>]
+--help-policy <cmp> [<f>]
+--help-property <prop> [<f>]
+--help-variable <var> [<f>]
+--system-information [file]
+--log-level <level>
+--log-context
+--debug-trycompile
+--debug-output
+--debug-find
+--trace
+--trace-expand
+--trace-format=<fmt>
+--trace-source=<file>
+--warn-unitialized
+--graphviz=<file>
+--find-package <options>...
+--profiling-output=<path>
+--preset <preset>
+-S <path-to-source>
+-B <path-to-build>
+-D <var>[=<value>]
+-D <var>:<type>=<value>
+-U <glob_expr>
+-G <generator-name>
+-T <toolset-spec>
+-A <platform-name>
+-L[A|H]
+\end{verbatim}
+\textbf{CMake CLI - Build Tool}
+{\tiny \em (incomplete list)}
+\begin{verbatim}
+--build <dir>
+--config <cfg>
+--target <tgt>
+--preset <preset>
+--use-stderr
+--clean-first
+-j [<jobs>] | --parallel [<jobs>]
+\end{verbatim}
+\textbf{CMake CLI - Scripting Tool}
+\begin{verbatim}
+-P <file>
+\end{verbatim}
+\hfill\vline\hfill
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{0.20\linewidth}
+\textbf{CMake CLI - Command Tool}
+\begin{verbatim}
+-E <command> [<options>...]
+
+capabilities
+cat <files>...
+chdir <dir> <cmd> [<arg>...]
+compare_files <file1> <file2>
+copy <file>... <destination>
+copy_directory <dir>... <dest>
+copy_if_different <file>... <dest>
+create_symlink <old> <new>
+create_hardlink <old> <new>
+echo [<string>...]
+echo_append [<string>...]
+env [--unset=NAME]... [NAME=VALUE]... COMMAND [ARG]...
+environment
+false
+make_directory <dir>...
+md5sum <file>...
+sha1sum <file>...
+sha224sum <file>...
+sha256sum <file>...
+sha384sum <file>...
+sha512sum <file>...
+remove [-f] <file>...
+remove_directory <dir>
+rename <oldname> <newname>
+rm [-rRf] <file> <dir>...
+server
+sleep
+tar [cxt][vf][zjJ] file.tar [<options>...] [--] [<file>...]
+  --files-from=<file>
+  --mtime=<date>
+  --format=<7zip|gnutar|pax|paxr|zip>
+time <command> [<args>...]
+touch <file>
+touch_nocreate <file>
+true
+\end{verbatim}
+\textbf{CMake CLI - Windows Tools}
+\begin{verbatim}
+delete_regv <key>
+env_vs8_wince <sdkname>
+env_vs9_wince <sdkname>
+write_regv <key> <value>
+\end{verbatim}
+\hfill\vline\hfill
 \end{minipage}
 
 \pagebreak
@@ -2866,7 +3272,7 @@ cpack -G ZIP
 \begin{verbatim}
 cmake -B builddir -DCMAKE_INSTALL_PREFIX=install-dir source-dir
 cmake --build builddir
-cmake --build builddir --target install
+cmake --install builddir
 \end{verbatim}
 \end{minipage}
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.20)
 project(app_qt5)
 
 if(NOT EXISTS $ENV{QTHOME})

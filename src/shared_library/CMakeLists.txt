@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.20)
 project(shared_library)
 add_library(${PROJECT_NAME} SHARED)
 target_sources(${PROJECT_NAME}
